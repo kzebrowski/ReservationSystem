@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import  { Container, Row, Nav, Navbar, NavbarBrand, NavbarToggler, Collapse, NavItem, NavLink, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem, Col}  from 'reactstrap';
+import  { Container, Row, Nav, Navbar, NavbarBrand, NavbarToggler, Collapse, NavItem, NavLink, Col}  from 'reactstrap';
+import {Link} from 'react-router-dom';
 
 export class Layout extends Component {
   displayName = Layout.name
@@ -30,7 +31,7 @@ export class Layout extends Component {
               <Collapse isOpen={this.state.isOpen} navbar>
                 <Nav className="ml-auto" navbar>
                   <NavItem>
-                    <NavLink href="/rooms/">Pokoje</NavLink>
+                    <NavLink tag={Link} to="/rooms">Pokoje</NavLink>
                   </NavItem>
                   <NavItem>
                     <NavLink href="https://github.com/reactstrap/reactstrap">GitHub</NavLink>
