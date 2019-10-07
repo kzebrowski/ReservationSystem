@@ -17,6 +17,12 @@ export default class Rooms extends Component {
   render() {
     return this.state.loading ? 
     "Wczytuje dane..."
-    : <Room title = {this.state.rooms[0].title}/> ;
+    : this.state.rooms.map(x =>
+      <Room key={x.id}
+            imageUrl = {x.imageUrl}
+            title={x.title}
+            description={x.description}
+            capacity={x.capacity}
+            price={x.price}/>) ;
   }
 }
