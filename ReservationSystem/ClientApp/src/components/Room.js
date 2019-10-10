@@ -8,10 +8,8 @@ export default class Room extends Component {
   maxCapacityDisplayed = 4;
 
   render() {
-    let capacityIcon;
     let capacityOverflown = this.props.capacity > this.maxCapacityDisplayed;
-
-    capacityIcon = capacityOverflown ?
+    let capacityIcon = capacityOverflown ?
       <FontAwesomeIcon icon={faUser} style={{marginLeft: '1px'}}/>
       : Array(this.props.capacity).fill(<FontAwesomeIcon icon={faUser} style={{marginLeft: '1px'}}/>);
 

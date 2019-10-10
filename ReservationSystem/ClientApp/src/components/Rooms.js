@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import Room from './Room';
+import RoomList from './RoomList';
+import RoomSearch from './RoomSearch';
 
 export default class Rooms extends Component {
   displayName = Rooms.name;
@@ -15,14 +16,10 @@ export default class Rooms extends Component {
   }
 
   render() {
-    return this.state.loading ? 
-    "Wczytuje dane..."
-    : this.state.rooms.map(x =>
-      <Room key={x.id}
-            imageUrl = {x.imageUrl}
-            title={x.title}
-            description={x.description}
-            capacity={x.capacity}
-            price={x.price}/>) ;
+    return(
+    <React.Fragment>
+      <RoomSearch />
+      <RoomList rooms={this.state.rooms} loading={this.state.loading} />
+    </React.Fragment>);
   }
 }

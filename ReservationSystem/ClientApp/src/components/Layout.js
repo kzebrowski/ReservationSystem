@@ -34,7 +34,7 @@ export class Layout extends Component {
                     <NavLink tag={Link} to="/rooms">Pokoje</NavLink>
                   </NavItem>
                   <NavItem>
-                    <NavLink href="https://github.com/reactstrap/reactstrap">GitHub</NavLink>
+                    <NavLink href="/">Zaloguj się</NavLink>
                   </NavItem>
                 </Nav>
               </Collapse>
