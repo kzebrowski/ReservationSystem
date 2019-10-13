@@ -12,10 +12,6 @@
     justify-content: center;
 }
 
-.DayPicker-Day--today {
-    color: #5588a3 !important;
-}
-
 .search-form-item{
     display: inline-block;
     text-align: center;
@@ -26,6 +22,25 @@
 
 .search-form-submit-button {
     background: #ffffff;
+}
+
+.DayPicker-Day--today {
+    color: #5588a3;
+}
+
+.DayPicker-Day--disabled {
+    color: #DCE0E0;
+    cursor: default;
+}
+
+.DayPicker-Day--highlighted {
+    background-color: #145274;
+    color: white;
+}
+
+.DayPicker-Day--selected {
+    background-color: #5588a3;
+    color: white;
 }
 
 @media screen and (max-width: 730px){
