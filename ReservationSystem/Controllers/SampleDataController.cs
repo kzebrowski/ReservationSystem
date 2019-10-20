@@ -61,7 +61,7 @@ namespace ReservationSystem.Controllers
                 yield return new RoomViewModel
                 {
                     ID = Guid.NewGuid(),
-                    Title = "Przytulny pokój dwuosobowy",
+                    Title = "Przytulny pokÃ³j dwuosobowy",
                     Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce efficitur posuere ante, a bibendum sem. Nullam ac sem quis lectus mollis congue. Maecenas nisl urna, varius non cursus a, accumsan id purus.",
                     Capacity = 2,
                     Price = 120,
@@ -71,7 +71,7 @@ namespace ReservationSystem.Controllers
                 yield return new RoomViewModel
                 {
                     ID = Guid.NewGuid(),
-                    Title = "Rodzinny pokój czteroosobowy",
+                    Title = "Rodzinny pokÃ³j czteroosobowy",
                     Description = "Curabitur placerat tellus turpis, ut tempus ante congue sed. Morbi viverra bibendum justo vel imperdiet. Aliquam in faucibus neque, quis viverra tortor. Etiam in quam et ante rhoncus egestas sed eu mi.",
                     Capacity = 4,
                     Price = 180,
