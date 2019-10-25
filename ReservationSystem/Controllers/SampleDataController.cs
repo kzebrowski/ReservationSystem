@@ -32,6 +32,12 @@ namespace ReservationSystem.Controllers
             return RoomViewModel.GetSampleData();
         }
 
+        [HttpGet("[action]")]
+        public IEnumerable<RoomViewModel> Search(string startDate, string endDate, int numberOfGuests)
+        {
+            return RoomViewModel.GetSampleData().Where(x => x.Capacity >= numberOfGuests);
+        }
+
         public class WeatherForecast
         {
             public string DateFormatted { get; set; }
