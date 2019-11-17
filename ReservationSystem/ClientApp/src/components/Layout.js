@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import  { Container, Row, Nav, Navbar, NavbarBrand, NavbarToggler, Collapse, NavItem, NavLink, Col}  from 'reactstrap';
 import {Link} from 'react-router-dom';
+import Modal from 'react-modal';
+import './styles/Modal.css';
 
 export class Layout extends Component {
   displayName = Layout.name
@@ -10,8 +12,20 @@ export class Layout extends Component {
 
     this.toggle = this.toggle.bind(this);
     this.state = {
-      isOpen: false
+      isOpen: false,
+      isLoginModalOpen: false
     };
+
+    this.handleCloseModalClick = this.handleCloseModalClick.bind(this);
+    this.handleLoginClick = this.handleLoginClick.bind(this);
+  }
+
+  handleLoginClick() {
+    this.setState({isLoginModalOpen: true});
+  }
+
+  handleCloseModalClick() {
+    this.setState({isLoginModalOpen: false});
   }
 
   toggle() {
@@ -34,13 +48,16 @@ export class Layout extends Component {
                     <NavLink tag={Link} to="/rooms">Pokoje</NavLink>
                   </NavItem>
                   <NavItem>
-                    <NavLink href="/">Zaloguj się</NavLink>
+                    <NavLink onClick={this.handleLoginClick} style={{cursor: 'pointer'}}>Zaloguj się</NavLink>
                   </NavItem>
                 </Nav>
               </Collapse>
             </Navbar>
           </Col>
         </Row>
+        <Modal className='login-modal' isOpen={this.state.isLoginModalOpen}>
+          <button onClick={this.handleCloseModalClick}>X</button>
+        </Modal>
         {this.props.children}
       </Container>
     );
