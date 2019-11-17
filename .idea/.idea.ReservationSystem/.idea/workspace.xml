@@ -18,6 +18,9 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/ReservationSystem/Controllers/SampleDataController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/ReservationSystem/Program.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/ReservationSystem/Controllers/LoginCredentials.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/088051FB-72DE-4607-81C4-D1937DDE71E2/74/54f0b658/Encoding.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/ReservationSystem/Controllers/AuthenticationController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/ReservationSystem/Startup.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
@@ -25,6 +28,9 @@
       <list>
         <option value="$PROJECT_DIR$/ReservationSystem/appsettings.json" />
         <option value="$PROJECT_DIR$/ReservationSystem/Controllers/SampleDataController.cs" />
+        <option value="$PROJECT_DIR$/ReservationSystem/Controllers/LoginCredentials.cs" />
+        <option value="$PROJECT_DIR$/ReservationSystem/Startup.cs" />
+        <option value="$PROJECT_DIR$/ReservationSystem/Controllers/AuthenticationController.cs" />
       </list>
     </option>
   </component>
@@ -115,6 +121,7 @@
       <workItem from="1570491611631" duration="2969000" />
       <workItem from="1570523918897" duration="381000" />
       <workItem from="1571001277196" duration="359000" />
+      <workItem from="1574020662481" duration="5451000" />
     </task>
     <servers />
   </component>
@@ -144,6 +151,19 @@
           <properties exception="System.Threading.ThreadAbortException" displayValue="System.Threading.ThreadAbortException" />
           <option name="timeStamp" value="1" />
         </breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/ReservationSystem/Controllers/AuthenticationController.cs</url>
+          <line>47</line>
+          <properties documentPath="$PROJECT_DIR$/ReservationSystem/Controllers/AuthenticationController.cs" initialLine="47">
+            <startOffsets>
+              <option value="1486" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1487" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
