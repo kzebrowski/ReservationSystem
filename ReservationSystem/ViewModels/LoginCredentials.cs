@@ -1,4 +1,4 @@
-namespace ReservationSystem.Controllers
+namespace ReservationSystem.ViewModels
 {
     public class LoginCredentials
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
-namespace ReservationSystem.Controllers
+namespace ReservationSystem.ViewModels
 {
     [Route("api/[controller]")]
     public class SampleDataController : Controller

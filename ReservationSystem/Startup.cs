@@ -33,14 +33,12 @@ namespace ReservationSystem
             {
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
-                    ValidateIssuer = true,
+                    ValidateAudience = false,
                     ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("2r5u8x/A?D(G+KbPeShVkYp3s6v9y$B&"))
                 };
-
-                options.Audience = "http://localhost:5001/";
-                options.Authority = "http://localhost:5000/";
+                options.Authority = "https://localhost:44375/";
             });
         }
 
@@ -57,9 +55,13 @@ namespace ReservationSystem
                 app.UseHsts();
             }
 
+            app.UseWebSockets();
+            app.UseAuthentication();
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
+            app.UseDefaultFiles();
 
             app.UseMvc(routes =>
             {
@@ -77,6 +79,12 @@ namespace ReservationSystem
                     spa.UseReactDevelopmentServer(npmScript: "start");
                 }
             });
+
+            app.UseCors(x => x
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .AllowCredentials());
         }
     }
 }
