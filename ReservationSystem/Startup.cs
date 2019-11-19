@@ -1,4 +1,8 @@
+using System;
 using System.Text;
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -7,6 +11,8 @@ using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using Repository;
+using Services;
 
 namespace ReservationSystem
 {
@@ -19,8 +25,10 @@ namespace ReservationSystem
 
         public IConfiguration Configuration { get; }
 
+        public ILifetimeScope AutofacContainer { get; private set; }
+
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
@@ -28,18 +36,34 @@ namespace ReservationSystem
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/build"; });
 
             services
-                .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddAuthentication(options => {
+                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                })
                 .AddJwtBearer(options =>
             {
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
+                    ValidateIssuer = false,
                     ValidateAudience = false,
                     ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("2r5u8x/A?D(G+KbPeShVkYp3s6v9y$B&"))
                 };
-                options.Authority = "https://localhost:44375/";
             });
+
+            var autoMapper = new MapperConfiguration(cfg => ServicesMapperConfigurator.RegisterMappings(cfg)).CreateMapper();
+
+            services.AddOptions();
+            var builder = new ContainerBuilder();
+            builder.Populate(services);
+
+            builder = RegisterDependencyInjectionTypes(builder);
+            builder.RegisterInstance(autoMapper).As<IMapper>();
+
+            AutofacContainer = builder.Build();
+
+            return new AutofacServiceProvider(AutofacContainer);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -85,6 +109,14 @@ namespace ReservationSystem
                 .AllowAnyMethod()
                 .AllowAnyHeader()
                 .AllowCredentials());
+        }
+
+        private static ContainerBuilder RegisterDependencyInjectionTypes(ContainerBuilder builder)
+        {
+            builder.RegisterType<UserService>().As<IUserService>();
+            builder.RegisterType<UserRepository>().As<IUserRepository>();
+
+            return builder;
         }
     }
 }
