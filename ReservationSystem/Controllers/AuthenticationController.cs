@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using ReservationSystem.Common;
 using Services;
 
 namespace ReservationSystem.ViewModels
@@ -14,25 +15,28 @@ namespace ReservationSystem.ViewModels
     [Route("api/[controller]")]
     public class AuthenticationController : ControllerBase
     {
+        private readonly IUserAuthenticationService _authenticationService;
+        private readonly IUserService _userService;
+
+        public AuthenticationController(IUserAuthenticationService authenticationService, IUserService userService)
+        {
+            _authenticationService = authenticationService;
+            _userService = userService;
+        }
+
         [HttpPost("[action]")]
         public IActionResult Login([FromBody] LoginCredentials loginCredentials)
         {
             if (loginCredentials == null || !ModelState.IsValid)
-            {
-                return BadRequest();
-            }
+                return BadRequest(ModelState.Values);
+            if (!_userService.CheckEmailExits(loginCredentials.Email))
+                return BadRequest(new ValidationError{Field = "Email", Message = "Nie istnieje u¿ytkownik z podanym adresem email"});
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("2r5u8x/A?D(G+KbPeShVkYp3s6v9y$B&"));
+            var tokenOptions =
+                _authenticationService.AuthenticateUser(loginCredentials.Email, loginCredentials.Password);
 
-            var signinCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
-            var tokenOptions = new JwtSecurityToken(
-                issuer: "localhost:44375",
-                audience: "localhost:44375",
-                claims: new List<Claim>(),
-                expires: DateTime.Now.AddMinutes(60),
-                signingCredentials: signinCredentials
-            );
+            if (tokenOptions == null)
+                return BadRequest(new ValidationError { Field = "Password", Message = "Nieprawid³owe has³o" });
 
             var tokenString = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
             return Ok(new {Token = tokenString});

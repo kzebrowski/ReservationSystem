@@ -29,5 +29,10 @@ namespace Repository
         {
             return _context.Users.SingleOrDefault(u => u.PhoneNumber == phoneNumber);
         }
+
+        public UserEntity GetUserByCredentials(string email, string password)
+        {
+            return _context.Users.SingleOrDefault(u => u.Email == email && u.Password == password);
+        }
     }
 }

@@ -9,5 +9,7 @@ namespace Repository
         UserEntity GetUserByEmail(string email);
 
         UserEntity GetUserByPhoneNumber(string phoneNumber);
+
+        UserEntity GetUserByCredentials(string email, string password);
     }
 }
