@@ -24,5 +24,19 @@ namespace Services
 
             return createdUserModel;
         }
+
+        public bool CheckEmailExits(string email)
+        {
+            var user = _userRepository.GetUserByEmail(email);
+
+            return user != null;
+        }
+
+        public bool CheckPhoneNumberTaken(string number)
+        {
+            var user = _userRepository.GetUserByPhoneNumber(number);
+
+            return user != null;
+        }
     }
 }

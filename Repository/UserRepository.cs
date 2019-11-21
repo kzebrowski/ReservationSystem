@@ -1,4 +1,5 @@
-﻿using Repository.Entities;
+﻿using System.Linq;
+using Repository.Entities;
 
 namespace Repository
 {
@@ -17,6 +18,16 @@ namespace Repository
             _context.SaveChanges();
 
             return userEntity;
+        }
+
+        public UserEntity GetUserByEmail(string email)
+        {
+            return _context.Users.SingleOrDefault(u => u.Email == email);
+        }
+
+        public UserEntity GetUserByPhoneNumber(string phoneNumber)
+        {
+            return _context.Users.SingleOrDefault(u => u.PhoneNumber == phoneNumber);
         }
     }
 }

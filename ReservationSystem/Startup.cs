@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Repository;
+using ReservationSystem.Common;
 using Services;
 
 namespace ReservationSystem
@@ -52,7 +53,11 @@ namespace ReservationSystem
                 };
             });
 
-            var autoMapper = new MapperConfiguration(cfg => ServicesMapperConfigurator.RegisterMappings(cfg)).CreateMapper();
+            var autoMapper = new MapperConfiguration(cfg =>
+            {
+                ServicesMapperConfigurator.RegisterMappings(cfg);
+                ApiMapperConfiguration.RegisterMappings(cfg);
+            }).CreateMapper();
 
             services.AddOptions();
             var builder = new ContainerBuilder();

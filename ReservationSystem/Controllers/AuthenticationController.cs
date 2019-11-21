@@ -17,9 +17,9 @@ namespace ReservationSystem.ViewModels
         [HttpPost("[action]")]
         public IActionResult Login([FromBody] LoginCredentials loginCredentials)
         {
-            if (loginCredentials == null)
+            if (loginCredentials == null || !ModelState.IsValid)
             {
-                return Ok();
+                return BadRequest();
             }
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("2r5u8x/A?D(G+KbPeShVkYp3s6v9y$B&"));
