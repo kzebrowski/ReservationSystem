@@ -121,6 +121,7 @@ namespace ReservationSystem
             builder.RegisterType<UserService>().As<IUserService>();
             builder.RegisterType<UserRepository>().As<IUserRepository>();
             builder.RegisterType<ReservationSystemContext>();
+            builder.RegisterType<UserAuthenticationService>().As<IUserAuthenticationService>();
 
             return builder;
         }

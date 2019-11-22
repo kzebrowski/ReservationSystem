@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Services
 {
-    class UserAuthenticationService : IUserAuthenticationService
+    public class UserAuthenticationService : IUserAuthenticationService
     {
         private readonly IUserRepository _userRepository;
 
