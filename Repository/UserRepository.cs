@@ -5,7 +5,7 @@ namespace Repository
 {
     public class UserRepository: IUserRepository
     {
-        private ReservationSystemContext _context;
+        private readonly ReservationSystemContext _context;
 
         public UserRepository(ReservationSystemContext context)
         {

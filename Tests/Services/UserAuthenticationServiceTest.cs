@@ -1,10 +1,11 @@
-﻿using System.IdentityModel.Tokens.Jwt;
-using Moq;
+﻿using Moq;
 using Repository;
 using Repository.Entities;
+using Services;
+using System.IdentityModel.Tokens.Jwt;
 using Xunit;
 
-namespace Services.Tests
+namespace Tests.Services
 {
     public class UserAuthenticationServiceTest
     {

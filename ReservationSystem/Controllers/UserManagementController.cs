@@ -11,8 +11,8 @@ namespace ReservationSystem.Controllers
     [Route("api/user")]
     public class UserManagementController: ControllerBase
     {
-        private IUserService _userService;
-        private IMapper _mapper;
+        private readonly IUserService _userService;
+        private readonly IMapper _mapper;
 
         public UserManagementController(IUserService userService, IMapper mapper)
         {
