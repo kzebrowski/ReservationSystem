@@ -1,0 +1,32 @@
+.login-form {
+  width: 270px;
+  margin: 0 auto;
+  margin-top: 32%;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.login-input {
+  width: 100%;
+  border: 1px solid #c7c7c7;
+  margin-bottom: 7px;
+  padding: 0 5px;
+  text-align: center;
+  border-radius: 2px;
+}
+
+.login-button {
+  width: 100%;
+  margin-bottom: 7px;
+  background: #000000;
+  border: none;
+  border-radius: 2px;
+  color: #ffffff;
+}
+
+.register-button {
+  width: 100%;
+  border: 1px solid #c7c7c7;
+  background: #ffffff;
+}

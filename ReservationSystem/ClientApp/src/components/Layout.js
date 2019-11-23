@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import  { Container, Row, Nav, Navbar, NavbarBrand, NavbarToggler, Collapse, NavItem, NavLink, Col}  from 'reactstrap';
 import {Link} from 'react-router-dom';
 import Modal from 'react-modal';
+import Login from './Login';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import './styles/Modal.css';
 
 export class Layout extends Component {
@@ -56,7 +59,8 @@ export class Layout extends Component {
           </Col>
         </Row>
         <Modal className='login-modal' isOpen={this.state.isLoginModalOpen}>
-          <button onClick={this.handleCloseModalClick}>X</button>
+          <FontAwesomeIcon icon={faTimes} className="close-button" onClick={this.handleCloseModalClick}/>
+          <Login/>
         </Modal>
         {this.props.children}
       </Container>

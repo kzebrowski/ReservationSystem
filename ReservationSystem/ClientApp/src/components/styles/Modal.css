@@ -12,6 +12,17 @@
   outline: none;
 }
 
+.close-button {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 20px;
+}
+
+.close-button:hover {
+  cursor: pointer;
+}
+
 @media screen and (max-width: 640px){
     .login-modal{
         height: 60%;
