@@ -31,7 +31,7 @@ export default class Login extends Component {
     event.preventDefault();
     let requestBody = JSON.stringify({Email: this.state.email, Password: this.state.password});
 
-    fetch("https://localhost:44375/api/authentication/login", {
+    fetch("/api/authentication/login", {
       method: "POST",
       headers: {
         'Content-Type': 'application/json',
