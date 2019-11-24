@@ -1,6 +1,6 @@
 .login-modal {
-  height: 600px;
-  width: 600px;
+  height: 530px;
+  width: 530px;
   position: absolute;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);

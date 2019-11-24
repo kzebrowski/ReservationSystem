@@ -28,18 +28,18 @@ namespace ReservationSystem.ViewModels
         public IActionResult Login([FromBody] LoginCredentials loginCredentials)
         {
             if (loginCredentials == null || !ModelState.IsValid)
-                return BadRequest(ModelState.Values);
+                return Ok(ModelState.Values);
             if (!_userService.CheckEmailExits(loginCredentials.Email))
-                return BadRequest(new ValidationError{Field = "Email", Message = "Nie istnieje u¿ytkownik z podanym adresem email"});
+                return Ok(new ValidationError{Field = "Email", Message = "Nie istnieje u¿ytkownik z podanym adresem email"});
 
-            var tokenOptions =
+            var user =
                 _authenticationService.AuthenticateUser(loginCredentials.Email, loginCredentials.Password);
 
-            if (tokenOptions == null)
+            if (user == null)
                 return BadRequest(new ValidationError { Field = "Password", Message = "Nieprawid³owe has³o" });
 
-            var tokenString = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
-            return Ok(new {Token = tokenString});
+            
+            return Ok(user);
         }
         
         [HttpGet("test")]

@@ -1,27 +1,31 @@
-﻿using Microsoft.IdentityModel.Tokens;
-using Repository;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using AutoMapper;
+using Microsoft.IdentityModel.Tokens;
+using Repository;
+using Services.Models;
 
 namespace Services
 {
     public class UserAuthenticationService : IUserAuthenticationService
     {
         private readonly IUserRepository _userRepository;
+        private readonly IMapper _mapper;
 
-        public UserAuthenticationService(IUserRepository userRepository)
+        public UserAuthenticationService(IUserRepository userRepository, IMapper mapper)
         {
             _userRepository = userRepository;
+            _mapper = mapper;
         }
 
-        public JwtSecurityToken AuthenticateUser(string email, string password)
+        public User AuthenticateUser(string email, string password)
         {
-            var user = _userRepository.GetUserByCredentials(email, password);
+            var userEntity = _userRepository.GetUserByCredentials(email, password);
 
-            if (user == null)
+            if (userEntity == null)
                 return null;
 
             //TODO: Get data here from settings
@@ -35,8 +39,12 @@ namespace Services
                 expires: DateTime.Now.AddMinutes(60),
                 signingCredentials: signinCredentials
             );
+            var tokenString = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
 
-            return tokenOptions;
+            var user = _mapper.Map<User>(userEntity);
+            user.Token = tokenString;
+
+            return user;
         }
     }
 }

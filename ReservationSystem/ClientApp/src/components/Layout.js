@@ -16,19 +16,32 @@ export class Layout extends Component {
     this.toggle = this.toggle.bind(this);
     this.state = {
       isOpen: false,
-      isLoginModalOpen: false
+      isLoginModalOpen: false,
+      isUserLogedIn: false
     };
 
     this.handleCloseModalClick = this.handleCloseModalClick.bind(this);
     this.handleLoginClick = this.handleLoginClick.bind(this);
+    this.handleUserLogin = this.handleUserLogin.bind(this);
   }
 
   handleLoginClick() {
+    if (this.state.isUserLogedIn){
+      this.setState({isUserLogedIn: false});
+      localStorage.removeItem("token");
+      return;
+    }
+
     this.setState({isLoginModalOpen: true});
   }
 
   handleCloseModalClick() {
     this.setState({isLoginModalOpen: false});
+  }
+
+  handleUserLogin() {
+    this.setState({isUserLogedIn: true});
+    this.handleCloseModalClick();
   }
 
   toggle() {
@@ -51,7 +64,7 @@ export class Layout extends Component {
                     <NavLink tag={Link} to="/rooms">Pokoje</NavLink>
                   </NavItem>
                   <NavItem>
-                    <NavLink onClick={this.handleLoginClick} style={{cursor: 'pointer'}}>Zaloguj się</NavLink>
+                    <NavLink onClick={this.handleLoginClick} style={{cursor: 'pointer'}}>{this.state.isUserLogedIn? "Wyloguj się" : "Zaloguj się"}</NavLink>
                   </NavItem>
                 </Nav>
               </Collapse>
@@ -60,7 +73,7 @@ export class Layout extends Component {
         </Row>
         <Modal className='login-modal' isOpen={this.state.isLoginModalOpen}>
           <FontAwesomeIcon icon={faTimes} className="close-button" onClick={this.handleCloseModalClick}/>
-          <Login/>
+          <Login onUserLogin={this.handleUserLogin}/>
         </Modal>
         {this.props.children}
       </Container>

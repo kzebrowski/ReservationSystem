@@ -1,9 +1,9 @@
-﻿using System.IdentityModel.Tokens.Jwt;
+﻿using Services.Models;
 
 namespace Services
 {
     public interface IUserAuthenticationService
     {
-        JwtSecurityToken AuthenticateUser(string email, string password);
+        User AuthenticateUser(string email, string password);
     }
 }
