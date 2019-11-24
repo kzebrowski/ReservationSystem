@@ -7,6 +7,8 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import './styles/Modal.css';
 
+Modal.setAppElement('#root');
+
 export class Layout extends Component {
   displayName = Layout.name
 

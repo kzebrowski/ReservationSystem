@@ -15,7 +15,7 @@ export default class Rooms extends Component {
   componentDidUpdate() {
     let params = this.props.match.params;
     
-    if (params == this.state.oldParams){
+    if (params === this.state.oldParams){
       return;
     }
     else{

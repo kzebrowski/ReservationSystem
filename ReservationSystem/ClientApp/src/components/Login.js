@@ -46,9 +46,9 @@ export default class Login extends Component {
           this.props.onUserLogin();
         }
         else {
-          if (data.field == "Email")
+          if (data.field === "Email")
             this.setState({emailValidationError: data.message});
-          else if (data.field == "Password")
+          else if (data.field === "Password")
             this.setState({passwordValidationError: data.message});
         }
       })
@@ -65,8 +65,8 @@ export default class Login extends Component {
             onChange={this.handleEmailChange}
             placeholder="E-mail"
             required="required"
-            style={ this.state.emailValidationError != "" ? {marginBottom: "0px", outline: 'red auto 1px'} : {} }/>
-          {this.state.emailValidationError != "" && <span className="login-error-message">{this.state.emailValidationError}</span>}
+            style={ this.state.emailValidationError !== "" ? {marginBottom: "0px", outline: 'red auto 1px'} : {} }/>
+          {this.state.emailValidationError !== "" && <span className="login-error-message">{this.state.emailValidationError}</span>}
           <input
             name="Password"
             type="password"
@@ -75,8 +75,8 @@ export default class Login extends Component {
             placeholder="Hasło"
             required="required"
             minLength="8"
-            style={ this.state.passwordValidationError != "" ? {marginBottom: "0px", outline: 'red auto 1px'} : {} }/>
-          {this.state.passwordValidationError != "" && <span className="login-error-message">{this.state.passwordValidationError}</span>}
+            style={ this.state.passwordValidationError !== "" ? {marginBottom: "0px", outline: 'red auto 1px'} : {} }/>
+          {this.state.passwordValidationError !== "" && <span className="login-error-message">{this.state.passwordValidationError}</span>}
           <button className="login-button">Zaloguj</button>
           <button className="register-button">Stwórz konto</button>
         </form>
