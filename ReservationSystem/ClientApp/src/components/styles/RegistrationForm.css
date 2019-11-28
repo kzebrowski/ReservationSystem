@@ -1,0 +1,45 @@
+.go-back-from-registration-button {
+  position: absolute;
+  top: 15px;
+  left: 20px;
+  font-size: 20px;
+}
+
+.go-back-from-registration-button:hover {
+  cursor: pointer;
+}
+
+.registration-form {
+  width: 270px;
+  margin: 0 auto;
+  margin-top: 32%;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.registration-input {
+  width: 100%;
+  border: 1px solid #c7c7c7;
+  margin-bottom: 7px;
+  padding: 0 5px;
+  text-align: center;
+  border-radius: 2px;
+}
+
+.input-error-message {
+  width: 100%;
+  color: red;
+  text-align: justify;
+  font-size: 12px;
+}
+
+.create-account-button {
+  width: 100%;
+  margin-top: 8px;
+  margin-bottom: 7px;
+  background: #000000;
+  border: none;
+  border-radius: 2px;
+  color: #ffffff;
+}

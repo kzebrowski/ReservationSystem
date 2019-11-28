@@ -29,11 +29,11 @@ namespace ReservationSystem.Controllers
             var validationErrors = new List<ValidationError>();
 
             if (_userService.CheckEmailExits(candidateUser.Email))
-                validationErrors.Add(new ValidationError{ Field = "Email", Message = "Podany email jest już zajęty" });
+                validationErrors.Add(new ValidationError { Field = "Email", Message = "Podany email jest już zajęty" });
             if (_userService.CheckPhoneNumberTaken(candidateUser.PhoneNumber))
                 validationErrors.Add(new ValidationError { Field = "PhoneNumber", Message = "Podany numer telefonu jest już zajęty" });
             if (validationErrors.Count != 0)
-                return BadRequest(validationErrors);
+                return Ok(validationErrors);
 
             var user = _mapper.Map<User>(candidateUser);
             var result = _userService.CreateUser(user);

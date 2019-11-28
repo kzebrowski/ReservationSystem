@@ -2,10 +2,7 @@ import React, { Component } from 'react';
 import  { Container, Row, Nav, Navbar, NavbarBrand, NavbarToggler, Collapse, NavItem, NavLink, Col}  from 'reactstrap';
 import {Link} from 'react-router-dom';
 import Modal from 'react-modal';
-import Login from './Login';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import './styles/Modal.css';
+import LoginModal from './LoginModal';
 
 Modal.setAppElement('#root');
 
@@ -37,13 +34,13 @@ export class Layout extends Component {
     this.setState({isLoginModalOpen: true});
   }
 
-  handleCloseModalClick() {
-    this.setState({isLoginModalOpen: false});
-  }
-
   handleUserLogin() {
     this.setState({isUserLogedIn: true});
     this.handleCloseModalClick();
+  }
+
+  handleCloseModalClick() {
+    this.setState({isLoginModalOpen: false});
   }
 
   toggle() {
@@ -66,17 +63,14 @@ export class Layout extends Component {
                     <NavLink tag={Link} to="/rooms">Pokoje</NavLink>
                   </NavItem>
                   <NavItem>
-                    <NavLink onClick={this.handleLoginClick} style={{cursor: 'pointer'}}>{this.state.isUserLogedIn? "Wyloguj się" : "Zaloguj się"}</NavLink>
+                    <NavLink onClick={this.handleLoginClick} style={{cursor: 'pointer'}}>{this.state.isUserLogedIn ? "Wyloguj się" : "Zaloguj się"}</NavLink>
                   </NavItem>
                 </Nav>
               </Collapse>
             </Navbar>
           </Col>
         </Row>
-        <Modal className='login-modal' isOpen={this.state.isLoginModalOpen}>
-          <FontAwesomeIcon icon={faTimes} className="close-button" onClick={this.handleCloseModalClick}/>
-          <Login onUserLogin={this.handleUserLogin}/>
-        </Modal>
+        <LoginModal handleUserLogin={this.handleUserLogin} handleCloseModalClick={this.handleCloseModalClick} isOpen={this.state.isLoginModalOpen}/>
         {this.props.children}
       </Container>
     );

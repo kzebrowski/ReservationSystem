@@ -37,7 +37,6 @@ namespace ReservationSystem.ViewModels
 
             if (user == null)
                 return BadRequest(new ValidationError { Field = "Password", Message = "Nieprawid³owe has³o" });
-
             
             return Ok(user);
         }

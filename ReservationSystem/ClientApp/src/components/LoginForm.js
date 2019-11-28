@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import './styles/LoginForm.css';
 
-export default class Login extends Component {
-  displayName = Login.name;
+export default class LoginForm extends Component {
+  displayName = LoginForm.name;
 
   constructor(props) {
     super(props);
@@ -20,18 +20,18 @@ export default class Login extends Component {
   }
 
   handleEmailChange(event) {
-    this.setState({email: event.target.value, emailValidationError: ""})
+    this.setState({email: event.target.value, emailValidationError: ""});
   }
 
   handlePasswordChange(event) {
-    this.setState({password: event.target.value, passwordValidationError: ""})
+    this.setState({password: event.target.value, passwordValidationError: ""});
   }
 
   handleLoginSubmit(event) {
     event.preventDefault();
     let requestBody = JSON.stringify({Email: this.state.email, Password: this.state.password});
 
-    fetch("/api/authentication/login", {
+    fetch("api/authentication/login", {
       method: "POST",
       headers: {
         'Content-Type': 'application/json',
@@ -51,7 +51,7 @@ export default class Login extends Component {
           else if (data.field === "Password")
             this.setState({passwordValidationError: data.message});
         }
-      })
+      });
   }
 
   render(){
@@ -78,7 +78,7 @@ export default class Login extends Component {
             style={ this.state.passwordValidationError !== "" ? {marginBottom: "0px", outline: 'red auto 1px'} : {} }/>
           {this.state.passwordValidationError !== "" && <span className="login-error-message">{this.state.passwordValidationError}</span>}
           <button className="login-button">Zaloguj</button>
-          <button className="register-button">Stwórz konto</button>
+          <button className="register-button" onClick={this.props.handleRegisterClick}>Stwórz konto</button>
         </form>
       </div>);
   }
