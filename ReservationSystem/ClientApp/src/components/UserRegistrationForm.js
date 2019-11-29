@@ -70,7 +70,7 @@ export default class UserRegistrationForm extends Component {
     return this.state.emailValidationError !== ""
       || this.state.passwordValidationError !== ""
       || this.state.passowrdConfirmationValidationError !== ""
-      || this.state.phoneNumberValidationError !== ""
+      || this.state.phoneNumberValidationError !== "";
   }
   
   validatePasswordConfirmation() {
@@ -138,11 +138,12 @@ export default class UserRegistrationForm extends Component {
               pattern="[0-9]{9}"
               onChange={this.handlePhoneNumberChange}
               placeholder="Numer telefonu"
+              required="required"
               style={ this.state.phoneNumberValidationError !== "" ? this.errorStyle : {} }/>
             {this.state.phoneNumberValidationError !== "" && <span className="input-error-message">{this.state.phoneNumberValidationError}</span>}
             <button
               className="create-account-button"
-              disabled={() => this.checkForValidationErrors()}>Stwórz konto</button>
+              disabled={this.checkForValidationErrors()}>Stwórz konto</button>
           </form>
         </div>
       </React.Fragment>

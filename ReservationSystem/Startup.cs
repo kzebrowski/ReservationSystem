@@ -37,7 +37,8 @@ namespace ReservationSystem
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/build"; });
 
             services
-                .AddAuthentication(options => {
+                .AddAuthentication(options =>
+                {
                     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
                     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 })
@@ -51,6 +52,19 @@ namespace ReservationSystem
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("2r5u8x/A?D(G+KbPeShVkYp3s6v9y$B&"))
                 };
+            });
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll",
+                    p =>
+                    {
+                        p
+                            .AllowAnyOrigin()
+                            .AllowAnyMethod()
+                            .AllowAnyHeader()
+                            .AllowCredentials();
+                    });
             });
 
             var autoMapper = new MapperConfiguration(cfg =>
@@ -91,6 +105,7 @@ namespace ReservationSystem
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
             app.UseDefaultFiles();
+            app.UseCors("AllowAll");
 
             app.UseMvc(routes =>
             {

@@ -8,7 +8,7 @@ export default class Rooms extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { rooms: [], loading: true, oldParams: {data: "ddd"}}
+    this.state = { rooms: [], loading: true, oldParams: {data: ""}}
     this.componentDidUpdate();
   }
 
