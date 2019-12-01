@@ -10,7 +10,7 @@ namespace Repository
             base.OnConfiguring(optionsBuilder);
 
             optionsBuilder.UseSqlServer(
-                "Server=DESKTOP-NGKN0GN\\SQLEXPRESS;Database=ReservationSystemDatabase;Trusted_Connection=True;");
+                "Server=tcp:sql-server-database.database.windows.net,1433;Initial Catalog=ReservationSystemDatabase;Persist Security Info=False;User ID=krzysztof;Password=Lollol12;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
