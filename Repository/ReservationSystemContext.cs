@@ -22,5 +22,7 @@ namespace Repository
         }
 
         public DbSet<UserEntity> Users { get; set; }
+
+        public DbSet<RoomEntity> Rooms { get; set; }
     }
 }
