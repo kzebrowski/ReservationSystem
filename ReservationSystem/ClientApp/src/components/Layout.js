@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import  { Container, Row, Nav, Navbar, NavbarBrand, NavbarToggler, Collapse, NavItem, NavLink, Col}  from 'reactstrap';
+import  { Container, Row, Nav, Navbar, NavbarBrand, NavbarToggler, Collapse, NavItem, NavLink, Col, DropdownItem, UncontrolledDropdown, DropdownMenu, DropdownToggle}  from 'reactstrap';
 import {Link} from 'react-router-dom';
 import Modal from 'react-modal';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import LoginModal from './LoginModal';
 
 Modal.setAppElement('#root');
@@ -16,10 +18,10 @@ export class Layout extends Component {
     this.state = {
       isOpen: false,
       isLoginModalOpen: false,
-      isUserLogedIn: false
+      isUserLogedIn: localStorage.getItem("token")
     };
 
-    this.handleCloseModalClick = this.handleCloseModalClick.bind(this);
+    this.handleCloseModalClick = this.closeLoginModal.bind(this);
     this.handleLoginClick = this.handleLoginClick.bind(this);
     this.handleUserLogin = this.handleUserLogin.bind(this);
   }
@@ -27,7 +29,7 @@ export class Layout extends Component {
   handleLoginClick() {
     if (this.state.isUserLogedIn){
       this.setState({isUserLogedIn: false});
-      localStorage.removeItem("token");
+      localStorage.clear();
       return;
     }
 
@@ -36,10 +38,10 @@ export class Layout extends Component {
 
   handleUserLogin() {
     this.setState({isUserLogedIn: true});
-    this.handleCloseModalClick();
+    this.closeLoginModal();
   }
 
-  handleCloseModalClick() {
+  closeLoginModal() {
     this.setState({isLoginModalOpen: false});
   }
 
@@ -62,15 +64,29 @@ export class Layout extends Component {
                   <NavItem>
                     <NavLink tag={Link} to="/rooms">Pokoje</NavLink>
                   </NavItem>
+                  {!this.state.isUserLogedIn ?
                   <NavItem>
-                    <NavLink onClick={this.handleLoginClick} style={{cursor: 'pointer'}}>{this.state.isUserLogedIn ? "Wyloguj się" : "Zaloguj się"}</NavLink>
+                    <NavLink onClick={this.handleLoginClick} style={{cursor: 'pointer'}}>Zaloguj się</NavLink>
                   </NavItem>
+                  : <UncontrolledDropdown nav inNavbar>
+                    <DropdownToggle nav caret>
+                      {localStorage.getItem("userEmail").split("@")[0]}{localStorage.user} <FontAwesomeIcon icon={faUser} />
+                    </DropdownToggle>
+                    <DropdownMenu right>
+                      <DropdownItem>
+                        Moje konto
+                      </DropdownItem>
+                      <DropdownItem onClick={this.handleLoginClick}>
+                        Wyloguj się
+                      </DropdownItem>
+                    </DropdownMenu>
+                  </UncontrolledDropdown>}
                 </Nav>
               </Collapse>
             </Navbar>
           </Col>
         </Row>
-        <LoginModal handleUserLogin={this.handleUserLogin} handleCloseModalClick={this.handleCloseModalClick} isOpen={this.state.isLoginModalOpen}/>
+        <LoginModal handleUserLogin={this.handleUserLogin} handleCloseModalClick={this.closeLoginModal} isOpen={this.state.isLoginModalOpen}/>
         {this.props.children}
       </Container>
     );
