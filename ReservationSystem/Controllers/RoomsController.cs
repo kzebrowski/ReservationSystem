@@ -1,5 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using System.Globalization;
+using Microsoft.AspNetCore.Mvc;
+using ReservationSystem.ViewModels;
 using Services;
+using Services.Models;
 
 namespace ReservationSystem.Controllers
 {
@@ -22,23 +26,27 @@ namespace ReservationSystem.Controllers
             return Ok(rooms);
         }
 
-        public IActionResult Add()
+        public IActionResult Add(RoomCreationViewModel candidateRoom)
         {
             return Ok();
         }
 
-        public IActionResult Edit()
+        public IActionResult Edit(RoomModel candidateRoom)
         {
             return Ok();
         }
 
-        public IActionResult Delete()
+        public IActionResult Delete(Guid roomId)
         {
             return Ok();
         }
 
-        public IActionResult Search()
+        [HttpGet("search")]
+        public IActionResult Search([FromQuery]RoomSearchData roomSearchData)
         {
+            var provider =  new CultureInfo("pl-PL");
+            var stayStart = DateTime.ParseExact(roomSearchData.StayStart, "dd-MM-yyyy", provider);
+            var stayEnd = DateTime.ParseExact(roomSearchData.StayEnd, "dd-MM-yyyy", provider);
             return Ok();
         }
     }
