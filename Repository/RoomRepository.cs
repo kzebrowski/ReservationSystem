@@ -17,5 +17,13 @@ namespace Repository
         {
             return _context.Rooms;
         }
+
+        public RoomEntity Add(RoomEntity room)
+        {
+            _context.Rooms.Add(room);
+            _context.SaveChanges();
+
+            return room;
+        }
     }
 }

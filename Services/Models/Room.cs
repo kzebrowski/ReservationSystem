@@ -3,7 +3,7 @@ using System.Drawing;
 
 namespace Services.Models
 {
-    public class RoomModel
+    public class Room
     {
         public Guid Id { get; set; }
 

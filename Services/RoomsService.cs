@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using AutoMapper;
 using Repository;
+using Repository.Entities;
 using Services.Models;
 
 namespace Services
@@ -16,11 +17,19 @@ namespace Services
             _mapper = mapper;
         }
 
-        public IEnumerable<RoomModel> GetAll()
+        public IEnumerable<Room> GetAll()
         {
             var roomEntities = _roomRepository.GetAll();
 
-            return _mapper.Map<IEnumerable<RoomModel>>(roomEntities);
+            return _mapper.Map<IEnumerable<Room>>(roomEntities);
+        }
+
+        public Room Add(Room room)
+        {
+            var roomEntity = _mapper.Map<RoomEntity>(room);
+            var createdRoom = _roomRepository.Add(roomEntity);
+
+            return _mapper.Map<Room>(createdRoom);
         }
     }
 }

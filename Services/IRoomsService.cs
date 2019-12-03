@@ -5,6 +5,8 @@ namespace Services
 {
     public interface IRoomsService
     {
-        IEnumerable<RoomModel> GetAll();
+        IEnumerable<Room> GetAll();
+
+        Room Add(Room room);
     }
 }

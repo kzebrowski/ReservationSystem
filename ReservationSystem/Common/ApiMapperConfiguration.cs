@@ -9,6 +9,7 @@ namespace ReservationSystem.Common
         public static void RegisterMappings(IMapperConfigurationExpression mapperConfigurationExpression)
         {
             mapperConfigurationExpression.CreateMap<UserCreationViewModel, User>(MemberList.Source);
+            mapperConfigurationExpression.CreateMap<RoomCreationViewModel, Room>(MemberList.Source);
         }
     }
 }
