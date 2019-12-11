@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Drawing;
+using Microsoft.AspNetCore.Http;
 
 namespace ReservationSystem.ViewModels
 {
@@ -18,6 +18,6 @@ namespace ReservationSystem.ViewModels
         public int Price { get; set; }
 
         [Required]
-        public Image Image { get; set; }
+        public IFormFile Image { get; set; }
     }
 }

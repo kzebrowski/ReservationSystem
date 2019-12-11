@@ -7,15 +7,17 @@ export default class Room extends Component {
   displayName = Room.displayName;
   maxCapacityDisplayed = 4;
 
+  getRandomId = () => { return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15) }; 
+  
   render() {
     let capacityOverflown = this.props.capacity > this.maxCapacityDisplayed;
     let capacityIcon = capacityOverflown ?
       <FontAwesomeIcon icon={faUser} style={{marginLeft: '1px'}}/>
-      : Array(this.props.capacity).fill(<FontAwesomeIcon icon={faUser} style={{marginLeft: '1px'}}/>);
+      : Array(this.props.capacity).fill().map(() => <FontAwesomeIcon key={this.getRandomId()} icon={faUser} style={{marginLeft: '1px'}}/>);
 
     return (
       <div className="room-outerview">
-        <div className="room-small-picture-box" style={{ backgroundImage: 'url(' + this.props.imageUrl + ')' }}></div>
+        <div className="room-small-picture-box" style={{ backgroundImage: 'url(' + this.props.image + ')' }}></div>
         <div className="room-outerview-details">
           <div className="room-header">{this.props.title}</div>
           <div className="room-capacity">

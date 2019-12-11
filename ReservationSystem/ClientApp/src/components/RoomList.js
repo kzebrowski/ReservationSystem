@@ -25,7 +25,7 @@ export default class RoomList extends Component {
         />
       : this.props.rooms.map(x =>
         <Room key={x.id}
-          imageUrl={x.imageUrl}
+          image={x.imageUrl}
           title={x.title}
           description={x.description}
           capacity={x.capacity}

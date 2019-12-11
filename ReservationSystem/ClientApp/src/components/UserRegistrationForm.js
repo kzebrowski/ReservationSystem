@@ -74,7 +74,7 @@ export default class UserRegistrationForm extends Component {
   }
   
   validatePasswordConfirmation() {
-    if (this.state.passowrdConfirmation != this.state.password)
+    if (this.state.passowrdConfirmation !== this.state.password)
       this.setState({passowrdConfirmationValidationError: "Hasła muszą być identyczne"});
   }
 

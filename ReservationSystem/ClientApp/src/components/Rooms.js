@@ -24,7 +24,7 @@ export default class Rooms extends Component {
         this.fetchData(`api/SampleData/Search?startDate=${params.startDate}&endDate=${params.endDate}&numberOfGuests=${params.numberOfGuests}`);
       }
       else {
-        this.fetchData('api/SampleData/Rooms');
+        this.fetchData('api/rooms');
       }
     }
   }

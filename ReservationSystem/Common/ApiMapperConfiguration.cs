@@ -10,6 +10,8 @@ namespace ReservationSystem.Common
         {
             mapperConfigurationExpression.CreateMap<UserCreationViewModel, User>(MemberList.Source);
             mapperConfigurationExpression.CreateMap<RoomCreationViewModel, Room>(MemberList.Source);
+            mapperConfigurationExpression.CreateMap<RoomCreationViewModel, RoomCreationDTO>()
+                .ForMember(x => x.Image, opt => opt.Ignore()); ;
         }
     }
 }

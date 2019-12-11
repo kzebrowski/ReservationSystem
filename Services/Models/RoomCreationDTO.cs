@@ -1,11 +1,9 @@
-﻿using System;
+﻿using System.Drawing;
 
 namespace Services.Models
 {
-    public class Room
+    public class RoomCreationDTO
     {
-        public Guid Id { get; set; }
-
         public string Title { get; set; }
 
         public string Description { get; set; }
@@ -14,6 +12,6 @@ namespace Services.Models
 
         public int Price { get; set; }
 
-        public string ImageUrl { get; set; }
+        public Image Image { get; set; }
     }
 }

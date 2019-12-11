@@ -1,8 +1,10 @@
 ﻿using System;
-using System.Drawing.Imaging;
+using System.Drawing;
 using System.Globalization;
+using System.IO;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ReservationSystem.ViewModels;
 using Services;
@@ -32,12 +34,15 @@ namespace ReservationSystem.Controllers
         }
 
         [Authorize]
-        public IActionResult Add(RoomCreationViewModel roomCreationData)
+        [HttpPost("add")]
+        public IActionResult Add([FromForm]RoomCreationViewModel roomCreationData)
         {
-            if (!ModelState.IsValid || roomCreationData.Image.RawFormat != ImageFormat.Jpeg)
+            if (!ModelState.IsValid)
                 return Ok();
 
-            var room = _mapper.Map<Room>(roomCreationData);
+            var image = ConvertFormFileToImage(roomCreationData.Image);
+            var room = _mapper.Map<RoomCreationDTO>(roomCreationData);
+            room.Image = image;
             var createdRoom = _roomsService.Add(room);
 
             return Ok(createdRoom);
@@ -62,6 +67,16 @@ namespace ReservationSystem.Controllers
             var stayStart = DateTime.ParseExact(roomSearchData.StayStart, "dd-MM-yyyy", provider);
             var stayEnd = DateTime.ParseExact(roomSearchData.StayEnd, "dd-MM-yyyy", provider);
             return Ok();
+        }
+
+        private Image ConvertFormFileToImage(IFormFile file)
+        {
+            using (var memoryStream = new MemoryStream())
+            {
+                file.CopyTo(memoryStream);
+                var image = Image.FromStream(memoryStream);
+                return image;
+            }
         }
     }
 }

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Repository;
 
 namespace Repository.Migrations
 {
     [DbContext(typeof(ReservationSystemContext))]
-    partial class ReservationSystemContextModelSnapshot : ModelSnapshot
+    [Migration("20191205233434_Added Rooms table")]
+    partial class AddedRoomstable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -28,7 +30,7 @@ namespace Repository.Migrations
 
                     b.Property<string>("Description");
 
-                    b.Property<string>("ImageUrl");
+                    b.Property<byte[]>("Image");
 
                     b.Property<int>("Price");
 

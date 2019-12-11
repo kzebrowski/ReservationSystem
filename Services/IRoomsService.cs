@@ -7,6 +7,6 @@ namespace Services
     {
         IEnumerable<Room> GetAll();
 
-        Room Add(Room room);
+        Room Add(RoomCreationDTO room);
     }
 }

@@ -1,0 +1,43 @@
+.generic-form {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+  
+.generic-input {
+    width: 100%;
+    padding: 0 5px;
+    border: 1px solid #c7c7c7;
+    border-radius: 2px;
+}
+
+.generic-error-message {
+    width: 100%;
+    color: red;
+    text-align: justify;
+    font-size: 12px;
+}
+
+.generic-submit-button-dark {
+    width: 100%;
+    margin-top: 8px;
+    margin-bottom: 7px;
+    background: #000000;
+    border: none;
+    border-radius: 2px;
+    color: #ffffff;
+}
+
+.generic-submit-button-light {
+    width: 100%;
+    margin-top: 8px;
+    margin-bottom: 7px;
+    background: #ffffff;
+    border: 1px solid #c7c7c7;
+    border-radius: 2px;
+}
+
+.pointer {
+    cursor: pointer;
+}

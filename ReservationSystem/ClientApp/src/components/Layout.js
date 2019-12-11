@@ -21,7 +21,7 @@ export class Layout extends Component {
       isUserLogedIn: localStorage.getItem("token")
     };
 
-    this.handleCloseModalClick = this.closeLoginModal.bind(this);
+    this.closeLoginModal = this.closeLoginModal.bind(this);
     this.handleLoginClick = this.handleLoginClick.bind(this);
     this.handleUserLogin = this.handleUserLogin.bind(this);
   }
@@ -53,7 +53,7 @@ export class Layout extends Component {
 
   render() {
     return (
-      <Container fluid={true}>
+      <Container fluid={true} className="pb-3">
         <Row>
           <Col className="pl-0 pr-0">
             <Navbar color="light" light expand="lg">
@@ -62,14 +62,17 @@ export class Layout extends Component {
               <Collapse isOpen={this.state.isOpen} navbar>
                 <Nav className="ml-auto" navbar>
                   <NavItem>
-                    <NavLink tag={Link} to="/rooms">Pokoje</NavLink>
+                    <NavLink tag={Link} to="/admin" className="pointer">Administracja</NavLink>
+                  </NavItem>
+                  <NavItem>
+                    <NavLink tag={Link} to="/rooms" className="pointer">Pokoje</NavLink>
                   </NavItem>
                   {!this.state.isUserLogedIn ?
                   <NavItem>
-                    <NavLink onClick={this.handleLoginClick} style={{cursor: 'pointer'}}>Zaloguj się</NavLink>
+                    <NavLink onClick={this.handleLoginClick} className="pointer">Zaloguj się</NavLink>
                   </NavItem>
                   : <UncontrolledDropdown nav inNavbar>
-                    <DropdownToggle nav caret>
+                    <DropdownToggle nav caret className="pointer">
                       {localStorage.getItem("userEmail").split("@")[0]}{localStorage.user} <FontAwesomeIcon icon={faUser} />
                     </DropdownToggle>
                     <DropdownMenu right>
