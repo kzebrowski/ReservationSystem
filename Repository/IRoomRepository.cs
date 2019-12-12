@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Repository.Entities;
 
 namespace Repository
@@ -8,5 +9,9 @@ namespace Repository
         IEnumerable<RoomEntity> GetAll();
 
         RoomEntity Add(RoomEntity room);
+
+        RoomEntity GetRoom(Guid roomId);
+        
+        void Delete(RoomEntity room);
     }
 }

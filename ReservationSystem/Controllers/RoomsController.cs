@@ -6,6 +6,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ReservationSystem.Common;
 using ReservationSystem.ViewModels;
 using Services;
 using Services.Models;
@@ -34,7 +35,7 @@ namespace ReservationSystem.Controllers
         }
 
         [Authorize]
-        [HttpPost("add")]
+        [HttpPost("[action]")]
         public IActionResult Add([FromForm]RoomCreationViewModel roomCreationData)
         {
             if (!ModelState.IsValid)
@@ -55,12 +56,19 @@ namespace ReservationSystem.Controllers
         }
 
         [Authorize]
-        public IActionResult Delete(Guid roomId)
+        [HttpDelete("[action]")]
+        public IActionResult Delete([FromBody]Guid roomId)
         {
+            var room = _roomsService.GetRoom(roomId);
+            if (room is null)
+                return Ok(new ValidationError {Field = "roomId", Message = "Pokój o podanym Id nie istnieje"});
+
+            _roomsService.Delete(room);
+
             return Ok();
         }
 
-        [HttpGet("search")]
+        [HttpGet("[action]")]
         public IActionResult Search([FromQuery]RoomSearchData roomSearchData)
         {
             var provider = new CultureInfo("pl-PL");

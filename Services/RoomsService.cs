@@ -1,7 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Linq;
+using System.Net.NetworkInformation;
 using AutoMapper;
 using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
@@ -15,11 +18,21 @@ namespace Services
     {
         private readonly IRoomRepository _roomRepository;
         private readonly IMapper _mapper;
+        private readonly Cloudinary _cloudinary;
 
         public RoomsService(IRoomRepository roomRepository, IMapper mapper)
         {
             _roomRepository = roomRepository;
             _mapper = mapper;
+            _cloudinary = new Cloudinary("cloudinary://631697151674597:47xBl3jAKoqvKgDeP5jdcM7I7L0@dwcl9sgyd");
+        }
+
+        public Room GetRoom(Guid roomId)
+        {
+            var roomEntity = _roomRepository.GetRoom(roomId);
+            var room =_mapper.Map<Room>(roomEntity);
+
+            return room;
         }
 
         public IEnumerable<Room> GetAll()
@@ -40,11 +53,19 @@ namespace Services
             return _mapper.Map<Room>(createdRoom);
         }
 
-        private static ImageUploadResult UploadImageToCloudinary(Image image)
+        public void Delete(Room room)
+        {
+            var roomEntity = _mapper.Map<RoomEntity>(room);
+            var imageId = GetResourceIdFromUrl(roomEntity.ImageUrl);
+
+            _roomRepository.Delete(roomEntity);
+            _cloudinary.DeleteResources(imageId);
+        }
+
+        private ImageUploadResult UploadImageToCloudinary(Image image)
         {
             //TODO: move string to environment variable
             var filePath = ".\\roomImage.jpg";
-            var cloudinary = new Cloudinary("cloudinary://631697151674597:47xBl3jAKoqvKgDeP5jdcM7I7L0@dwcl9sgyd");
 
             var bmp = new Bitmap(image);
             bmp.Save(filePath, ImageFormat.Jpeg);
@@ -53,10 +74,15 @@ namespace Services
                 File = new FileDescription(filePath)
             };
             
-            var uploadResult = cloudinary.Upload(uploadParams);
+            var uploadResult = _cloudinary.Upload(uploadParams);
             File.Delete(filePath);
 
             return uploadResult;
+        }
+
+        private string GetResourceIdFromUrl(string url)
+        {
+            return url.Split('/').Last().Split('.').First();
         }
     }
 }

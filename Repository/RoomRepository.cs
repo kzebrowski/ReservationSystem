@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using Repository.Entities;
 
 namespace Repository
@@ -13,6 +15,11 @@ namespace Repository
             _context = context;
         }
 
+        public RoomEntity GetRoom(Guid roomId)
+        {
+            return _context.Rooms.AsNoTracking().SingleOrDefault(x => x.Id == roomId);
+        }
+
         public IEnumerable<RoomEntity> GetAll()
         {
             return _context.Rooms;
@@ -24,6 +31,12 @@ namespace Repository
             _context.SaveChanges();
 
             return room;
+        }
+
+        public void Delete(RoomEntity room)
+        {
+            _context.Rooms.Remove(room);
+            _context.SaveChanges();
         }
     }
 }
