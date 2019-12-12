@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import {Table} from 'reactstrap';
 import { faTrashAlt, faEdit } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import ActionIcon from './ActionIcon';
+import Axios from 'axios';
 import './styles/Administration.css'
 
 export default class Administration extends Component {
@@ -16,6 +18,7 @@ export default class Administration extends Component {
     }
 
     this.updateRooms = this.updateRooms.bind(this);
+    this.handleRoomDeletion = this.handleRoomDeletion.bind(this);
 
     this.updateRooms();
   }
@@ -26,6 +29,14 @@ export default class Administration extends Component {
     fetch('/api/rooms')
       .then(response => response.json())
       .then(data => this.setState({ rooms: data, loading: false}));
+  }
+
+  handleRoomDeletion(id) {
+    Axios.delete("/api/rooms/delete",{
+      headers: { Authorization: "Bearer " + localStorage.token, 'content-type': 'application/json'},
+      data: '"'+id+'"'})
+      .then(x => this.updateRooms())
+      .catch(x => console.log(x));
   }
 
   render() {
@@ -51,7 +62,7 @@ export default class Administration extends Component {
                 <td>{x.title}</td>
                 <td>{x.capacity}</td>
                 <td>{x.price}</td>
-                <td><FontAwesomeIcon icon={faTrashAlt} /></td>
+                <td><ActionIcon icon={faTrashAlt} itemId={x.id} handleClick={this.handleRoomDeletion}/></td>
                 <td><FontAwesomeIcon icon={faEdit} /></td>
               </tr>
             )}
