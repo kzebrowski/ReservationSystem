@@ -2,7 +2,7 @@
 using Repository.Entities;
 using Services.Models;
 
-namespace Services
+namespace Services.Common
 {
     public class ServicesMapperConfigurator
     {
@@ -14,6 +14,7 @@ namespace Services
                 .ForMember(x => x.ImageUrl, opt => opt.Ignore());
             mapperConfigurationExpression.CreateMap<RoomUpdateDto, RoomEntity>()
                 .ForMember(x => x.ImageUrl, opt => opt.Ignore());
+            mapperConfigurationExpression.CreateMap<ReservationEntity, Reservation>().ReverseMap();
         }
   }
 }

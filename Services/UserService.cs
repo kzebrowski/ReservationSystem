@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Repository;
-using Services.Models;
 using Repository.Entities;
+using Services.Models;
 
 namespace Services
 {

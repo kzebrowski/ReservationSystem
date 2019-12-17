@@ -14,6 +14,7 @@ namespace ReservationSystem.Common
                 .ForMember(x => x.Image, opt => opt.Ignore());
             mapperConfigurationExpression.CreateMap<RoomUpdateViewModel, RoomUpdateDto>()
                 .ForMember(x => x.Image, opt => opt.Ignore());
+            mapperConfigurationExpression.CreateMap<ReservationViewModel, ReservationCreationDto>();
         }
     }
 }

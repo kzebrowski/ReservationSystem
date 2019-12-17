@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ReservationSystem.Common;
 using Services;
+using Services.Common;
 
 namespace ReservationSystem.ViewModels
 {

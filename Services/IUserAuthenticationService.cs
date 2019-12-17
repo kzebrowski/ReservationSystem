@@ -1,6 +1,6 @@
 ﻿using Services.Models;
 
-namespace Services
+namespace Services.Common
 {
     public interface IUserAuthenticationService
     {

@@ -9,6 +9,7 @@ namespace Repository
         {
             base.OnConfiguring(optionsBuilder);
 
+            //TODO: get this form configuration of PATH
             optionsBuilder.UseSqlServer(
                 "Server=tcp:sql-server-database.database.windows.net,1433;Initial Catalog=ReservationSystemDatabase;Persist Security Info=False;User ID=krzysztof;Password=Lollol12;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
         }
@@ -24,5 +25,7 @@ namespace Repository
         public DbSet<UserEntity> Users { get; set; }
 
         public DbSet<RoomEntity> Rooms { get; set; }
+
+        public DbSet<ReservationEntity> Reservations { get; set; }
     }
 }

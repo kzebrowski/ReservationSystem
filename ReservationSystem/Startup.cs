@@ -1,5 +1,4 @@
 using System;
-using System.Globalization;
 using System.Text;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
@@ -15,6 +14,7 @@ using Microsoft.IdentityModel.Tokens;
 using Repository;
 using ReservationSystem.Common;
 using Services;
+using Services.Common;
 
 namespace ReservationSystem
 {
@@ -140,6 +140,8 @@ namespace ReservationSystem
             builder.RegisterType<UserAuthenticationService>().As<IUserAuthenticationService>();
             builder.RegisterType<RoomRepository>().As<IRoomRepository>();
             builder.RegisterType<RoomsService>().As<IRoomsService>();
+            builder.RegisterType<ReservationRepository>().As<IReservationRepository>();
+            builder.RegisterType<ReservationService>().As<IReservationService>();
 
             return builder;
         }
