@@ -46,5 +46,13 @@ namespace Repository
 
             return room;
         }
+
+        public IEnumerable<RoomEntity> GetRooms(int minimalCapacity, DateTime stayStart, DateTime stayEnd)
+        {
+            return _context.Rooms
+                .Include(x => x.Reservations)
+                .Where(x => x.Capacity >= minimalCapacity)
+                .Where(x => !x.Reservations.Any(r => r.StartDate < stayEnd && stayStart < r.EndDate));
+        }
     }
 }

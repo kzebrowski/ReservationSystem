@@ -74,6 +74,13 @@ namespace Services
             return _mapper.Map<Room>(createRoom);
         }
 
+        public IEnumerable<Room> GetRooms(int minimalCapacity, DateTime stayStart, DateTime stayEnd)
+        {
+            var roomEntities = _roomRepository.GetRooms(minimalCapacity, stayStart, stayStart);
+            
+            return _mapper.Map<IEnumerable<Room>>(roomEntities);
+        }
+
         private ImageUploadResult UploadImageToFileHostingService(Image image)
         {
             //TODO: move string to environment variable

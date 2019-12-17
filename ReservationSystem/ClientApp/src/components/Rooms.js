@@ -21,7 +21,7 @@ export default class Rooms extends Component {
     else{
       this.setState({oldParams: params});
       if (params.startDate && params.endDate && params.numberOfGuests){
-        this.fetchData(`api/SampleData/Search?startDate=${params.startDate}&endDate=${params.endDate}&numberOfGuests=${params.numberOfGuests}`);
+        this.fetchData(`api/rooms/search?stayStart=${params.startDate}&stayEnd=${params.endDate}&guests=${params.numberOfGuests}`);
       }
       else {
         this.fetchData('api/rooms');

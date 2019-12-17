@@ -103,7 +103,10 @@ namespace ReservationSystem.Controllers
             var provider = new CultureInfo("pl-PL");
             var stayStart = DateTime.ParseExact(roomSearchData.StayStart, "dd-MM-yyyy", provider);
             var stayEnd = DateTime.ParseExact(roomSearchData.StayEnd, "dd-MM-yyyy", provider);
-            return Ok();
+
+            var rooms = _roomsService.GetRooms(roomSearchData.Guests, stayStart, stayEnd);
+
+            return Ok(rooms);
         }
 
         private Image ConvertFormFileToImage(IFormFile file)

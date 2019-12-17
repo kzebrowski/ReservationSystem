@@ -15,5 +15,7 @@ namespace Services
         void Delete(Room room);
 
         Room Update(RoomUpdateDto roomUpdateDto);
+
+        IEnumerable<Room> GetRooms(int minimalCapacity, DateTime stayStart, DateTime stayEnd);
     }
 }

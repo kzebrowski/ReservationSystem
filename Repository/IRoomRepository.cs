@@ -15,5 +15,7 @@ namespace Repository
         void Delete(RoomEntity room);
 
         RoomEntity Update(RoomEntity roomEntity);
+
+        IEnumerable<RoomEntity> GetRooms(int minimalCapacity, DateTime stayStart, DateTime stayEnd);
     }
 }
