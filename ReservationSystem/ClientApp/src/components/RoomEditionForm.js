@@ -3,8 +3,8 @@ import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import Room from './Room'
 import axios from 'axios';
+import history from '../history';
 import './styles/RoomEditionForm.css';
-import { Redirect } from 'react-router-dom'
 
 export default class RoomEditionForm extends Component {
   displayName = RoomEditionForm.name;
@@ -17,14 +17,17 @@ export default class RoomEditionForm extends Component {
     super(props);
 
     this.state = {
-      redirect: false,
       previewImage: '',
       imageFile: ''
     }
 
     this.setPreviewImage = this.setPreviewImage.bind(this);
     this.hangleImageChange = this.hangleImageChange.bind(this);
+    this.useExistingImage = this.useExistingImage.bind(this);
   }
+
+  useExistingImage = () => this.state.imageFile === '' && this.props.imageUrl !== '';
+  isEditing = () => this.props.roomId !== '';
 
   hangleImageChange(file, setFieldValue, event){
     setFieldValue('image', event.target.value);
@@ -38,18 +41,39 @@ export default class RoomEditionForm extends Component {
     this.setState({previewImage: image});
   }
 
+  handleSubmit(values, setSubmitting) {
+    var url = this.isEditing() ? "api/rooms/update/" : "api/rooms/add"
+
+    setSubmitting(true);
+    let formData = new FormData();
+    formData.append('title', values.title);
+    formData.append('description', values.description);
+    formData.append('capacity', values.capacity);
+    formData.append('price', values.price);
+    formData.append('image', this.state.imageFile);
+    if (this.isEditing())
+      formData.append('id', this.props.roomId);
+
+    axios.post(url, formData, {
+      headers: { Authorization: "Bearer " + localStorage.token }})
+    .then(() => { 
+      history.push('/admin');
+      alert("Dodano pokój");})
+    .catch(error => {
+      if(error.response.status === 401)
+        alert("Aby wykonać tę akcję, musisz się zalogować!");
+      else
+        alert("Wystąpił błąd");
+      return;});
+  }
+
   render(){
     return(
       <React.Fragment>
         <h2 className="pb-3">Dodaj pokój</h2>
         <Formik
-          initialValues={{ 
-            title: '',
-            description: '',
-            capacity: '',
-            price: '',
-            image: ''
-          }}
+          initialValues={this.props.initialValues}
+          enableReinitialize={true}
           validationSchema={Yup.object({
             title: Yup.string()
               .required("To pole jest wymagane"),
@@ -63,32 +87,13 @@ export default class RoomEditionForm extends Component {
               .required("To pole jest wymagane")
               .integer("Podaj liczbę całkowitą")
               .min(0, "Wartość nie może być ujemna"),
-            image: Yup.mixed()
-              .required("Wybierz zdjęcie")
+            image:  this.useExistingImage() ? "" :
+              Yup.mixed()
+                .required("Wybierz zdjęcie")
           })}
-          onSubmit={(values, { setSubmitting }) => {
-            setSubmitting(true);
-            let formData = new FormData();
-            formData.append('title', values.title);
-            formData.append('description', values.description);
-            formData.append('capacity', values.capacity);
-            formData.append('price', values.price);
-            formData.append('image', this.state.imageFile);
-
-            axios.post("/api/rooms/add", formData, {
-              headers: { Authorization: "Bearer " + localStorage.token }})
-            .then(x => { 
-              this.setState({redirect: true});
-              alert("Dodano pokój");})
-            .catch(error => {
-              if(error.response.status == 401)
-                alert("Aby wykonać tę akcję, musisz się zalogować!");
-              return;
-            });
-          }}
-        render= {({values, setFieldValue}) => {
+          onSubmit={(values, { setSubmitting }) => this.handleSubmit(values, setSubmitting)}
+          render= {({values, setFieldValue}) => {
           return(
-          this.state.redirect ? <Redirect to='/admin' /> :
           <Form className="generic-form" >
             <Field name="title" type="text" className="generic-input room-edit-input" placeholder="Nazwa"/>
             <ErrorMessage name="title" className="generic-error-message" render={msg => <span className="generic-error-message">{msg}</span>}/>
@@ -102,7 +107,12 @@ export default class RoomEditionForm extends Component {
               accept="image/jpg, image/jpeg"/>
             <ErrorMessage name="image" className="generic-error-message" render={msg => <span className="generic-error-message">{msg}</span>}/>
             <button type="submit" className="generic-submit-button-light">Wyślij</button>
-            <Room title={values.title} description={values.description} price={values.price} image={this.state.previewImage} capacity={values.capacity}/>
+            <Room
+              title={values.title}
+              description={values.description}
+              price={values.price}
+              image={this.state.imageFile === '' ?  this.props.imageUrl : this.state.previewImage}
+              capacity={values.capacity}/>
           </Form>);
           }} 
         />

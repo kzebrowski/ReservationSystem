@@ -10,8 +10,10 @@ namespace Services
 
         IEnumerable<Room> GetAll();
 
-        Room Add(RoomCreationDTO room);
+        Room Add(RoomCreationDto roomCreationDto);
 
         void Delete(Room room);
+
+        Room Update(RoomUpdateDto roomUpdateDto);
     }
 }

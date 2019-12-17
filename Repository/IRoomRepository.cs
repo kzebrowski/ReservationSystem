@@ -13,5 +13,7 @@ namespace Repository
         RoomEntity GetRoom(Guid roomId);
         
         void Delete(RoomEntity room);
+
+        RoomEntity Update(RoomEntity roomEntity);
     }
 }

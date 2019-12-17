@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import './Extensions';
-import { Redirect } from 'react-router-dom'
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import 'react-day-picker/lib/style.css';
 import './styles/RoomSearch.css';
 import LocalizedDatePicker from './LocalizedDatePicker';
+import history from '../history';
 
 export default class RoomSearch extends Component {
   displayName = RoomSearch.name;
@@ -18,8 +18,7 @@ export default class RoomSearch extends Component {
       stayEnd: new Date(0, 0, 1),
       numerOfGuests: 0,
       stayDatesHaveErrors: false,
-      numerOfGuestsHasErrors: false,
-      redirect: false
+      numerOfGuestsHasErrors: false
     }
 
     this.handleStartDateChange = this.handleStartDateChange.bind(this);
@@ -28,16 +27,10 @@ export default class RoomSearch extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  componentDidUpdate () {
-    if (this.state.redirect) {
-        this.setState({redirect: false})
-    }
-  }
-
   handleSubmit(event) {
     event.preventDefault();
 
-    this.setState({redirect: true})
+    history.push(`/rooms/search/stayStart/${this.state.stayStart.ddmmyyyy()}/stayEnd/${this.state.stayEnd.ddmmyyyy()}/guests/${this.state.numerOfGuests}`);
   }
 
   handleStartDateChange(day, { disabled }) {
@@ -86,11 +79,6 @@ export default class RoomSearch extends Component {
   }
 
   render() {
-    if(this.state.redirect){
-      this.setState({redirect: false})
-      return <Redirect 
-        to={`/rooms/search/stayStart/${this.state.stayStart.ddmmyyyy()}/stayEnd/${this.state.stayEnd.ddmmyyyy()}/guests/${this.state.numerOfGuests}`} />
-    }
     return (
       <div className="room-search-form">
         <form onSubmit={this.handleSubmit}>

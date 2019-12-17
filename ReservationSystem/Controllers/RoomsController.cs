@@ -34,6 +34,14 @@ namespace ReservationSystem.Controllers
             return Ok(rooms);
         }
 
+        [HttpGet("{roomId}")]
+        public IActionResult Get(Guid roomId)
+        {
+            var room = _roomsService.GetRoom(roomId);
+
+            return Ok(room);
+        }
+
         [Authorize]
         [HttpPost("[action]")]
         public IActionResult Add([FromForm]RoomCreationViewModel roomCreationData)
@@ -42,7 +50,7 @@ namespace ReservationSystem.Controllers
                 return Ok();
 
             var image = ConvertFormFileToImage(roomCreationData.Image);
-            var room = _mapper.Map<RoomCreationDTO>(roomCreationData);
+            var room = _mapper.Map<RoomCreationDto>(roomCreationData);
             room.Image = image;
             var createdRoom = _roomsService.Add(room);
 
@@ -66,6 +74,27 @@ namespace ReservationSystem.Controllers
             _roomsService.Delete(room);
 
             return Ok();
+        }
+
+        [Authorize]
+        [HttpPost("[action]")]
+        public IActionResult Update([FromForm]RoomUpdateViewModel roomUpdateData)
+        {
+            var room = _roomsService.GetRoom(roomUpdateData.Id);
+            if (room is null)
+                return Ok(new ValidationError { Field = "roomId", Message = "Pokój o podanym Id nie istnieje" });
+
+            if (!ModelState.IsValid)
+                return Ok();
+
+            var roomUpdateDto = _mapper.Map<RoomUpdateDto>(roomUpdateData);
+            roomUpdateDto.ImageUrl = room.ImageUrl;
+
+            if (roomUpdateData.Image != null)
+                roomUpdateDto.Image = ConvertFormFileToImage(roomUpdateData.Image);
+
+            var updatedRoom = _roomsService.Update(roomUpdateDto);
+            return Ok(updatedRoom);
         }
 
         [HttpGet("[action]")]

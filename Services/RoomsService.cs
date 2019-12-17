@@ -4,7 +4,6 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
-using System.Net.NetworkInformation;
 using AutoMapper;
 using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
@@ -42,10 +41,10 @@ namespace Services
             return _mapper.Map<IEnumerable<Room>>(roomEntities);
         }
 
-        public Room Add(RoomCreationDTO room)
+        public Room Add(RoomCreationDto roomCreationDto)
         {
-            var uploadResult = UploadImageToCloudinary(room.Image);
-            var roomEntity = _mapper.Map<RoomEntity>(room);
+            var uploadResult = UploadImageToFileHostingService(roomCreationDto.Image);
+            var roomEntity = _mapper.Map<RoomEntity>(roomCreationDto);
             roomEntity.ImageUrl = uploadResult.JsonObj["url"].ToString();
 
             var createdRoom = _roomRepository.Add(roomEntity);
@@ -62,7 +61,20 @@ namespace Services
             _cloudinary.DeleteResources(imageId);
         }
 
-        private ImageUploadResult UploadImageToCloudinary(Image image)
+        public Room Update(RoomUpdateDto roomUpdateDto)
+        {
+            var roomEntity = _mapper.Map<RoomEntity>(roomUpdateDto);
+
+            roomEntity.ImageUrl = roomUpdateDto.Image != null ?
+                UpdateImageInHostingService(roomUpdateDto.Image, roomUpdateDto.ImageUrl)
+                : roomUpdateDto.ImageUrl;
+
+            var createRoom = _roomRepository.Update(roomEntity);
+
+            return _mapper.Map<Room>(createRoom);
+        }
+
+        private ImageUploadResult UploadImageToFileHostingService(Image image)
         {
             //TODO: move string to environment variable
             var filePath = ".\\roomImage.jpg";
@@ -83,6 +95,15 @@ namespace Services
         private string GetResourceIdFromUrl(string url)
         {
             return url.Split('/').Last().Split('.').First();
+        }
+
+        private string UpdateImageInHostingService(Image newImage, string oldImageUrl)
+        {
+            var uploadResult = UploadImageToFileHostingService(newImage);
+            var resourceId = GetResourceIdFromUrl(oldImageUrl);
+            _cloudinary.DeleteResources(resourceId);
+
+            return uploadResult.JsonObj["url"].ToString();
         }
     }
 }

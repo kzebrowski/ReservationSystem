@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import {Table} from 'reactstrap';
 import { faTrashAlt, faEdit } from '@fortawesome/free-regular-svg-icons';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {Link} from 'react-router-dom';
+import history from '../history';
 import ActionIcon from './ActionIcon';
 import Axios from 'axios';
-import './styles/Administration.css'
+import './styles/Administration.css';
 
 export default class Administration extends Component {
   displayName = Administration.name;
@@ -32,19 +33,23 @@ export default class Administration extends Component {
   }
 
   handleRoomDeletion(id) {
-    Axios.delete("/api/rooms/delete",{
+    Axios.delete("/api/rooms/delete", {
       headers: { Authorization: "Bearer " + localStorage.token, 'content-type': 'application/json'},
       data: '"'+id+'"'})
       .then(x => this.updateRooms())
       .catch(x => console.log(x));
   }
 
+  handleRoomEdit(id) {
+    history.push("/admin/rooms/edit/" + id);
+  }
+
   render() {
     return (
       <div className="administration-container">
         <h2 className="mb-4">Pokoje</h2>
-        <a href="admin/rooms/add" className="mb-3">Dodaj</a>
-        <Table>
+        <Link to="/admin/rooms/add" className="mb-3">Dodaj</Link>
+        <Table hover>
           <thead>
             <tr>
               <th>#</th>
@@ -63,7 +68,7 @@ export default class Administration extends Component {
                 <td>{x.capacity}</td>
                 <td>{x.price}</td>
                 <td><ActionIcon icon={faTrashAlt} itemId={x.id} handleClick={this.handleRoomDeletion}/></td>
-                <td><FontAwesomeIcon icon={faEdit} /></td>
+                <td><ActionIcon icon={faEdit} itemId={x.id} handleClick={this.handleRoomEdit}/></td>
               </tr>
             )}
           </tbody>

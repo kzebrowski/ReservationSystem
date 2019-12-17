@@ -1,9 +1,6 @@
-﻿using System.Collections.Generic;
-using AutoMapper;
+﻿using AutoMapper;
 using Repository.Entities;
 using Services.Models;
-using System.Drawing;
-using System.IO;
 
 namespace Services
 {
@@ -13,7 +10,9 @@ namespace Services
         {
             mapperConfigurationExpression.CreateMap<UserEntity, User>(MemberList.Source).ReverseMap();
             mapperConfigurationExpression.CreateMap<RoomEntity, Room>().ReverseMap();
-            mapperConfigurationExpression.CreateMap<RoomCreationDTO, RoomEntity>()
+            mapperConfigurationExpression.CreateMap<RoomCreationDto, RoomEntity>()
+                .ForMember(x => x.ImageUrl, opt => opt.Ignore());
+            mapperConfigurationExpression.CreateMap<RoomUpdateDto, RoomEntity>()
                 .ForMember(x => x.ImageUrl, opt => opt.Ignore());
         }
   }

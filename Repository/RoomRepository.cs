@@ -38,5 +38,13 @@ namespace Repository
             _context.Rooms.Remove(room);
             _context.SaveChanges();
         }
+
+        public RoomEntity Update(RoomEntity room)
+        {
+            _context.Rooms.Update(room);
+            _context.SaveChanges();
+
+            return room;
+        }
     }
 }
