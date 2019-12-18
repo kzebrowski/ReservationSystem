@@ -36,6 +36,7 @@ namespace Services
             var reservation = new Reservation
             {
                 RoomId = reservationCreationDto.RoomId,
+                UserId = reservationCreationDto.UserId,
                 StartDate = reservationCreationDto.StartDate,
                 EndDate = reservationCreationDto.EndDate,
                 Status = ReservationStatus.Pending,

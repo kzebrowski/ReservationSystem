@@ -76,7 +76,7 @@ namespace Services
 
         public IEnumerable<Room> GetRooms(int minimalCapacity, DateTime stayStart, DateTime stayEnd)
         {
-            var roomEntities = _roomRepository.GetRooms(minimalCapacity, stayStart, stayStart);
+            var roomEntities = _roomRepository.GetRooms(minimalCapacity, stayStart, stayEnd);
             
             return _mapper.Map<IEnumerable<Room>>(roomEntities);
         }

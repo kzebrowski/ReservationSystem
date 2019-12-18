@@ -7,6 +7,7 @@ using Services.Models;
 
 namespace ReservationSystem.Controllers
 {
+    [Route("api/[controller]")]
     public class ReservationsController : ControllerBase
     {
         private readonly IReservationService _reservationService;

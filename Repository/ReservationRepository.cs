@@ -25,6 +25,7 @@ namespace Repository
         public ReservationEntity Create(ReservationEntity reservationEntity)
         {
             _context.Reservations.Add(reservationEntity);
+            _context.SaveChanges();
 
             return reservationEntity;
         }

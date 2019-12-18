@@ -9,12 +9,12 @@ namespace Repository.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
 
-        [ForeignKey("RoomEntity")]
+        [ForeignKey("Room")]
         public Guid RoomId { get; set; }
 
         public RoomEntity Room { get; set; }
 
-        [ForeignKey("UserEntity")]
+        [ForeignKey("User")]
         public Guid UserId { get; set; }
 
         public UserEntity User { get; set; }
