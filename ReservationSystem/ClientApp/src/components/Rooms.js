@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import RoomList from './RoomList';
 import RoomSearch from './RoomSearch';
+import Axios from 'axios';
+import ReservationModal from './ReservationModal';
 
 export default class Rooms extends Component {
   displayName = Rooms.name;
@@ -8,7 +10,11 @@ export default class Rooms extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { rooms: [], loading: true, oldParams: {data: ""}}
+    this.state = { rooms: [], loading: true, oldParams: {data: ""}, isModalOpen: false, reservationData: {}};
+
+    this.handleRoomReservation = this.handleRoomReservation.bind(this);
+    this.closeModal = this.closeModal.bind(this);
+
     this.componentDidUpdate();
   }
 
@@ -29,6 +35,14 @@ export default class Rooms extends Component {
     }
   }
 
+  closeModal() {
+    this.setState({isModalOpen: false});
+  }
+
+  handleRoomReservation(roomId){
+    this.setState({isModalOpen: true});
+  }
+
   fetchData(url) {
     this.setState({ loading: true });
 
@@ -38,10 +52,20 @@ export default class Rooms extends Component {
   }
 
   render() {
+    let params = this.props.match.params;
+
     return(
     <React.Fragment>
       <RoomSearch />
-      <RoomList rooms={this.state.rooms} loading={this.state.loading} />
+      <RoomList rooms={this.state.rooms} loading={this.state.loading} onRoomTitleClick={this.handleRoomReservation}/>
+      <ReservationModal
+        isOpen={this.state.isModalOpen}
+        handleCloseModalClick={this.closeModal}
+        roomTitle={"Pokój czteroosobowy z widokiem na całe miasto"}
+        numberOfGuests={5}
+        stayStart={params.startDate}
+        stayEnd={params.endDate}
+        price={123}/>
     </React.Fragment>);
   }
 }

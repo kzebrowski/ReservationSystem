@@ -112,7 +112,8 @@ export default class RoomEditionForm extends Component {
               description={values.description}
               price={values.price}
               image={this.state.imageFile === '' ?  this.props.imageUrl : this.state.previewImage}
-              capacity={values.capacity}/>
+              capacity={values.capacity}
+              onRoomTitleClick={(id) => {}}/>
           </Form>);
           }} 
         />

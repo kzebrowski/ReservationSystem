@@ -36,7 +36,7 @@ export default class LoginModal extends Component {
 
   render() {
     return (
-      <Modal className='login-modal' isOpen={this.props.isOpen}>
+      <Modal className='login-modal centered-modal' isOpen={this.props.isOpen}>
         <FontAwesomeIcon icon={faTimes} className="close-button" onClick={this.handleCloseModalClick}/>
         {this.state.isRegister ?
           <UserRegistrationForm handleGoBackClick={this.handleGoBackClick}/> :

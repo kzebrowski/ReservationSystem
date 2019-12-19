@@ -1,30 +1,45 @@
-.login-modal {
-  height: 530px;
-  width: 530px;
-  position: absolute;
-  left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-  top: 50%;
-  border: 1px solid rgb(204, 204, 204);
-  background: rgb(255, 255, 255);
-  overflow: auto;
-  border-radius: 4px;
-  outline: none;
-}
-
 .close-button {
-  position: absolute;
-  top: 15px;
-  right: 20px;
-  font-size: 20px;
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 20px;
 }
 
 .close-button:hover {
-  cursor: pointer;
+    cursor: pointer;
 }
 
-@media screen and (max-width: 640px){
-    .login-modal{
+.login-modal {
+    height: 530px;
+    width: 530px;
+}
+
+.reservation-modal {
+    display: flex;
+    width: 630px;
+}
+
+.centered-modal {
+    position: absolute;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    top: 50%;
+    border: 1px solid rgb(204, 204, 204);
+    background: rgb(255, 255, 255);
+    overflow: auto;
+    border-radius: 4px;
+    outline: none;
+}
+
+@media screen and (max-width: 640px) {
+    .login-modal {
+        height: 60%;
+        width: 90%;
+    }
+}
+
+@media screen and (max-width: 840px) {
+    .reservation-modal {
         height: 60%;
         width: 90%;
     }

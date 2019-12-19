@@ -25,10 +25,12 @@ export default class RoomList extends Component {
         />
       : this.props.rooms.map(x =>
         <Room key={x.id}
+          id={x.id}
           image={x.imageUrl}
           title={x.title}
           description={x.description}
           capacity={x.capacity}
-          price={x.price} />);
+          price={x.price}
+          onRoomTitleClick={this.props.onRoomTitleClick}/>);
   }
 }

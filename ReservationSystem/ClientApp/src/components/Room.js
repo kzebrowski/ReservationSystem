@@ -19,7 +19,7 @@ export default class Room extends Component {
       <div className="room-outerview">
         <div className="room-small-picture-box" style={{ backgroundImage: 'url(' + this.props.image + ')' }}></div>
         <div className="room-outerview-details">
-          <div className="room-header">{this.props.title}</div>
+          <div className="room-header" onClick={() => this.props.onRoomTitleClick(this.props.id)}>{this.props.title}</div>
           <div className="room-capacity">
             {capacityIcon}{capacityOverflown ? " x " + this.props.capacity : ""}
           </div>

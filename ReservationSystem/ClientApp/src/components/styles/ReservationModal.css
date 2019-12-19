@@ -1,0 +1,14 @@
+.reservation-modal-contents {
+    width: 100%;
+    padding: 10px 15px;
+}
+
+.reservation-info {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.room-name {
+    font-size: 24px;
+    font-weight: 400;
+}
