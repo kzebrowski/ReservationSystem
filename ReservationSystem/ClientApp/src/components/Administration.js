@@ -5,17 +5,20 @@ import {Link} from 'react-router-dom';
 import history from '../history';
 import ActionIcon from './ActionIcon';
 import Axios from 'axios';
+import ConfirmationModal from './ConfirmationModal'
 import './styles/Administration.css';
 
 export default class Administration extends Component {
   displayName = Administration.name;
+  confirmationModalData = null;
 
   constructor (props) {
     super(props);
 
     this.state = {
       loading: false,
-      rooms: []
+      rooms: [],
+      isConfirmationModalOpen: false
     }
 
     this.updateRooms = this.updateRooms.bind(this);
@@ -33,11 +36,16 @@ export default class Administration extends Component {
   }
 
   handleRoomDeletion(id) {
+    this.confirmationModalData = {id: id};
+    this.setState({isConfirmationModalOpen: true});
+  }
+
+  deleteRoom(id) {
     Axios.delete("/api/rooms/delete", {
-      headers: { Authorization: "Bearer " + localStorage.token, 'content-type': 'application/json'},
-      data: '"'+id+'"'})
-      .then(x => this.updateRooms())
-      .catch(x => console.log(x));
+    headers: { Authorization: "Bearer " + localStorage.token, 'content-type': 'application/json'},
+    data: '"'+id+'"'})
+    .then(x => this.updateRooms())
+    .catch(x => console.log(x));
   }
 
   handleRoomEdit(id) {
@@ -73,6 +81,11 @@ export default class Administration extends Component {
             )}
           </tbody>
         </Table>
+        <ConfirmationModal
+          isOpen={this.state.isConfirmationModalOpen}
+          data = {this.confirmationModalData}
+          handleNo={() => this.setState({isConfirmationModalOpen: false})}
+          handleYes={(data) => this.deleteRoom(data.id)} />
       </div>
     );
   }

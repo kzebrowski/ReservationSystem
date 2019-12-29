@@ -36,7 +36,7 @@ namespace Services
 
         public IEnumerable<Room> GetAll()
         {
-            var roomEntities = _roomRepository.GetAll();
+            var roomEntities = _roomRepository.GetAll().ToList();
 
             return _mapper.Map<IEnumerable<Room>>(roomEntities);
         }

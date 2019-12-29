@@ -124,6 +124,7 @@
             <e p="components" t="Include">
               <e p="ActionIcon.js" t="Include" />
               <e p="Administration.js" t="Include" />
+              <e p="ConfirmationModal.js" t="Include" />
               <e p="Counter.js" t="Include" />
               <e p="Extensions.js" t="Include" />
               <e p="FetchData.js" t="Include" />
