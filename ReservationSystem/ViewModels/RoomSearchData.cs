@@ -4,9 +4,9 @@ namespace ReservationSystem.ViewModels
 {
     public class RoomSearchData
     {
-        public string StayStart { get; set; }
+        public DateTime StayStart { get; set; }
 
-        public string StayEnd { get; set; }
+        public DateTime StayEnd { get; set; }
 
         public int Guests { get; set; }
     }

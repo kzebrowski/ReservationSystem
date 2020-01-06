@@ -30,7 +30,7 @@ export default class RoomSearch extends Component {
   handleSubmit(event) {
     event.preventDefault();
 
-    history.push(`/rooms/search/stayStart/${this.state.stayStart.ddmmyyyy()}/stayEnd/${this.state.stayEnd.ddmmyyyy()}/guests/${this.state.numerOfGuests}`);
+    history.push(`/rooms/search/stayStart/${this.state.stayStart.yyyymmdd()}/stayEnd/${this.state.stayEnd.yyyymmdd()}/guests/${this.state.numerOfGuests}`);
   }
 
   handleStartDateChange(day, { disabled }) {

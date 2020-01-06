@@ -101,10 +101,8 @@ namespace ReservationSystem.Controllers
         public IActionResult Search([FromQuery]RoomSearchData roomSearchData)
         {
             var provider = new CultureInfo("pl-PL");
-            var stayStart = DateTime.ParseExact(roomSearchData.StayStart, "dd-MM-yyyy", provider);
-            var stayEnd = DateTime.ParseExact(roomSearchData.StayEnd, "dd-MM-yyyy", provider);
 
-            var rooms = _roomsService.GetRooms(roomSearchData.Guests, stayStart, stayEnd);
+            var rooms = _roomsService.GetRooms(roomSearchData.Guests, roomSearchData.StayStart, roomSearchData.StayEnd);
 
             return Ok(rooms);
         }
