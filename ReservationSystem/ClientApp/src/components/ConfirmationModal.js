@@ -7,10 +7,10 @@ export default class ConfirmationModal extends Component {
 
     render() {
         return (
-            <Modal isOpen={this.props.isOpen} className="centered-modal ">
+            <Modal isOpen={this.props.isOpen} className="centered-modal confirmation-modal">
                 <div>{this.props.message}</div>
-                <div className="generic-submit-button-dark" onClick={this.props.handleYes}>Tak</div>
-                <div className="generic-submit-button-light" onClick={this.props.handleNo}>Nie</div>
+                <button className="generic-submit-button-dark confirm-button" onClick={() => this.props.handleYes(this.props.data)}>Tak</button>
+                <button className="generic-submit-button-light decline-button" onClick={this.props.handleNo}>Nie</button>
             </Modal>
         );
     }

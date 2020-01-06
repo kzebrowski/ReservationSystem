@@ -45,7 +45,10 @@ export default class Administration extends Component {
     headers: { Authorization: "Bearer " + localStorage.token, 'content-type': 'application/json'},
     data: '"'+id+'"'})
     .then(x => this.updateRooms())
-    .catch(x => console.log(x));
+    .catch(x => {
+      console.log(x);
+      alert("Wystąpił błąd")})
+    .finally(x => this.setState({isConfirmationModalOpen: false}));
   }
 
   handleRoomEdit(id) {
@@ -82,6 +85,7 @@ export default class Administration extends Component {
           </tbody>
         </Table>
         <ConfirmationModal
+          message="Czy na pewno chcesz usunąć ten pokój?"
           isOpen={this.state.isConfirmationModalOpen}
           data = {this.confirmationModalData}
           handleNo={() => this.setState({isConfirmationModalOpen: false})}

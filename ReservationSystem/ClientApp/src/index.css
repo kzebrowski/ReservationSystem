@@ -22,7 +22,6 @@
 .generic-submit-button-dark {
     width: 100%;
     margin-top: 8px;
-    margin-bottom: 7px;
     background: #000000;
     border: none;
     border-radius: 2px;
@@ -32,7 +31,6 @@
 .generic-submit-button-light {
     width: 100%;
     margin-top: 8px;
-    margin-bottom: 7px;
     background: #ffffff;
     border: 1px solid #c7c7c7;
     border-radius: 2px;

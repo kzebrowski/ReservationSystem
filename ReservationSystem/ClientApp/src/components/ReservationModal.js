@@ -21,7 +21,7 @@ export default class ReservationModal extends Component {
             <div>Liczba gości: {this.props.numberOfGuests}</div>            
             <div>Cena za noc: {this.props.price}zł</div>
             <div>Rezerujący: {localStorage.userEmail}</div>
-            <button className="generic-submit-button-dark" style={{marginTop: '15px'}}>Potwierdź rezerwację</button>
+            <button className="generic-submit-button-dark mb-2" style={{marginTop: '15px'}}>Potwierdź rezerwację</button>
             <button className="generic-submit-button-light" style={{margin: '0px'}} onClick={this.props.handleCloseModalClick}>Anuluj</button>
           </div>
         </div>
