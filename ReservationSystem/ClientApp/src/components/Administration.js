@@ -5,6 +5,7 @@ import {Link} from 'react-router-dom';
 import history from '../history';
 import ActionIcon from './ActionIcon';
 import Axios from 'axios';
+import PulseLoader from 'react-spinners/PulseLoader';
 import ConfirmationModal from './ConfirmationModal'
 import './styles/Administration.css';
 
@@ -72,7 +73,18 @@ export default class Administration extends Component {
             </tr>
           </thead>
           <tbody>
-            {this.state.rooms.map((x, i) => 
+            {
+              this.state.loading ? 
+              <td colSpan='6'>
+              <PulseLoader
+                css={'margin: 0 auto; width: 100px; height: 10px;'}
+                sizeUnit={"px"}
+                size={17}
+                color={'#000000'}
+                loading={this.props.loading}
+                />
+              </td> :
+              this.state.rooms.map((x, i) => 
               <tr>
                 <td>{i + 1}</td>
                 <td>{x.title}</td>
