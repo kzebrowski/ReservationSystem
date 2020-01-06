@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import RoomList from './RoomList';
 import RoomSearch from './RoomSearch';
-import Axios from 'axios';
 import ReservationModal from './ReservationModal';
 
 export default class Rooms extends Component {
@@ -39,8 +38,8 @@ export default class Rooms extends Component {
     this.setState({isModalOpen: false});
   }
 
-  handleRoomReservation(roomId){
-    this.setState({isModalOpen: true});
+  handleRoomReservation(reservationData){
+    this.setState({isModalOpen: true, reservationData: reservationData});
   }
 
   fetchData(url) {
@@ -59,13 +58,14 @@ export default class Rooms extends Component {
       <RoomSearch />
       <RoomList rooms={this.state.rooms} loading={this.state.loading} onRoomTitleClick={this.handleRoomReservation}/>
       <ReservationModal
+        roomId = {this.state.reservationData.roomId}
         isOpen={this.state.isModalOpen}
         handleCloseModalClick={this.closeModal}
-        roomTitle={"Pokój czteroosobowy z widokiem na całe miasto"}
-        numberOfGuests={5}
+        roomTitle={this.state.reservationData.title}
+        numberOfGuests={params.numberOfGuests}
         stayStart={params.startDate}
         stayEnd={params.endDate}
-        price={123}/>
+        price={this.state.reservationData.price}/>
     </React.Fragment>);
   }
 }

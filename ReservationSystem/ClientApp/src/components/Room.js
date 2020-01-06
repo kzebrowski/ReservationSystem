@@ -9,6 +9,22 @@ export default class Room extends Component {
 
   getRandomId = () => { return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15) }; 
   
+  constructor(props){
+    super(props);
+
+    this.onRoomTitleClick = this.onRoomTitleClick.bind(this);
+  }
+
+  onRoomTitleClick() {
+    let registrationData = {
+      roomId: this.props.id,
+      title: this.props.title,
+      price: this.props.price
+    }
+
+    this.props.onRoomTitleClick(registrationData);
+  }
+
   render() {
     let capacityOverflown = this.props.capacity > this.maxCapacityDisplayed;
     let capacityIcon = capacityOverflown ?
@@ -19,7 +35,7 @@ export default class Room extends Component {
       <div className="room-outerview">
         <div className="room-small-picture-box" style={{ backgroundImage: 'url(' + this.props.image + ')' }}></div>
         <div className="room-outerview-details">
-          <div className="room-header" onClick={() => this.props.onRoomTitleClick(this.props.id)}>{this.props.title}</div>
+          <div className="room-header" onClick={() => this.onRoomTitleClick(this.props.id)}>{this.props.title}</div>
           <div className="room-capacity">
             {capacityIcon}{capacityOverflown ? " x " + this.props.capacity : ""}
           </div>
