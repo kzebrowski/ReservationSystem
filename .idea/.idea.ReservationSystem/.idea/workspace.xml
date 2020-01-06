@@ -2,9 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="db2acbdb-754e-4ec0-8bb8-5bf47974378f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReservationSystem/ClientApp/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/ReservationSystem/ClientApp/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReservationSystem/Controllers/SampleDataController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ReservationSystem/Controllers/SampleDataController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.ReservationSystem/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ReservationSystem/.idea/contentModel.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.ReservationSystem/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ReservationSystem/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ReservationSystem/ClientApp/src/components/Administration.js" beforeDir="false" afterPath="$PROJECT_DIR$/ReservationSystem/ClientApp/src/components/Administration.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ReservationSystem/ClientApp/src/components/styles/Modal.css" beforeDir="false" afterPath="$PROJECT_DIR$/ReservationSystem/ClientApp/src/components/styles/Modal.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/RoomsService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/RoomsService.cs" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -17,10 +19,28 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/ReservationSystem/Controllers/SampleDataController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/F7C4E3B2-764A-4142-AF65-9BD03400CDE9/a0/3bdf234a/Volatile.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Repository/ReservationSystemContext.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Repository/RoomRepository.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/ReservationSystem/Program.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/ReservationSystem/Controllers/LoginCredentials.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/088051FB-72DE-4607-81C4-D1937DDE71E2/74/54f0b658/Encoding.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/F7C4E3B2-764A-4142-AF65-9BD03400CDE9/54/14a5e0ff/RuntimeType.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/F7C4E3B2-764A-4142-AF65-9BD03400CDE9/28/681bb546/GenericEqualityComparer`1.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/F7C4E3B2-764A-4142-AF65-9BD03400CDE9/2b/15d722c7/Array.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/ReservationSystem/Controllers/AuthenticationController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/175C4320-BB39-4203-91AA-CA3AC9D64E8D/d7/07287335/ConcurrentDictionary`2.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/E3A667EE-BF3A-417B-BC17-0202412CF202/1f/27f728bb/Queue`1.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/ReservationSystem/Controllers/ReservationsController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/ReservationSystem/Controllers/RoomsController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Services/RoomsService.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/E407D4BA-C36C-45DA-982B-FD389A659F31/D/LockingConcurrentDictionary.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/F77BC367-A944-49E6-BFDA-08B356078EFA/27/806ab9e1/SafeDeleteSslContext.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/E407D4BA-C36C-45DA-982B-FD389A659F31/10/MapperConfiguration.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/088051FB-72DE-4607-81C4-D1937DDE71E2/74/54f0b658/Encoding.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/E407D4BA-C36C-45DA-982B-FD389A659F31/1F/TypePair.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/F7C4E3B2-764A-4142-AF65-9BD03400CDE9/22/c3b95532/Lazy`1.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/751B0FA9-0E94-4DF7-82D9-2609EC984002/e3/b4edd88b/ControllerActionInvoker.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/E407D4BA-C36C-45DA-982B-FD389A659F31/F/Mapper.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/ReservationSystem/Startup.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
@@ -31,6 +51,7 @@
         <option value="$PROJECT_DIR$/ReservationSystem/Controllers/LoginCredentials.cs" />
         <option value="$PROJECT_DIR$/ReservationSystem/Startup.cs" />
         <option value="$PROJECT_DIR$/ReservationSystem/Controllers/AuthenticationController.cs" />
+        <option value="$PROJECT_DIR$/Services/RoomsService.cs" />
       </list>
     </option>
   </component>
@@ -122,6 +143,10 @@
       <workItem from="1570523918897" duration="381000" />
       <workItem from="1571001277196" duration="359000" />
       <workItem from="1574020662481" duration="5451000" />
+      <workItem from="1577131175460" duration="1105000" />
+      <workItem from="1577227967375" duration="306000" />
+      <workItem from="1577311984202" duration="322000" />
+      <workItem from="1577319615048" duration="3296000" />
     </task>
     <servers />
   </component>
@@ -153,16 +178,42 @@
         </breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/ReservationSystem/Controllers/AuthenticationController.cs</url>
-          <line>47</line>
+          <line>41</line>
           <properties documentPath="$PROJECT_DIR$/ReservationSystem/Controllers/AuthenticationController.cs" initialLine="47">
             <startOffsets>
-              <option value="1486" />
+              <option value="1280" />
             </startOffsets>
             <endOffsets>
-              <option value="1487" />
+              <option value="1281" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/ReservationSystem/Controllers/RoomsController.cs</url>
+          <line>30</line>
+          <properties documentPath="$PROJECT_DIR$/ReservationSystem/Controllers/RoomsController.cs" initialLine="30">
+            <startOffsets>
+              <option value="854" />
+            </startOffsets>
+            <endOffsets>
+              <option value="855" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/ReservationSystem/Controllers/RoomsController.cs</url>
+          <line>33</line>
+          <properties documentPath="$PROJECT_DIR$/ReservationSystem/Controllers/RoomsController.cs" initialLine="33">
+            <startOffsets>
+              <option value="917" />
+            </startOffsets>
+            <endOffsets>
+              <option value="934" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="8" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

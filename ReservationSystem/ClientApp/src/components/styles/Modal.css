@@ -19,6 +19,11 @@
     width: 630px;
 }
 
+.confirmation-modal {
+    width: 500px;
+    height: 500px;
+}
+
 .centered-modal {
     position: absolute;
     left: 50%;
