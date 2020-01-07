@@ -17,7 +17,7 @@ export default class Administration extends Component {
     super(props);
 
     this.state = {
-      loading: false,
+      loading: true,
       rooms: [],
       isConfirmationModalOpen: false
     }
@@ -42,6 +42,8 @@ export default class Administration extends Component {
   }
 
   deleteRoom(id) {
+    this.setState({ loading: true });
+
     Axios.delete("/api/rooms/delete", {
     headers: { Authorization: "Bearer " + localStorage.token, 'content-type': 'application/json'},
     data: '"'+id+'"'})
@@ -49,7 +51,7 @@ export default class Administration extends Component {
     .catch(x => {
       console.log(x);
       alert("Wystąpił błąd")})
-    .finally(x => this.setState({isConfirmationModalOpen: false}));
+    .finally(x => this.setState({isConfirmationModalOpen: false, loading: false }));
   }
 
   handleRoomEdit(id) {
@@ -79,9 +81,8 @@ export default class Administration extends Component {
               <PulseLoader
                 css={'margin: 0 auto; width: 100px; height: 10px;'}
                 sizeUnit={"px"}
-                size={17}
+                size={14}
                 color={'#000000'}
-                loading={this.props.loading}
                 />
               </td> :
               this.state.rooms.map((x, i) => 
