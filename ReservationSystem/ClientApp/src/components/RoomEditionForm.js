@@ -56,14 +56,13 @@ export default class RoomEditionForm extends Component {
 
     axios.post(url, formData, {
       headers: { Authorization: "Bearer " + localStorage.token }})
-    .then(() => { 
-      history.push('/admin');
-      alert("Dodano pokój");})
+    .then(() => {
+      history.push('/admin');})
     .catch(error => {
-      if(error.response.status === 401)
-        alert("Aby wykonać tę akcję, musisz się zalogować!");
+      if (error.response.status === 401)
+        this.props.showMessage("Aby wykonać tę akcję, musisz się zalogować!");
       else
-        alert("Wystąpił błąd");
+        this.props.showMessage("Wystąpił błąd");
       return;});
   }
 

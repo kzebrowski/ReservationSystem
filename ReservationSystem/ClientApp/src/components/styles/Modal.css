@@ -23,6 +23,12 @@
     padding: 15px;
 }
 
+.okay-button {
+    width: 100%;
+    max-width: 50px;
+    float: right;
+}
+
 .centered-modal {
     position: absolute;
     left: 50%;

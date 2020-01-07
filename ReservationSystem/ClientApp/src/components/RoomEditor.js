@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import RoomEditionForm from './RoomEditionForm';
+import InformationModal from './InformationModal';
 
 export default class RoomEditor extends Component {
   displayName = RoomEditor.name;
@@ -16,10 +17,16 @@ export default class RoomEditor extends Component {
         capacity: '',
         price: '',
         image: ''
+      },
+      informationModalData: {
+        isOpen: false,
+        message: ''
       }
     };
 
     this.setFormInitialValues = this.setFormInitialValues.bind(this);
+    this.resetInformationFormData = this.resetInformationFormData.bind(this);
+    this.openInformationForm = this.openInformationForm.bind(this);
     this.fetchRoom = this.fetchRoom.bind(this);
   }
 
@@ -49,10 +56,26 @@ export default class RoomEditor extends Component {
       });
   }
 
+  resetInformationFormData() {
+    this.setState({informationModalData: {isOpen: false, message: ''}});
+  }
+
+  openInformationForm(message) {
+    this.setState({informationModalData: {isOpen: true, message: message}});
+  }
+
   render() {
     return(
       <div className="administration-container">
-        <RoomEditionForm roomId={this.state.roomId} imageUrl={this.state.imageUrl} initialValues={this.state.formInitialValues}/>
+        <InformationModal
+          isOpen={this.state.informationModalData.isOpen}
+          message={this.state.informationModalData.message}
+          handleOkay={this.resetInformationFormData}/>
+        <RoomEditionForm
+          roomId={this.state.roomId}
+          imageUrl={this.state.imageUrl}
+          initialValues={this.state.formInitialValues}
+          showMessage={this.openInformationForm}/>
       </div>);
   }
 }
