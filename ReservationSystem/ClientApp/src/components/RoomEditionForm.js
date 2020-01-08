@@ -45,6 +45,8 @@ export default class RoomEditionForm extends Component {
     var url = this.isEditing() ? "api/rooms/update/" : "api/rooms/add"
 
     setSubmitting(true);
+    this.props.setLoading(true);
+
     let formData = new FormData();
     formData.append('title', values.title);
     formData.append('description', values.description);
@@ -63,6 +65,8 @@ export default class RoomEditionForm extends Component {
         this.props.showMessage("Aby wykonać tę akcję, musisz się zalogować!");
       else
         this.props.showMessage("Wystąpił błąd");
+
+      this.props.setLoading(false)
       return;});
   }
 

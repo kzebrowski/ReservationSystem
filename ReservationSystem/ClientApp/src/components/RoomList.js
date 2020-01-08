@@ -17,12 +17,12 @@ export default class RoomList extends Component {
   render() {
     return this.props.loading ?
         <ClipLoader
-        css={this.loaderStyle}
-        sizeUnit={"px"}
-        size={105}
-        color={'#000000'}
-        loading={this.props.loading}
-        />
+          css={this.loaderStyle}
+          sizeUnit={"px"}
+          size={105}
+          color={'#000000'}
+          loading={this.props.loading}
+          />
       : this.props.rooms.map(x =>
         <Room key={x.id}
           id={x.id}
