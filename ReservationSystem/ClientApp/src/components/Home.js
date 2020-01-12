@@ -1,4 +1,4 @@
-import React, { Component} from 'react';
+import React, { Component } from 'react';
 import { UncontrolledCarousel } from 'reactstrap';
 
 export class Home extends Component {
