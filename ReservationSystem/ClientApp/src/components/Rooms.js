@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import RoomList from './RoomList';
 import RoomSearch from './RoomSearch';
 import ReservationModal from './ReservationModal';
+import InformationModal from './InformationModal';
 
 export default class Rooms extends Component {
   displayName = Rooms.name;
@@ -9,10 +10,12 @@ export default class Rooms extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { rooms: [], loading: true, oldParams: {data: ""}, isModalOpen: false, reservationData: {}};
+    this.state = { rooms: [], loading: true, oldParams: {data: ""}, isModalOpen: false, reservationData: {}, message: ''};
 
     this.handleRoomReservation = this.handleRoomReservation.bind(this);
     this.closeModal = this.closeModal.bind(this);
+    this.closeInformationModal = this.closeInformationModal.bind(this);
+    this.showMessage = this.showMessage.bind(this);
 
     this.componentDidUpdate();
   }
@@ -25,7 +28,7 @@ export default class Rooms extends Component {
     }
     else{
       this.setState({oldParams: params});
-      if (params.startDate && params.endDate && params.numberOfGuests){
+      if (this.paramsAreFilled(params)){
         this.fetchData(`api/rooms/search?stayStart=${params.startDate}&stayEnd=${params.endDate}&guests=${params.numberOfGuests}`);
       }
       else {
@@ -34,11 +37,30 @@ export default class Rooms extends Component {
     }
   }
 
+  paramsAreFilled= params => params.startDate && params.endDate && params.numberOfGuests;
+
   closeModal() {
     this.setState({isModalOpen: false});
   }
 
+  closeInformationModal() {
+    this.setState({message: ''});
+  }
+
+  showMessage(message) {
+    this.setState({message: message});
+  }
+
   handleRoomReservation(reservationData){
+    if (!localStorage.getItem('token')) {
+      this.showMessage('Aby dokonać rezerwacji, musisz się zalogować.');
+      return;
+    }
+    if(!this.paramsAreFilled(this.props.match.params)) {
+      this.showMessage('Wypełnij datę pobytu oraz liczbę gości, w formularzu znajdujacym się w górnej części strony, a następnie naciśnij przycisk wyszukiwania.');
+      return;
+    }
+      
     this.setState({isModalOpen: true, reservationData: reservationData});
   }
 
@@ -66,6 +88,7 @@ export default class Rooms extends Component {
         stayStart={params.startDate}
         stayEnd={params.endDate}
         price={this.state.reservationData.price}/>
+      <InformationModal isOpen={this.state.message !== ''} message={this.state.message} handleOkay={this.closeInformationModal}/>
     </React.Fragment>);
   }
 }

@@ -8,7 +8,7 @@ export default class InformationModal extends Component {
   render() {
     return (
       <Modal isOpen={this.props.isOpen} className="centered-modal confirmation-modal">
-        <div>{this.props.message}</div>
+        <div className="text-justify">{this.props.message}</div>
         <button className="generic-submit-button-dark okay-button" onClick={this.props.handleOkay}>Ok</button>
       </Modal>
     );

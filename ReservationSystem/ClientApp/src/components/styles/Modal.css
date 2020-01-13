@@ -17,6 +17,7 @@
 .reservation-modal {
     display: flex;
     width: 630px;
+    min-height: 315px;
 }
 
 .confirmation-modal {
