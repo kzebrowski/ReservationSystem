@@ -4,6 +4,7 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ClipLoader from 'react-spinners/ClipLoader';
 import Axios from 'axios';
+import history from '../history';
 import './styles/Modal.css';
 import './styles/ReservationModal.css';
 
@@ -63,7 +64,9 @@ export default class ReservationModal extends Component {
   }
 
   handleCloseModalClick() {
-    this.setState({success: false});
+    if(this.state.success){
+      history.push("/");
+    }
     this.props.handleCloseModalClick();
   }
 
