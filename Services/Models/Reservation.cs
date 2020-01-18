@@ -1,6 +1,6 @@
 ﻿using System;
 using Repository.Entities;
-using ReservationSystem.Common;
+using Services.Common;
 
 namespace Services.Models
 {

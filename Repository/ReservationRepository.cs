@@ -37,5 +37,21 @@ namespace Repository
                 .Include(x => x.User)
                 .SingleOrDefault(x => x.Id == reservationId);
         }
+
+        public IEnumerable<ReservationEntity> GetAllByEmail(string email)
+        {
+            return _context.Reservations
+                .Include(x => x.Room)
+                .Include(x => x.User)
+                .Where(x => x.User.Email == email);
+        }
+
+        public IEnumerable<ReservationEntity> GetAllByPhoneNumber(string phoneNumber)
+        {
+            return _context.Reservations
+                .Include(x => x.Room)
+                .Include(x => x.User)
+                .Where(x => x.User.PhoneNumber == phoneNumber);
+        }
     }
 }

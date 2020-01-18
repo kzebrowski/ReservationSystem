@@ -12,5 +12,9 @@ namespace Services
         Reservation Create(ReservationCreationDto reservationCreationDto);
 
         Reservation Get(Guid reservationId);
+
+        IEnumerable<Reservation> GetAllByEmail(string email);
+
+        IEnumerable<Reservation> GetAllByPhoneNumber(string phoneNumber);
     }
 }

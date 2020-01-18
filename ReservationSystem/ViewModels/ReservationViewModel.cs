@@ -1,20 +1,23 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
+using Services.Common;
+using Services.Models;
 
 namespace ReservationSystem.ViewModels
 {
     public class ReservationViewModel
     {
-        [Required]
-        public Guid RoomId { get; set; }
+        public Guid Id { get; set; }
 
-        [Required]
-        public Guid UserId { get; set; }
+        public string RoomName { get; set; }
 
-        [Required]
         public DateTime StartDate { get; set; }
 
-        [Required]
         public DateTime EndDate { get; set; }
+
+        public User UserData { get; set; }
+
+        public int Price { get; set; }
+
+        public ReservationStatus Status { get; set; }
     }
 }

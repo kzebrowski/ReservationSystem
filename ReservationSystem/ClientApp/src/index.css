@@ -50,6 +50,10 @@
     z-index: 99;
 }
 
+.fc-b {
+    color: #000000 !important;
+}
+
 .carousel {
     margin: 0 -15px;
 }

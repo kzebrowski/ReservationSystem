@@ -44,6 +44,7 @@ export default class LoginForm extends Component {
         if (data.token){
           localStorage.setItem("token", data.token);
           localStorage.setItem("userEmail", data.email);
+          localStorage.setItem("userPhoneNumber", data.phoneNumber);
           localStorage.setItem("userId", data.id);
           this.props.onUserLogin();
         }

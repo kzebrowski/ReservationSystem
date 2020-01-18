@@ -14,7 +14,12 @@ namespace ReservationSystem.Common
                 .ForMember(x => x.Image, opt => opt.Ignore());
             mapperConfigurationExpression.CreateMap<RoomUpdateViewModel, RoomUpdateDto>()
                 .ForMember(x => x.Image, opt => opt.Ignore());
-            mapperConfigurationExpression.CreateMap<ReservationViewModel, ReservationCreationDto>();
+            mapperConfigurationExpression.CreateMap<ReservationCreationViewModel, ReservationCreationDto>();
+            mapperConfigurationExpression.CreateMap<Reservation, ReservationViewModel>()
+                .ForMember(x => x.RoomName, opt => opt.MapFrom(s => s.Room.Title));
+            mapperConfigurationExpression.CreateMap<Reservation, ReservationViewModel>()
+                .ForMember(x => x.RoomName, opt => opt.MapFrom(s => s.Room.Title))
+                .ForMember(x => x.UserData, opt => opt.MapFrom(s => s.User));
         }
     }
 }

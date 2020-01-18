@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using AutoMapper;
 using Repository;
 using Repository.Entities;
-using ReservationSystem.Common;
 using Services.Models;
+using Services.Common;
 
 namespace Services
 {
@@ -52,6 +52,20 @@ namespace Services
         public Reservation Get(Guid reservationId)
         {
             throw new NotImplementedException();
+        }
+
+        public IEnumerable<Reservation> GetAllByEmail(string email)
+        {
+            var reservationEntities = _reservationService.GetAllByEmail(email);
+
+            return _mapper.Map<IEnumerable<Reservation>>(reservationEntities);
+        }
+
+        public IEnumerable<Reservation> GetAllByPhoneNumber(string phoneNumber)
+        {
+            var reservationEntities = _reservationService.GetAllByPhoneNumber(phoneNumber);
+
+            return _mapper.Map<IEnumerable<Reservation>>(reservationEntities);
         }
     }
 }

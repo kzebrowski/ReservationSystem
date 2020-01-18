@@ -1,4 +1,4 @@
-﻿namespace ReservationSystem.Common
+﻿namespace Repository.Common
 {
     public enum ReservationStatus
     {

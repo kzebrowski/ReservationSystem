@@ -77,10 +77,10 @@ export class Layout extends Component {
                     </DropdownToggle>
                     <DropdownMenu right>
                       <DropdownItem>
-                        Moje konto
+                        <NavLink className="fc-b" tag={Link} to="/myaccount">Moje konto</NavLink>
                       </DropdownItem>
                       <DropdownItem onClick={this.handleLoginClick}>
-                        Wyloguj się
+                        <NavLink className="fc-b" tag={Link} to="/myaccount">Wyloguj się</NavLink>
                       </DropdownItem>
                     </DropdownMenu>
                   </UncontrolledDropdown>}

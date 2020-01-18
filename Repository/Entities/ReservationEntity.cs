@@ -1,6 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
-using ReservationSystem.Common;
+using Repository.Common;
 
 namespace Repository.Entities
 {
