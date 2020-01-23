@@ -11,19 +11,19 @@ namespace Services
     public class ReservationService : IReservationService
     {
         private readonly IMapper _mapper;
-        private readonly IReservationRepository _reservationService;
+        private readonly IReservationRepository _reservationRepository;
         private readonly IRoomsService _roomsService;
 
-        public ReservationService(IMapper mapper, IReservationRepository reservationService, IRoomsService roomsService)
+        public ReservationService(IMapper mapper, IReservationRepository reservationRepository, IRoomsService roomsService)
         {
             _mapper = mapper;
-            _reservationService = reservationService;
+            _reservationRepository = reservationRepository;
             _roomsService = roomsService;
         }
 
         public IEnumerable<Reservation> GetAll()
         {
-            var reservationEntities = _reservationService.GetAll();
+            var reservationEntities = _reservationRepository.GetAll();
 
             return _mapper.Map<IEnumerable<Reservation>>(reservationEntities);
         }
@@ -44,28 +44,40 @@ namespace Services
             };
 
             var reservationEntity = _mapper.Map<ReservationEntity>(reservation);
-            var createdReservation = _reservationService.Create(reservationEntity);
+            var createdReservation = _reservationRepository.Create(reservationEntity);
 
             return _mapper.Map<Reservation>(createdReservation);
         }
 
         public Reservation Get(Guid reservationId)
         {
-            throw new NotImplementedException();
+            return _mapper.Map<Reservation>(_reservationRepository.Get(reservationId));
         }
 
         public IEnumerable<Reservation> GetAllByEmail(string email)
         {
-            var reservationEntities = _reservationService.GetAllByEmail(email);
+            var reservationEntities = _reservationRepository.GetAllByEmail(email);
 
             return _mapper.Map<IEnumerable<Reservation>>(reservationEntities);
         }
 
         public IEnumerable<Reservation> GetAllByPhoneNumber(string phoneNumber)
         {
-            var reservationEntities = _reservationService.GetAllByPhoneNumber(phoneNumber);
+            var reservationEntities = _reservationRepository.GetAllByPhoneNumber(phoneNumber);
 
             return _mapper.Map<IEnumerable<Reservation>>(reservationEntities);
+        }
+
+        public Reservation Cancel(Guid id)
+        {
+            var reservation = Get(id);
+
+            if (reservation == null || reservation.Status != ReservationStatus.Pending)
+                return null;
+
+            var reservationEntity = _reservationRepository.Cancel(id);
+            
+            return _mapper.Map<Reservation>(reservationEntity);
         }
     }
 }

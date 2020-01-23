@@ -16,5 +16,7 @@ namespace Services
         IEnumerable<Reservation> GetAllByEmail(string email);
 
         IEnumerable<Reservation> GetAllByPhoneNumber(string phoneNumber);
+
+        Reservation Cancel(Guid id);
     }
 }

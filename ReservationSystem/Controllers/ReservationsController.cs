@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -33,6 +34,18 @@ namespace ReservationSystem.Controllers
             var createdReservation = _reservationService.Create(reservationCreationDto);
 
             return Ok(createdReservation);
+        }
+
+        [Authorize]
+        [HttpPost("[action]")]
+        public IActionResult Cancel([FromBody]Guid id)
+        {
+            if (id == Guid.Empty)
+                return Ok();
+
+            var canceledReservation = _reservationService.Cancel(id);
+
+            return Ok(canceledReservation);
         }
 
         [Authorize]

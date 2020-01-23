@@ -15,5 +15,7 @@ namespace Repository
         IEnumerable<ReservationEntity> GetAllByEmail(string email);
 
         IEnumerable<ReservationEntity> GetAllByPhoneNumber(string phoneNumber);
+
+        ReservationEntity Cancel(Guid id);
     }
 }

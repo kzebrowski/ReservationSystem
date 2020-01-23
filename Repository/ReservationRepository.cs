@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using Repository.Common;
 using Repository.Entities;
 
 namespace Repository
@@ -52,6 +53,20 @@ namespace Repository
                 .Include(x => x.Room)
                 .Include(x => x.User)
                 .Where(x => x.User.PhoneNumber == phoneNumber);
+        }
+
+        public ReservationEntity Cancel(Guid id)
+        {
+            var reservation = Get(id);
+            
+            if (reservation != null)
+            {
+                reservation.Status = ReservationStatus.Canceled;
+                _context.SaveChanges();
+                return reservation;
+            }
+
+            return null;
         }
     }
 }

@@ -5,24 +5,52 @@ import ActionIcon from './ActionIcon';
 import PulseLoader from 'react-spinners/PulseLoader';
 import './styles/UserPage.css';
 import Axios from 'axios';
+import InformationModal from './InformationModal';
 
 export default class UserPage extends Component {
   displayName = UserPage.name;
 
   constructor(props) {
     super(props);
-    this.state = {reservations: {}, reservationsLoading: true};
+    this.state = {reservations: {}, reservationsLoading: true, modalmessage: ''};
 
     this.fetchReservations = this.fetchReservations.bind(this);
 
+    this.handleCancelReservation = this.handleCancelReservation.bind(this);
+    this.showMessage = this.showMessage.bind(this);
+    this.clearMessage = this.clearMessage.bind(this);
+
     this.fetchReservations();
   }
+  
+  renderCancelButton = x => x.status === 'Anulowane' ? '' : <ActionIcon icon={faTimes} itemId={x.id} handleClick={this.handleCancelReservation}/>;
 
   fetchReservations() {
     this.setState({ reservationsLoading: true });
 
     Axios.get('/api/reservations/getbyemail/' + localStorage.userEmail, { headers: { Authorization: "Bearer " + localStorage.token } })
       .then(response => this.setState({ reservations: response.data, reservationsLoading: false}));
+  }
+
+  handleCancelReservation(id) {
+    this.setState({reservationsLoading: true});
+
+    Axios.post("/api/reservations/cancel", 
+    '"'+id+'"',
+    { headers: { Authorization: "Bearer " + localStorage.token, 'content-type': 'application/json' } })
+      .then(() => {
+        this.showMessage("Rezerwacja została anulowana.");
+        this.fetchReservations()})
+      .catch(() => this.showMessage("Wystąpił błąd. Spróbuj ponownie."))
+      .finally(() => this.setState({reservationsLoading: false}));
+  }
+
+  clearMessage() {
+    this.setState({modalmessage: ''});
+  }
+
+  showMessage(message) {
+    this.setState({modalmessage: message});
   }
 
   render() {
@@ -52,7 +80,7 @@ export default class UserPage extends Component {
             {
               this.state.reservationsLoading ? 
               <tr>
-                <td colSpan='6'>
+                <td colSpan='7'>
                 <PulseLoader
                   css={'margin: 0 auto; width: 100px; height: 10px;'}
                   sizeUnit={"px"}
@@ -69,11 +97,12 @@ export default class UserPage extends Component {
                 <td>{x.endDate.split('T')[0]}</td>
                 <td>{x.price}</td>
                 <td>{x.status}</td>
-                <td><ActionIcon icon={faTimes} itemId={x.id} /></td>
+                <td>{this.renderCancelButton(x)}</td>
               </tr>
             )}
           </tbody>
         </Table>
+        <InformationModal isOpen={this.state.modalmessage !== ''} message={this.state.modalmessage} handleOkay={this.clearMessage} />
     </div>);
   }
 }

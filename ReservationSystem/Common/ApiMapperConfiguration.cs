@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ReservationSystem.ViewModels;
+using Services.Common;
 using Services.Models;
 
 namespace ReservationSystem.Common
@@ -19,7 +20,8 @@ namespace ReservationSystem.Common
                 .ForMember(x => x.RoomName, opt => opt.MapFrom(s => s.Room.Title));
             mapperConfigurationExpression.CreateMap<Reservation, ReservationViewModel>()
                 .ForMember(x => x.RoomName, opt => opt.MapFrom(s => s.Room.Title))
-                .ForMember(x => x.UserData, opt => opt.MapFrom(s => s.User));
+                .ForMember(x => x.UserData, opt => opt.MapFrom(s => s.User))
+                .ForMember(x => x.Status, opt => opt.MapFrom(s => s.Status.ToFriendlyString()));
         }
     }
 }

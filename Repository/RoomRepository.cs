@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using Repository.Common;
 using Repository.Entities;
 
 namespace Repository
@@ -52,7 +53,7 @@ namespace Repository
             return _context.Rooms
                 .Include(x => x.Reservations)
                 .Where(x => x.Capacity >= minimalCapacity)
-                .Where(x => !x.Reservations.Any(r => r.StartDate < stayEnd && stayStart < r.EndDate));
+                .Where(x => !x.Reservations.Any(r => r.Status != ReservationStatus.Canceled && r.StartDate < stayEnd && stayStart < r.EndDate));
         }
     }
 }
