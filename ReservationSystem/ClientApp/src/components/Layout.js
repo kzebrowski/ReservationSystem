@@ -80,7 +80,7 @@ export class Layout extends Component {
                         <NavLink className="fc-b" tag={Link} to="/myaccount">Moje konto</NavLink>
                       </DropdownItem>
                       <DropdownItem onClick={this.handleLoginClick}>
-                        <NavLink className="fc-b" tag={Link} to="/myaccount">Wyloguj się</NavLink>
+                        <NavLink className="fc-b" >Wyloguj się</NavLink>
                       </DropdownItem>
                     </DropdownMenu>
                   </UncontrolledDropdown>}

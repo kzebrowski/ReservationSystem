@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -55,7 +56,8 @@ namespace ReservationSystem.Controllers
             if (!_userService.CheckEmailExits(email))
                 return Ok();
 
-            var reservations = _reservationService.GetAllByEmail(email);
+            var reservations = _reservationService.GetAllByEmail(email).OrderBy(x => x.Status).ThenBy(x => x.StartDate);
+
             var reservationViewModels = _mapper.Map<IEnumerable<ReservationViewModel>>(reservations);
 
             return Ok(reservationViewModels);
