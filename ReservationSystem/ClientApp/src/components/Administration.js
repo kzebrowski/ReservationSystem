@@ -6,7 +6,8 @@ import history from '../history';
 import ActionIcon from './ActionIcon';
 import Axios from 'axios';
 import PulseLoader from 'react-spinners/PulseLoader';
-import ConfirmationModal from './ConfirmationModal'
+import ConfirmationModal from './ConfirmationModal';
+import ReservationsSection from './ReservationsSection';
 import './styles/Administration.css';
 
 export default class Administration extends Component {
@@ -19,13 +20,17 @@ export default class Administration extends Component {
     this.state = {
       loading: true,
       rooms: [],
-      isConfirmationModalOpen: false
+      isConfirmationModalOpen: false,
+      reservationsLoading: true,
+      confirmationModalData: {isOpen: false, id: ''}
     }
 
     this.updateRooms = this.updateRooms.bind(this);
     this.handleRoomDeletion = this.handleRoomDeletion.bind(this);
+    this.fetchReservations = this.fetchReservations.bind(this);
 
     this.updateRooms();
+    this.fetchReservations();
   }
 
   updateRooms() {
@@ -34,6 +39,13 @@ export default class Administration extends Component {
     fetch('/api/rooms')
       .then(response => response.json())
       .then(data => this.setState({ rooms: data, loading: false}));
+  }
+
+  fetchReservations() {
+    this.setState({ reservationsLoading: true });
+
+    Axios.get('/api/reservations/getbyemail/' + localStorage.userEmail, { headers: { Authorization: "Bearer " + localStorage.token } })
+      .then(response => this.setState({ reservations: response.data, reservationsLoading: false}));
   }
 
   handleRoomDeletion(id) {
@@ -97,6 +109,10 @@ export default class Administration extends Component {
             )}
           </tbody>
         </Table>
+
+        <h2 className="pt-4 mb-4">Rezerwacje</h2>
+        <ReservationsSection isLoading={this.state.reservationsLoading} data={this.state.reservations} refreshData={this.fetchReservations} />
+
         <ConfirmationModal
           message="Czy na pewno chcesz usunąć ten pokój?"
           isOpen={this.state.isConfirmationModalOpen}
