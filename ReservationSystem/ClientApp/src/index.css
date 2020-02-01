@@ -63,6 +63,22 @@
     height: 500px;
 }
 
+.front-page-section{
+    display: flex;
+    width: 100%;
+    min-height: 250px;
+    text-align: center;
+}
+
+.vertically-centered {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    height: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
 .carousel-inner > .carousel-item > img {
     object-fit: cover;
 }
@@ -71,11 +87,17 @@
     .carousel-inner {
         height: 350px;
     }
+    .front-page-section {
+        min-height: 350px;
+    }
 }
 
 @media screen and (max-width: 800px){
     .carousel-inner {
         height: 250px;
+    }
+    .front-page-section {
+        min-height: 350px;
     }
 }
 
@@ -83,10 +105,16 @@
     .carousel-inner {
         height: 200px;
     }
+    .front-page-section {
+        min-height: 350px;
+    }
 }
 
 @media screen and (max-width: 465px){
     .carousel-inner {
         height: 150px;
+    }
+    .front-page-section {
+        min-height: 350px;
     }
 }
