@@ -63,11 +63,17 @@
     height: 500px;
 }
 
-.front-page-section{
+.front-page-section {
     display: flex;
     width: 100%;
     min-height: 250px;
     text-align: center;
+}
+
+.colored-front-page-section {
+    background-color: #ededed;
+    width: calc(100% + 30px);
+    margin: 0 -15px;
 }
 
 .vertically-centered {

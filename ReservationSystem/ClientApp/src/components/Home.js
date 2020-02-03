@@ -30,7 +30,7 @@ export class Home extends Component {
               Mauris iaculis vel mi a ultricies.</h6>
           </div>
         </div>
-        <div className="front-page-section">
+        <div className="front-page-section colored-front-page-section">
           <div className="vertically-centered">
             <h2 className="d-flex justify-content-center">Znajdź pokój dla siebie.</h2>
             <h6 className="pt-2 d-flex justify-content-center">Wpisz daty swojego pobytu i sprawdź dostępność naszych pokoi.</h6>
