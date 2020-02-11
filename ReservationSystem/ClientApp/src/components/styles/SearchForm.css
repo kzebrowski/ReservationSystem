@@ -1,0 +1,35 @@
+.search-form-item{
+    display: inline-block;
+    text-align: center;
+    border: 1px solid #e8e8e8;
+    border-radius: 2px;
+    margin: 5px 5px 0px 0px;
+}
+
+.search-form {    
+    width: 100%;
+    max-width: 1200px;
+    min-height: 50px;
+    padding: 20px 10px 20px 10px;
+    margin: 0 auto;
+}
+
+.search-form-content{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+@media screen and (max-width: 730px){
+    .search-form-content{
+        flex-direction: column;
+    }
+
+    .search-form{
+        padding: 10px 5px 10px 5px;
+    }
+
+    .search-form-item{
+        width: 100%;
+    }
+}

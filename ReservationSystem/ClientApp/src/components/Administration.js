@@ -9,6 +9,7 @@ import PulseLoader from 'react-spinners/PulseLoader';
 import ConfirmationModal from './ConfirmationModal';
 import ReservationsSection from './ReservationsSection';
 import './styles/Administration.css';
+import ReservationSearch from './ReservationsSearch';
 
 export default class Administration extends Component {
   displayName = Administration.name;
@@ -111,6 +112,7 @@ export default class Administration extends Component {
         </Table>
 
         <h2 className="pt-4 mb-4">Rezerwacje</h2>
+        <ReservationSearch />
         <ReservationsSection isLoading={this.state.reservationsLoading} data={this.state.reservations} refreshData={this.fetchReservations} />
 
         <ConfirmationModal

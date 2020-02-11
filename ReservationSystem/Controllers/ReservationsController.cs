@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using ReservationSystem.Common;
 using ReservationSystem.ViewModels;
 using Services;
 using Services.Models;
@@ -57,6 +59,22 @@ namespace ReservationSystem.Controllers
                 return Ok();
 
             var reservations = _reservationService.GetAllByEmail(email).OrderBy(x => x.Status).ThenBy(x => x.StartDate);
+
+            var reservationViewModels = _mapper.Map<IEnumerable<ReservationViewModel>>(reservations);
+
+            return Ok(reservationViewModels);
+        }
+
+        [Authorize]
+        [HttpGet("getbyphonenumber/{email}")]
+        public IActionResult GetReservationsByPhoneNumber(string phoneNumber)
+        {
+            if (!_userService.CheckPhoneNumberTaken(phoneNumber))
+                return Ok(new ValidationError {Field = "phoneNumber", Message = "Podany numer telefonu nie istnieje."});
+            if(!new Regex(@"[0-9]{9}").Match(phoneNumber).Success)
+                return Ok(new ValidationError {Field = "phoneNumber", Message = "Numer telefonu ma niepoprawny format."});
+
+            var reservations = _reservationService.GetAllByPhoneNumber(phoneNumber).OrderBy(x => x.Status).ThenBy(x => x.StartDate);
 
             var reservationViewModels = _mapper.Map<IEnumerable<ReservationViewModel>>(reservations);
 

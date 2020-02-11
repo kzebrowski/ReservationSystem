@@ -4,6 +4,7 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import 'react-day-picker/lib/style.css';
 import './styles/RoomSearch.css';
+import './styles/SearchForm.css';
 import LocalizedDatePicker from './LocalizedDatePicker';
 import history from '../history';
 
@@ -80,9 +81,9 @@ export default class RoomSearch extends Component {
 
   render() {
     return (
-      <div className="room-search-form">
+      <div className="search-form">
         <form onSubmit={this.handleSubmit}>
-          <div className="room-search-form-content">
+          <div className="search-form-content">
             <LocalizedDatePicker
               placeholder='Przyjazd'
               onChange={this.handleStartDateChange}

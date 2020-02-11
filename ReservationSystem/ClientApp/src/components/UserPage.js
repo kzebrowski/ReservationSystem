@@ -30,7 +30,7 @@ export default class UserPage extends Component {
       <div className="userdata-section">
         <div><b>Email</b>: {localStorage.userEmail}</div>
         <div><b>Numer telefonu</b>: {localStorage.userPhoneNumber}</div>
-        <div><b>Hasło</b>: **********</div>
+        <div><b>Hasło</b>: **********</div><a>Zmień hasło</a>
       </div>
       <h4 className="pt-4">Moje rezerwacje</h4>
       <ReservationsSection isLoading={this.state.reservationsLoading} data={this.state.reservations} refreshData={this.fetchReservations} />
