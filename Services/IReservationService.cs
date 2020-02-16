@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Repository.Entities;
+using Services.Common;
 using Services.Models;
 
 namespace Services
@@ -16,6 +16,8 @@ namespace Services
         IEnumerable<Reservation> GetAllByEmail(string email);
 
         IEnumerable<Reservation> GetAllByPhoneNumber(string phoneNumber);
+
+        Reservation UpdateStatus(Guid reservationId, ReservationStatus status);
 
         Reservation Cancel(Guid id);
     }

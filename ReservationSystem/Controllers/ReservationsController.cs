@@ -56,7 +56,7 @@ namespace ReservationSystem.Controllers
         public IActionResult GetReservationsByEmail(string email)
         {
             if (!_userService.CheckEmailExits(email))
-                return Ok();
+                return BadRequest();
 
             var reservations = _reservationService.GetAllByEmail(email).OrderBy(x => x.Status).ThenBy(x => x.StartDate);
 
@@ -66,13 +66,26 @@ namespace ReservationSystem.Controllers
         }
 
         [Authorize]
-        [HttpGet("getbyphonenumber/{email}")]
+        [HttpPost("")]
+        public IActionResult ChangeState([FromBody]StatusChangeViewModel statusChangeData)
+        {
+            if (!ModelState.IsValid)
+                Ok();
+
+            var updatedReservation =
+                _reservationService.UpdateStatus(statusChangeData.ReservationId, statusChangeData.Status);
+
+            return Ok(updatedReservation);
+        }
+
+        [Authorize]
+        [HttpGet("getbyphonenumber/{phoneNumber}")]
         public IActionResult GetReservationsByPhoneNumber(string phoneNumber)
         {
             if (!_userService.CheckPhoneNumberTaken(phoneNumber))
-                return Ok(new ValidationError {Field = "phoneNumber", Message = "Podany numer telefonu nie istnieje."});
+                return BadRequest(new ValidationError {Field = "phoneNumber", Message = "Podany numer telefonu nie istnieje."});
             if(!new Regex(@"[0-9]{9}").Match(phoneNumber).Success)
-                return Ok(new ValidationError {Field = "phoneNumber", Message = "Numer telefonu ma niepoprawny format."});
+                return BadRequest(new ValidationError {Field = "phoneNumber", Message = "Numer telefonu ma niepoprawny format."});
 
             var reservations = _reservationService.GetAllByPhoneNumber(phoneNumber).OrderBy(x => x.Status).ThenBy(x => x.StartDate);
 

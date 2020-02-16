@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Repository.Common;
 using Repository.Entities;
 
 namespace Repository
@@ -13,6 +14,8 @@ namespace Repository
         ReservationEntity Get(Guid reservationId);
 
         IEnumerable<ReservationEntity> GetAllByEmail(string email);
+
+        ReservationEntity UpdateStatus(Guid reservationId, ReservationStatus status);
 
         IEnumerable<ReservationEntity> GetAllByPhoneNumber(string phoneNumber);
 

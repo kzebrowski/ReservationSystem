@@ -21,17 +21,18 @@ export default class Administration extends Component {
     this.state = {
       loading: true,
       rooms: [],
+      reservations: [],
       isConfirmationModalOpen: false,
-      reservationsLoading: true,
+      reservationsLoading: false,
       confirmationModalData: {isOpen: false, id: ''}
     }
 
     this.updateRooms = this.updateRooms.bind(this);
     this.handleRoomDeletion = this.handleRoomDeletion.bind(this);
-    this.fetchReservations = this.fetchReservations.bind(this);
+    this.setReservations = this.setReservations.bind(this);
+    this.setReservationsLoading = this.setReservationsLoading.bind(this);
 
     this.updateRooms();
-    this.fetchReservations();
   }
 
   updateRooms() {
@@ -40,13 +41,6 @@ export default class Administration extends Component {
     fetch('/api/rooms')
       .then(response => response.json())
       .then(data => this.setState({ rooms: data, loading: false}));
-  }
-
-  fetchReservations() {
-    this.setState({ reservationsLoading: true });
-
-    Axios.get('/api/reservations/getbyemail/' + localStorage.userEmail, { headers: { Authorization: "Bearer " + localStorage.token } })
-      .then(response => this.setState({ reservations: response.data, reservationsLoading: false}));
   }
 
   handleRoomDeletion(id) {
@@ -65,6 +59,14 @@ export default class Administration extends Component {
       console.log(x);
       alert("Wystąpił błąd")})
     .finally(x => this.setState({isConfirmationModalOpen: false, loading: false }));
+  }
+
+  setReservations(value) {
+      this.setState({ reservations: value });
+  }
+
+  setReservationsLoading(value) {
+    this.setState({ reservationsLoading: value});
   }
 
   handleRoomEdit(id) {
@@ -112,7 +114,7 @@ export default class Administration extends Component {
         </Table>
 
         <h2 className="pt-4 mb-4">Rezerwacje</h2>
-        <ReservationSearch />
+        <ReservationSearch setLoading={this.setReservationsLoading} setReservations={this.setReservations} />
         <ReservationsSection isLoading={this.state.reservationsLoading} data={this.state.reservations} refreshData={this.fetchReservations} />
 
         <ConfirmationModal

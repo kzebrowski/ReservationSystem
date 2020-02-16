@@ -47,6 +47,19 @@ namespace Repository
                 .Where(x => x.User.Email == email);
         }
 
+        public ReservationEntity UpdateStatus(Guid reservationId, ReservationStatus status)
+        {
+            var reservation = _context.Reservations.SingleOrDefault(x => x.Id == reservationId);
+
+            if (reservation != null)
+            {
+                reservation.Status = status;
+                _context.SaveChanges();
+            }
+
+            return reservation;
+        }
+
         public IEnumerable<ReservationEntity> GetAllByPhoneNumber(string phoneNumber)
         {
             return _context.Reservations

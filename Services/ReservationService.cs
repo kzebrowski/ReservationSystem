@@ -68,6 +68,13 @@ namespace Services
             return _mapper.Map<IEnumerable<Reservation>>(reservationEntities);
         }
 
+        public Reservation UpdateStatus(Guid reservationId, ReservationStatus status)
+        {
+            var reservationEntity = _reservationRepository.UpdateStatus(reservationId, (Repository.Common.ReservationStatus)status);
+
+            return _mapper.Map<Reservation>(reservationEntity);
+        }
+
         public Reservation Cancel(Guid id)
         {
             var reservation = Get(id);

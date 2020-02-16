@@ -65,13 +65,14 @@ export default class ReservationsSection extends Component {
               <th>Cena</th>
               <th>Status</th>
               <th></th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
             {
               this.props.isLoading || this.state.reservationsLoading ?
                 <tr>
-                  <td colSpan='7'>
+                  <td colSpan='8'>
                     <PulseLoader
                       css={'margin: 0 auto; width: 100px; height: 10px;'}
                       sizeUnit={"px"}
@@ -89,6 +90,7 @@ export default class ReservationsSection extends Component {
                     <td>{x.price}</td>
                     <td>{x.status}</td>
                     <td>{this.renderCancelButton(x)}</td>
+                    <td><a className="pointer" style={{color: '#7aadff'}}>{x.status == 'Anulowane' ? '' : 'Zmień status'}</a></td>
                   </tr>
                 )}
           </tbody>
