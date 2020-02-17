@@ -129,19 +129,24 @@
               <e p="Extensions.js" t="Include" />
               <e p="FetchData.js" t="Include" />
               <e p="Home.js" t="Include" />
+              <e p="InformationModal.js" t="Include" />
               <e p="Layout.js" t="Include" />
+              <e p="Loader.js" t="Include" />
               <e p="LocalizedDatePicker.js" t="Include" />
               <e p="LoginForm.js" t="Include" />
               <e p="LoginModal.js" t="Include" />
               <e p="NavMenu.css" t="Include" />
               <e p="NavMenu.js" t="Include" />
               <e p="ReservationModal.js" t="Include" />
+              <e p="ReservationsSearch.js" t="Include" />
+              <e p="ReservationsSection.js" t="Include" />
               <e p="Room.js" t="Include" />
               <e p="RoomEditionForm.js" t="Include" />
               <e p="RoomEditor.js" t="Include" />
               <e p="RoomList.js" t="Include" />
               <e p="Rooms.js" t="Include" />
               <e p="RoomSearch.js" t="Include" />
+              <e p="StatusChangeModal.js" t="Include" />
               <e p="styles" t="Include">
                 <e p="Administration.css" t="Include" />
                 <e p="LoginForm.css" t="Include" />
@@ -151,7 +156,10 @@
                 <e p="Room.css" t="Include" />
                 <e p="RoomEditionForm.css" t="Include" />
                 <e p="RoomSearch.css" t="Include" />
+                <e p="SearchForm.css" t="Include" />
+                <e p="UserPage.css" t="Include" />
               </e>
+              <e p="UserPage.js" t="Include" />
               <e p="UserRegistrationForm.js" t="Include" />
             </e>
             <e p="history.js" t="Include" />
@@ -189,10 +197,12 @@
         <e p="Startup.cs" t="Include" />
         <e p="ViewModels" t="Include">
           <e p="LoginCredentials.cs" t="Include" />
+          <e p="ReservationCreationViewModel.cs" t="Include" />
           <e p="ReservationViewModel.cs" t="Include" />
           <e p="RoomCreationViewModel.cs" t="Include" />
           <e p="RoomSearchData.cs" t="Include" />
           <e p="RoomUpdateViewModel.cs" t="Include" />
+          <e p="StatusChangeViewModel.cs" t="Include" />
           <e p="UserCreationViewModel.cs" t="Include" />
         </e>
       </e>

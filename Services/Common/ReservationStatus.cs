@@ -1,4 +1,6 @@
-﻿namespace Services.Common
+﻿using System;
+
+namespace Services.Common
 {
     public enum ReservationStatus
     {
@@ -23,7 +25,7 @@
                 case ReservationStatus.Canceled:
                     return "Anulowane";
                 default:
-                    return "";
+                    throw new ArgumentOutOfRangeException();
             }
         }
     }

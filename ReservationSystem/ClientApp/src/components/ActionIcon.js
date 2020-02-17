@@ -11,7 +11,7 @@ export default class ActionIcon extends Component {
   }
 
   handleClick() {
-    this.props.handleClick(this.props.itemId);
+    this.props.handleClick(this.props.data);
   }
 
   render() {

@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using ReservationSystem.Common;
 using ReservationSystem.ViewModels;
 using Services;
+using Services.Common;
 using Services.Models;
 
 namespace ReservationSystem.Controllers
@@ -66,14 +67,14 @@ namespace ReservationSystem.Controllers
         }
 
         [Authorize]
-        [HttpPost("")]
-        public IActionResult ChangeState([FromBody]StatusChangeViewModel statusChangeData)
+        [HttpPost("[action]")]
+        public IActionResult ChangeStatus([FromBody]StatusChangeViewModel statusChangeData)
         {
             if (!ModelState.IsValid)
                 Ok();
 
             var updatedReservation =
-                _reservationService.UpdateStatus(statusChangeData.ReservationId, statusChangeData.Status);
+                _reservationService.UpdateStatus(statusChangeData.ReservationId, (ReservationStatus)statusChangeData.Status);
 
             return Ok(updatedReservation);
         }

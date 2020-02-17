@@ -10,6 +10,7 @@ import ConfirmationModal from './ConfirmationModal';
 import ReservationsSection from './ReservationsSection';
 import './styles/Administration.css';
 import ReservationSearch from './ReservationsSearch';
+import StatusChangeModal from './StatusChangeModal';
 
 export default class Administration extends Component {
   displayName = Administration.name;
@@ -43,17 +44,17 @@ export default class Administration extends Component {
       .then(data => this.setState({ rooms: data, loading: false}));
   }
 
-  handleRoomDeletion(id) {
-    this.confirmationModalData = {id: id};
+  handleRoomDeletion(data) {
+    this.confirmationModalData = {id: data.id};
     this.setState({isConfirmationModalOpen: true});
   }
 
-  deleteRoom(id) {
+  deleteRoom(data) {
     this.setState({ loading: true });
 
     Axios.delete("/api/rooms/delete", {
     headers: { Authorization: "Bearer " + localStorage.token, 'content-type': 'application/json'},
-    data: '"'+id+'"'})
+    data: '"'+data.id+'"'})
     .then(x => this.updateRooms())
     .catch(x => {
       console.log(x);
@@ -106,8 +107,8 @@ export default class Administration extends Component {
                 <td>{x.title}</td>
                 <td>{x.capacity}</td>
                 <td>{x.price}</td>
-                <td><ActionIcon icon={faTrashAlt} itemId={x.id} handleClick={this.handleRoomDeletion}/></td>
-                <td><ActionIcon icon={faEdit} itemId={x.id} handleClick={this.handleRoomEdit}/></td>
+                <td><ActionIcon icon={faTrashAlt} data={{id: x.id}} handleClick={this.handleRoomDeletion}/></td>
+                <td><ActionIcon icon={faEdit} data={{id: x.id}} handleClick={this.handleRoomEdit}/></td>
               </tr>
             )}
           </tbody>

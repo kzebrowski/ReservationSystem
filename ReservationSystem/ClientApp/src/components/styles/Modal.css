@@ -30,6 +30,10 @@
     float: right;
 }
 
+.status-change-modal {
+    width: 500px;
+}
+
 .centered-modal {
     position: absolute;
     left: 50%;

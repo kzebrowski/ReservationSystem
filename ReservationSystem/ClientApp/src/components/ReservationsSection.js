@@ -4,8 +4,10 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import ActionIcon from './ActionIcon';
 import PulseLoader from 'react-spinners/PulseLoader';
 import InformationModal from './InformationModal';
+import { faEdit } from '@fortawesome/free-regular-svg-icons';
 import ConfirmationModal from './ConfirmationModal';
 import Axios from 'axios';
+import StatusChangeModal from './StatusChangeModal';
 
 export default class ReservationsSection extends Component {
   displayName = ReservationsSection.name;
@@ -14,13 +16,20 @@ export default class ReservationsSection extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {reservationsLoading: false, modalmessage: '', confirmationModalData: {isOpen: false, id: ''}};
+    this.state = {
+      reservationsLoading: false,
+      modalmessage: '',
+      confirmationModalData: {isOpen: false, id: ''},
+      stausChangeModalData: {isOpen: false, status: '', id: ''}
+    };
 
     this.showMessage = this.showMessage.bind(this);
     this.clearMessage = this.clearMessage.bind(this);
     this.openConfirmationModal = this.openConfirmationModal.bind(this);
     this.hideConfirmationModal = this.hideConfirmationModal.bind(this);
     this.cancelReservation = this.cancelReservation.bind(this);
+    this.handleStatusChange = this.handleStatusChange.bind(this);
+    this.hideStatusChangeModal = this.hideStatusChangeModal.bind(this);
   }
 
   clearMessage() {
@@ -37,6 +46,14 @@ export default class ReservationsSection extends Component {
 
   hideConfirmationModal() {
     this.setState({confirmationModalData: {isOpen: false} });
+  }
+
+  handleStatusChange(data) {
+    this.setState({stausChangeModalData: {id: data.id, status: data.status, isOpen: true}});
+  }
+
+  hideStatusChangeModal() {
+    this.setState({stausChangeModalData: {isOpen: false}});
   }
 
   cancelReservation(id) {
@@ -82,7 +99,7 @@ export default class ReservationsSection extends Component {
                   </td>
                 </tr> :
                 this.props.data.map((x, i) =>
-                  <tr>
+                  <tr key={x.id}>
                     <td>{i + 1}</td>
                     <td>{x.roomName}</td>
                     <td>{x.startDate.split('T')[0]}</td>
@@ -90,17 +107,23 @@ export default class ReservationsSection extends Component {
                     <td>{x.price}</td>
                     <td>{x.status}</td>
                     <td>{this.renderCancelButton(x)}</td>
-                    <td><a className="pointer" style={{color: '#7aadff'}}>{x.status == 'Anulowane' ? '' : 'Zmień status'}</a></td>
+                    <td>{x.status === 'Anulowane' ? '' : <ActionIcon icon={faEdit} data={{id: x.id, status: x.status}} handleClick={this.handleStatusChange}/>}</td>
                   </tr>
                 )}
           </tbody>
         </Table>
         <InformationModal isOpen={this.state.modalmessage !== ''} message={this.state.modalmessage} handleOkay={this.clearMessage} />
-        <ConfirmationModal isOpen={this.state.confirmationModalData.isOpen}
+        <ConfirmationModal
+          isOpen={this.state.confirmationModalData.isOpen}
           message="Czy na pewno chcesz anulować rezerwację?"
           data={this.state.confirmationModalData.id}
           handleYes={this.cancelReservation}
           handleNo={this.hideConfirmationModal} />
+        <StatusChangeModal
+          isOpen={this.state.stausChangeModalData.isOpen}
+          currentStatus={this.state.stausChangeModalData.status}
+          reservationId={this.state.stausChangeModalData.id}
+          closeModal={this.hideStatusChangeModal} />
       </Fragment>);
   }
 }

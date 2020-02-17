@@ -10,6 +10,6 @@ namespace ReservationSystem.ViewModels
         public Guid ReservationId { get; set; }
 
         [Required]
-        public ReservationStatus Status { get; set; }
+        public int Status { get; set; }
     }
 }
