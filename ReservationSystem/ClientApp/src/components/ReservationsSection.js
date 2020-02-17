@@ -82,14 +82,13 @@ export default class ReservationsSection extends Component {
               <th>Cena</th>
               <th>Status</th>
               <th></th>
-              <th></th>
             </tr>
           </thead>
           <tbody>
             {
               this.props.isLoading || this.state.reservationsLoading ?
                 <tr>
-                  <td colSpan='8'>
+                  <td colSpan='7'>
                     <PulseLoader
                       css={'margin: 0 auto; width: 100px; height: 10px;'}
                       sizeUnit={"px"}
@@ -106,8 +105,9 @@ export default class ReservationsSection extends Component {
                     <td>{x.endDate.split('T')[0]}</td>
                     <td>{x.price}</td>
                     <td>{x.status}</td>
-                    <td>{this.renderCancelButton(x)}</td>
-                    <td>{x.status === 'Anulowane' ? '' : <ActionIcon icon={faEdit} data={{id: x.id, status: x.status}} handleClick={this.handleStatusChange}/>}</td>
+                    {!this.props.isAdmin ?
+                    <td>{this.renderCancelButton(x)}</td> :
+                    <td>{x.status === 'Anulowane' ? '' : <ActionIcon icon={faEdit} data={{id: x.id, status: x.status}} handleClick={this.handleStatusChange}/>}</td>}
                   </tr>
                 )}
           </tbody>

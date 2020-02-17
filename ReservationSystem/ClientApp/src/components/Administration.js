@@ -116,7 +116,7 @@ export default class Administration extends Component {
 
         <h2 className="pt-4 mb-4">Rezerwacje</h2>
         <ReservationSearch setLoading={this.setReservationsLoading} setReservations={this.setReservations} />
-        <ReservationsSection isLoading={this.state.reservationsLoading} data={this.state.reservations} refreshData={this.fetchReservations} />
+        <ReservationsSection isLoading={this.state.reservationsLoading} data={this.state.reservations} refreshData={this.fetchReservations} isAdmin={true}/>
 
         <ConfirmationModal
           message="Czy na pewno chcesz usunąć ten pokój?"

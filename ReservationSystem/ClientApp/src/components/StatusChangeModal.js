@@ -36,11 +36,7 @@ export default class StatusChangeModal extends Component {
       status: this.state.newstatus
     },    
     { headers: { Authorization: "Bearer " + localStorage.token }})
-    .then(() => 
-      {
-        this.props.closeModal();
-        this.updateRooms();
-      })
+    .then(() => this.props.closeModal())
     .catch(e => alert(e))
     .finally(() => this.setState({loading: false}));
   }

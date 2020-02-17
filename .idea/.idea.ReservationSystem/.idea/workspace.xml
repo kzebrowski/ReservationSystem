@@ -2,20 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="db2acbdb-754e-4ec0-8bb8-5bf47974378f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.ReservationSystem/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ReservationSystem/.idea/contentModel.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.ReservationSystem/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ReservationSystem/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReservationSystem/ClientApp/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/ReservationSystem/ClientApp/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReservationSystem/ClientApp/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/ReservationSystem/ClientApp/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReservationSystem/ClientApp/src/components/ActionIcon.js" beforeDir="false" afterPath="$PROJECT_DIR$/ReservationSystem/ClientApp/src/components/ActionIcon.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ReservationSystem/ClientApp/src/components/Administration.js" beforeDir="false" afterPath="$PROJECT_DIR$/ReservationSystem/ClientApp/src/components/Administration.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReservationSystem/ClientApp/src/components/ReservationModal.js" beforeDir="false" afterPath="$PROJECT_DIR$/ReservationSystem/ClientApp/src/components/ReservationModal.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ReservationSystem/ClientApp/src/components/ReservationsSection.js" beforeDir="false" afterPath="$PROJECT_DIR$/ReservationSystem/ClientApp/src/components/ReservationsSection.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReservationSystem/ClientApp/src/components/RoomEditor.js" beforeDir="false" afterPath="$PROJECT_DIR$/ReservationSystem/ClientApp/src/components/RoomEditor.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReservationSystem/ClientApp/src/components/StatusChangeModal.js" beforeDir="false" afterPath="$PROJECT_DIR$/ReservationSystem/ClientApp/src/components/StatusChangeModal.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReservationSystem/ClientApp/src/components/styles/Modal.css" beforeDir="false" afterPath="$PROJECT_DIR$/ReservationSystem/ClientApp/src/components/styles/Modal.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReservationSystem/Controllers/ReservationsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ReservationSystem/Controllers/ReservationsController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReservationSystem/ViewModels/StatusChangeViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ReservationSystem/ViewModels/StatusChangeViewModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Services/Common/ReservationStatus.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Common/ReservationStatus.cs" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
