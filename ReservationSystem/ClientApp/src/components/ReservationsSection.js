@@ -12,7 +12,7 @@ import StatusChangeModal from './StatusChangeModal';
 export default class ReservationsSection extends Component {
   displayName = ReservationsSection.name;
 
-  renderCancelButton = x => x.status === 'Anulowane' ? '' : <ActionIcon icon={faTimes} itemId={x.id} handleClick={this.openConfirmationModal} />;
+  renderCancelButton = x => x.status !== 'Oczekujące' ? '' : <ActionIcon icon={faTimes} data={{id: x.id}} handleClick={this.openConfirmationModal} />;
 
   constructor(props) {
     super(props);
@@ -40,8 +40,8 @@ export default class ReservationsSection extends Component {
     this.setState({modalmessage: message});
   }
 
-  openConfirmationModal(id) {
-    this.setState({confirmationModalData: {id: id, isOpen: true} });
+  openConfirmationModal(data) {
+    this.setState({confirmationModalData: {id: data.id, isOpen: true} });
   }
 
   hideConfirmationModal() {
@@ -123,7 +123,8 @@ export default class ReservationsSection extends Component {
           isOpen={this.state.stausChangeModalData.isOpen}
           currentStatus={this.state.stausChangeModalData.status}
           reservationId={this.state.stausChangeModalData.id}
-          closeModal={this.hideStatusChangeModal} />
+          closeModal={this.hideStatusChangeModal}
+          refreshReservations={this.props.refreshReservations} />
       </Fragment>);
   }
 }

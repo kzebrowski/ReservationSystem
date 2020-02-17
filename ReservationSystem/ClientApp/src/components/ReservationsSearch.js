@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import './styles/SearchForm.css';
-import Axios from 'axios';
 
 export default class ReservationSearch extends Component {
   displayName = ReservationSearch.name;
@@ -56,12 +55,7 @@ export default class ReservationSearch extends Component {
         return;
     }
 
-    this.props.setLoading(true);
-
-    Axios.get('/api/reservations' + requestUrl + requestData, { headers: { Authorization: "Bearer " + localStorage.token } })
-      .then(response => this.props.setReservations(response.data))
-      .catch(() => this.props.setReservations([]))
-      .finally(() => this.props.setLoading(false));
+    this.props.setReservations(requestUrl, requestData);
   }
 
   render() {

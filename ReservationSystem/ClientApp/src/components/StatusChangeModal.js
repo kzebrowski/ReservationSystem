@@ -4,7 +4,6 @@ import './styles/Modal.css'
 import './styles/SearchForm.css';
 import Axios from 'axios';
 import Loader from './Loader';
-import { nodeModuleNameResolver } from 'typescript';
 
 export default class StatusChangeModal extends Component {
   displayName = StatusChangeModal.name;
@@ -36,7 +35,10 @@ export default class StatusChangeModal extends Component {
       status: this.state.newstatus
     },    
     { headers: { Authorization: "Bearer " + localStorage.token }})
-    .then(() => this.props.closeModal())
+    .then(() => {
+      this.props.refreshReservations();
+      this.props.closeModal();
+    })
     .catch(e => alert(e))
     .finally(() => this.setState({loading: false}));
   }

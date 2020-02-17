@@ -10,7 +10,6 @@ import ConfirmationModal from './ConfirmationModal';
 import ReservationsSection from './ReservationsSection';
 import './styles/Administration.css';
 import ReservationSearch from './ReservationsSearch';
-import StatusChangeModal from './StatusChangeModal';
 
 export default class Administration extends Component {
   displayName = Administration.name;
@@ -25,13 +24,15 @@ export default class Administration extends Component {
       reservations: [],
       isConfirmationModalOpen: false,
       reservationsLoading: false,
-      confirmationModalData: {isOpen: false, id: ''}
+      confirmationModalData: {isOpen: false, id: ''},
+      refreshData: {requestData: '', requestUrl: ''}
     }
 
     this.updateRooms = this.updateRooms.bind(this);
     this.handleRoomDeletion = this.handleRoomDeletion.bind(this);
     this.setReservations = this.setReservations.bind(this);
     this.setReservationsLoading = this.setReservationsLoading.bind(this);
+    this.refreshReservations = this.refreshReservations.bind(this)
 
     this.updateRooms();
   }
@@ -62,8 +63,19 @@ export default class Administration extends Component {
     .finally(x => this.setState({isConfirmationModalOpen: false, loading: false }));
   }
 
-  setReservations(value) {
-      this.setState({ reservations: value });
+  setReservations(requestUrl, requestData) {
+    this.setReservationsLoading(true);
+
+    Axios.get('/api/reservations' + requestUrl + requestData, { headers: { Authorization: "Bearer " + localStorage.token } })
+      .then(response => this.setState({reservations: response.data}))
+      .catch(() => this.setState({reservations: []}))
+      .finally(() => this.setReservationsLoading(false));
+
+    this.setState({refreshData: {requestUrl: requestUrl, requestData: requestData}});
+  }
+
+  refreshReservations() {
+    this.setReservations(this.state.refreshData.requestUrl, this.state.refreshData.requestData);
   }
 
   setReservationsLoading(value) {
@@ -115,8 +127,8 @@ export default class Administration extends Component {
         </Table>
 
         <h2 className="pt-4 mb-4">Rezerwacje</h2>
-        <ReservationSearch setLoading={this.setReservationsLoading} setReservations={this.setReservations} />
-        <ReservationsSection isLoading={this.state.reservationsLoading} data={this.state.reservations} refreshData={this.fetchReservations} isAdmin={true}/>
+        <ReservationSearch setReservations={this.setReservations} />
+        <ReservationsSection isLoading={this.state.reservationsLoading} data={this.state.reservations} isAdmin={true} refreshReservations={this.refreshReservations} />
 
         <ConfirmationModal
           message="Czy na pewno chcesz usunąć ten pokój?"
