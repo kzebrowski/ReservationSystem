@@ -1,4 +1,4 @@
-import React, { Component, ReactDOM } from 'react';
+import React, { Component } from 'react';
 import Modal from 'react-modal';
 import './styles/Modal.css'
 import './styles/SearchForm.css';

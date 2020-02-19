@@ -39,6 +39,11 @@ namespace Services
             return _mapper.Map<User>(userEntity);
         }
 
+        public void Activate(string email)
+        {
+            _userRepository.Activate(email);
+        }
+
         public bool CheckPhoneNumberTaken(string number)
         {
             var user = _userRepository.GetUserByPhoneNumber(number);

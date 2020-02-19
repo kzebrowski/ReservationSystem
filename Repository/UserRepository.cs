@@ -34,5 +34,12 @@ namespace Repository
         {
             return _context.Users.SingleOrDefault(u => u.Email == email && u.Password == password);
         }
+
+        public void Activate(string email)
+        {
+            var user = _context.Users.Single(x => x.Email == email);
+            user.IsActivated = true;
+            _context.SaveChanges();
+        }
     }
 }

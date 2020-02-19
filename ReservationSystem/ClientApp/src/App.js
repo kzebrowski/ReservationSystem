@@ -9,6 +9,7 @@ import Administration from './components/Administration';
 import RoomEditor from './components/RoomEditor';
 import history from './history';
 import UserPage from './components/UserPage';
+import UserActivation from './components/UserActivation';
 
 export default class App extends Component {
   displayName = App.name
@@ -25,6 +26,7 @@ export default class App extends Component {
             <Route path='/admin/rooms/add' component={RoomEditor} />
             <Route path='/admin/rooms/edit/:id' component={RoomEditor} />
             <Route path='/myaccount' component={UserPage} />
+            <Route path='/activate/:email/:code' component={UserActivation} />
         </Layout>
       </Router>
     );

@@ -11,5 +11,7 @@ namespace Services
         bool CheckPhoneNumberTaken(string number);
 
         User GetByEmail(string email);
+
+        void Activate(string email);
     }
 }

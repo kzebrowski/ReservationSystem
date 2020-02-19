@@ -7,6 +7,7 @@ namespace Services
 {
     public class ActivationCodeService: IActivationCodeService
     {
+        private const int CodeLifeTime = 120;
         private readonly IActivationCodeRepository _activationCodeRepository;
         private readonly IUserService _userService;
 
@@ -37,8 +38,9 @@ namespace Services
         {
             var codes = _activationCodeRepository.GetAllForUser(email).ToList();
             var latestCode = codes.SingleOrDefault(x => x.TimeCreated == codes.Max(c => c.TimeCreated));
+            var timeSpan = DateTime.Now - latestCode?.TimeCreated;
 
-            return latestCode?.Code == code;
+            return latestCode?.Code == code && timeSpan?.Minutes < CodeLifeTime;
         }
 
         private string GenerateCode()

@@ -11,5 +11,7 @@ namespace Repository
         UserEntity GetUserByPhoneNumber(string phoneNumber);
 
         UserEntity GetUserByCredentials(string email, string password);
+
+        void Activate(string email);
     }
 }

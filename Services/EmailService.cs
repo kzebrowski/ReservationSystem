@@ -19,7 +19,7 @@ namespace Services
 
         public async Task SendActivationCode(string email, string code)
         {
-            var activationLink = _hostName + email.Replace("@", "%40") + "/" + code;
+            var activationLink = _hostName + "activate/" + email.Replace("@", "%40") + "/" + code;
             var message = new SendGridMessage
             {
                 From = new EmailAddress("notyfikacje@reservationsystem.net", "Reservation System"),
