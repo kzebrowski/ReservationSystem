@@ -142,6 +142,9 @@ namespace ReservationSystem
             builder.RegisterType<RoomsService>().As<IRoomsService>();
             builder.RegisterType<ReservationRepository>().As<IReservationRepository>();
             builder.RegisterType<ReservationService>().As<IReservationService>();
+            builder.RegisterType<ActivationCodeRepository>().As<IActivationCodeRepository>();
+            builder.RegisterType<ActivationCodeService>().As<IActivationCodeService>();
+            builder.RegisterType<EmailService>().As<IEmailService>();
 
             return builder;
         }

@@ -11,11 +11,15 @@ namespace ReservationSystem.ViewModels
     {
         private readonly IUserAuthenticationService _authenticationService;
         private readonly IUserService _userService;
+        private readonly IActivationCodeService _activationCodeService;
+        private readonly IEmailService _emailService;
 
-        public AuthenticationController(IUserAuthenticationService authenticationService, IUserService userService)
+        public AuthenticationController(IUserAuthenticationService authenticationService, IUserService userService, IActivationCodeService activationCodeService, IEmailService emailService)
         {
             _authenticationService = authenticationService;
             _userService = userService;
+            _activationCodeService = activationCodeService;
+            _emailService = emailService;
         }
 
         [HttpPost("[action]")]
@@ -31,15 +35,14 @@ namespace ReservationSystem.ViewModels
 
             if (user == null)
                 return BadRequest(new ValidationError { Field = "Password", Message = "Nieprawid³owe has³o" });
-            
+
+            if (!user.IsActivated)
+            {
+                var activationCode = _activationCodeService.CreateNew(user.Email);
+                _emailService.SendActivationCode(user.Email, activationCode);
+            }
+
             return Ok(user);
-        }
-        
-        [HttpGet("test")]
-        [Authorize]
-        public IActionResult TestJwt()
-        {
-            return NoContent();
         }
     }
 }

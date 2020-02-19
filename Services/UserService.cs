@@ -32,6 +32,13 @@ namespace Services
             return user != null;
         }
 
+        public User GetByEmail(string email)
+        {
+            var userEntity = _userRepository.GetUserByEmail(email);
+
+            return _mapper.Map<User>(userEntity);
+        }
+
         public bool CheckPhoneNumberTaken(string number)
         {
             var user = _userRepository.GetUserByPhoneNumber(number);

@@ -18,5 +18,7 @@ namespace Repository.Entities
         public string PhoneNumber { get; set; }
 
         public IEnumerable<ReservationEntity> Reservations { get; set; }
+
+        public bool IsActivated { get; set; }
     }
 }

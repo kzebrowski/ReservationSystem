@@ -37,7 +37,7 @@ namespace Services
                 issuer: "localhost:44375",
                 audience: "localhost:44375",
                 claims: new List<Claim>(),
-                expires: DateTime.Now.AddMinutes(60),
+                expires: DateTime.Now.AddMinutes(600),
                 signingCredentials: signinCredentials
             );
             var tokenString = new JwtSecurityTokenHandler().WriteToken(tokenOptions);

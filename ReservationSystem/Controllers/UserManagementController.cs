@@ -13,11 +13,15 @@ namespace ReservationSystem.Controllers
     {
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
+        private readonly IActivationCodeService _activationCodeService;
+        private readonly IEmailService _emailService;
 
-        public UserManagementController(IUserService userService, IMapper mapper)
+        public UserManagementController(IUserService userService, IMapper mapper, IActivationCodeService activationCodeService, IEmailService emailService)
         {
             _userService = userService;
             _mapper = mapper;
+            _activationCodeService = activationCodeService;
+            _emailService = emailService;
         }
 
         [HttpPost("[action]")]
@@ -39,6 +43,20 @@ namespace ReservationSystem.Controllers
             var result = _userService.CreateUser(user);
 
             return Ok(result);
+        }
+
+        [HttpGet("[action]/{email}/{code}")]
+        public IActionResult Activate(string email, string code)
+        {
+            if (!_userService.CheckEmailExits(email))
+                return BadRequest("Email nie istnieje");
+
+            if (_activationCodeService.Validate(code, email))
+                return Ok();
+
+            var newCode = _activationCodeService.CreateNew(email);
+            _emailService.SendActivationCode(email, newCode);
+            return BadRequest();
         }
     }
 }

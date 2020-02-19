@@ -27,5 +27,7 @@ namespace Repository
         public DbSet<RoomEntity> Rooms { get; set; }
 
         public DbSet<ReservationEntity> Reservations { get; set; }
+
+        public DbSet<ActivationCodeEntity> ActivationCodes { get; set; }
     }
 }

@@ -9,5 +9,7 @@ namespace Services
         bool CheckEmailExits(string email);
 
         bool CheckPhoneNumberTaken(string number);
+
+        User GetByEmail(string email);
     }
 }
