@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using SendGrid;
 using SendGrid.Helpers.Mail;
+using Services.Models;
 
 namespace Services
 {
@@ -32,6 +33,38 @@ namespace Services
                     "<p> Dziękujemy za wybranie naszego ośrodka i życzymy miłych wakacji.</p>"
             };
             message.AddTo(new EmailAddress(email));
+
+            _client.SendEmailAsync(message);
+        }
+
+        public async Task SendReservationPlacedNotification(Reservation reservation)
+        {
+            var message = new SendGridMessage
+            {
+                From = new EmailAddress("notyfikacje@reservationsystem.net", "Reservation System"),
+                Subject = "Potwierdzenie rezerwacji",
+                HtmlContent =
+                    "<h1>Dzień dobry!</h1>" +
+                    $"<p> Twoja rezeracja na {reservation.Room.Title} w dniach {reservation.StartDate}-{reservation.EndDate} została potwierdzona.</p>" +
+                    "<p> Życzymy udanego pobytu.</p>"
+            };
+            message.AddTo(new EmailAddress(reservation.User.Email));
+
+            _client.SendEmailAsync(message);
+        }
+
+        public async Task SendReservationCanceledNotification(Reservation reservation)
+        {
+            var message = new SendGridMessage
+            {
+                From = new EmailAddress("notyfikacje@reservationsystem.net", "Reservation System"),
+                Subject = "Odwołanie rezerwacji",
+                HtmlContent =
+                    "<h1>Dzień dobry!</h1>" +
+                    $"<p> Twoja rezeracja na {reservation.Room.Title} w dniach {reservation.StartDate}-{reservation.EndDate} została anulowana.</p>" +
+                    "<p> Pozdrawiamy.</p>"
+            };
+            message.AddTo(new EmailAddress(reservation.User.Email));
 
             _client.SendEmailAsync(message);
         }

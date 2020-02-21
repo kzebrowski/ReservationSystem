@@ -48,8 +48,6 @@ namespace ReservationSystem.Controllers
         [HttpGet("[action]/{email}/{code}")]
         public IActionResult Activate(string email, string code)
         {
-            email = email.Replace("%40", "@");
-
             if (!_userService.CheckEmailExits(email))
                 return BadRequest("Email nie istnieje");
 

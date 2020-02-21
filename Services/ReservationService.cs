@@ -13,12 +13,14 @@ namespace Services
         private readonly IMapper _mapper;
         private readonly IReservationRepository _reservationRepository;
         private readonly IRoomsService _roomsService;
+        private readonly IEmailService _emailService;
 
-        public ReservationService(IMapper mapper, IReservationRepository reservationRepository, IRoomsService roomsService)
+        public ReservationService(IMapper mapper, IReservationRepository reservationRepository, IRoomsService roomsService, IEmailService emailService)
         {
             _mapper = mapper;
             _reservationRepository = reservationRepository;
             _roomsService = roomsService;
+            _emailService = emailService;
         }
 
         public IEnumerable<Reservation> GetAll()
@@ -44,9 +46,11 @@ namespace Services
             };
 
             var reservationEntity = _mapper.Map<ReservationEntity>(reservation);
-            var createdReservation = _reservationRepository.Create(reservationEntity);
+            var createdEntity = _reservationRepository.Create(reservationEntity);
+            var createdReservation = _mapper.Map<Reservation>(createdEntity);
+            _emailService.SendReservationPlacedNotification(reservation);
 
-            return _mapper.Map<Reservation>(createdReservation);
+            return createdReservation;
         }
 
         public Reservation Get(Guid reservationId)
@@ -72,7 +76,11 @@ namespace Services
         {
             var reservationEntity = _reservationRepository.UpdateStatus(reservationId, (Repository.Common.ReservationStatus)status);
 
-            return _mapper.Map<Reservation>(reservationEntity);
+            var updatedReservation = _mapper.Map<Reservation>(reservationEntity);
+            if(updatedReservation.Status == ReservationStatus.Canceled)
+                _emailService.SendReservationCanceledNotification(updatedReservation);
+
+            return updatedReservation;
         }
 
         public Reservation Cancel(Guid id)
@@ -84,7 +92,10 @@ namespace Services
 
             var reservationEntity = _reservationRepository.Cancel(id);
             
-            return _mapper.Map<Reservation>(reservationEntity);
+            var updatedReservation = _mapper.Map<Reservation>(reservationEntity);
+            _emailService.SendReservationCanceledNotification(updatedReservation);
+
+            return updatedReservation;
         }
     }
 }
