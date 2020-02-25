@@ -10,6 +10,7 @@ import RoomEditor from './components/RoomEditor';
 import history from './history';
 import UserPage from './components/UserPage';
 import UserActivation from './components/UserActivation';
+import PasswordChange from './components/PasswordChange';
 
 export default class App extends Component {
   displayName = App.name
@@ -27,6 +28,7 @@ export default class App extends Component {
             <Route path='/admin/rooms/edit/:id' component={RoomEditor} />
             <Route path='/myaccount' component={UserPage} />
             <Route path='/activate/:email/:code' component={UserActivation} />
+            <Route path='/resetPassword/:userId/:code' component={PasswordChange} />
         </Layout>
       </Router>
     );
