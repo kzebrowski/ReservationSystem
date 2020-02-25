@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System;
+using AutoMapper;
 using Repository;
 using Repository.Entities;
 using Services.Models;
@@ -14,6 +15,13 @@ namespace Services
         {
             _userRepository = userRepository;
             _mapper = mapper;
+        }
+
+        public User Get(Guid userId)
+        {
+            var userEntity = _userRepository.Get(userId);
+
+            return _mapper.Map<User>(userEntity);
         }
 
         public User CreateUser(User candidateUser)
@@ -42,6 +50,13 @@ namespace Services
         public void Activate(string email)
         {
             _userRepository.Activate(email);
+        }
+
+        public User ChangePassword(Guid userId, string newPassword)
+        {
+            var userEntity = _userRepository.ChangePassword(userId, newPassword);
+
+            return _mapper.Map<User>(userEntity);
         }
 
         public bool CheckPhoneNumberTaken(string number)

@@ -28,7 +28,7 @@ namespace Tests.Services
             var password = "Test!234";
             var userRepositoryMock = new Mock<IUserRepository>();
             userRepositoryMock.Setup(x => x.GetUserByCredentials(It.IsAny<string>(), It.IsAny<string>())).Returns((UserEntity)null);
-            var authenticationService = new UserAuthenticationService(userRepositoryMock.Object, _mapper, null, null);
+            var authenticationService = new UserAuthenticationService(userRepositoryMock.Object, _mapper);
 
             var result = authenticationService.AuthenticateUser(email, password);
 
@@ -42,7 +42,7 @@ namespace Tests.Services
             var password = "Test!234";
             var userRepositoryMock = new Mock<IUserRepository>();
             userRepositoryMock.Setup(x => x.GetUserByCredentials(It.IsAny<string>(), It.IsAny<string>())).Returns(new UserEntity());
-            var authenticationService = new UserAuthenticationService(userRepositoryMock.Object, _mapper, null, null);
+            var authenticationService = new UserAuthenticationService(userRepositoryMock.Object, _mapper);
 
             var result = authenticationService.AuthenticateUser(email, password);
 

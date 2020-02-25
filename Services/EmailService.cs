@@ -61,10 +61,28 @@ namespace Services
                 Subject = "Odwołanie rezerwacji",
                 HtmlContent =
                     "<h1>Dzień dobry!</h1>" +
-                    $"<p> Twoja rezeracja na {reservation.Room.Title} w dniach {reservation.StartDate}-{reservation.EndDate} została anulowana.</p>" +
-                    "<p> Pozdrawiamy.</p>"
+                    $"<p>Twoja rezeracja na {reservation.Room.Title} w dniach {reservation.StartDate}-{reservation.EndDate} została anulowana.</p>" +
+                    "<p>Pozdrawiamy.</p>"
             };
             message.AddTo(new EmailAddress(reservation.User.Email));
+
+            _client.SendEmailAsync(message);
+        }
+
+        public void SendPasswordResetMessage(string userEmail, Guid userId, string code)
+        {
+            var activationLink = _hostName + "resetPassword/" + userId + "/" + code; 
+            var message = new SendGridMessage
+            {
+                From = new EmailAddress("notyfikacje@reservationsystem.net", "Reservation System"),
+                Subject = "Resetowanie hasła",
+                HtmlContent =
+                    "<h1>Dzień dobry!</h1>" +
+                    $"<p>Otrzymaliśmy prośbę o zmianę hasła dla profilu <b>{userEmail}</b>. Aby ustawić nowe hasło, prosimy o kliknięcie w poniższy link:</p>" +
+                    $"<a href=\"{activationLink}\">{activationLink}</a>" +
+                    "<p> Pozdrawiamy.</p>"
+            };
+            message.AddTo(new EmailAddress(userEmail));
 
             _client.SendEmailAsync(message);
         }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using Microsoft.AspNetCore.Mvc;
 using ReservationSystem.Common;
 using ReservationSystem.ViewModels;
 using Services;
@@ -43,6 +44,33 @@ namespace ReservationSystem.Controllers
             var result = _userService.CreateUser(user);
 
             return Ok(result);
+        }
+
+        [HttpPost("[action]")]
+        public IActionResult SendPasswordResetLink([FromBody]Guid userId)
+        {
+            var user = _userService.Get(userId);
+
+            if (user is null)
+                return BadRequest();
+
+            var code =_activationCodeService.CreateNew(user.Email);
+            _emailService.SendPasswordResetMessage(user.Email, user.Id, code);
+
+            return Ok();
+        }
+
+        [HttpPost("[action]")]
+        public IActionResult ChangePassword([FromBody]PasswordChangeViewModel passwordChangeViewModel)
+        {
+            var user = _userService.Get(passwordChangeViewModel.userId);
+
+            if (user is null || !_activationCodeService.Validate(passwordChangeViewModel.Code, user.Email))
+                return BadRequest();
+
+            _userService.ChangePassword(user.Id, passwordChangeViewModel.Password);
+            
+            return Ok();
         }
 
         [HttpGet("[action]/{email}/{code}")]

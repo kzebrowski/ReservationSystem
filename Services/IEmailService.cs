@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Services.Models;
 
 namespace Services
@@ -10,5 +11,7 @@ namespace Services
         Task SendReservationPlacedNotification(Reservation reservation);
 
         Task SendReservationCanceledNotification(Reservation reservation);
+
+        void SendPasswordResetMessage(string userEmail, Guid userId, string code);
     }
 }

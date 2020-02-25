@@ -15,9 +15,11 @@ namespace Services
     {
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
+        private readonly string _hostName;
 
         public UserAuthenticationService(IUserRepository userRepository, IMapper mapper)
         {
+            _hostName = Environment.GetEnvironmentVariable("RESERVATIONSYSTEM_HOSTNAME");
             _userRepository = userRepository;
             _mapper = mapper;
         }
@@ -34,8 +36,8 @@ namespace Services
             var signinCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             var tokenOptions = new JwtSecurityToken(
-                issuer: "localhost:44375",
-                audience: "localhost:44375",
+                issuer: _hostName,
+                audience: _hostName,
                 claims: new List<Claim>(),
                 expires: DateTime.Now.AddMinutes(600),
                 signingCredentials: signinCredentials

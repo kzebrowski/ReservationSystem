@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Repository.Entities;
 
 namespace Repository
@@ -10,6 +11,11 @@ namespace Repository
         public UserRepository(ReservationSystemContext context)
         {
             _context = context;
+        }
+
+        public UserEntity Get(Guid userId)
+        {
+            return _context.Users.SingleOrDefault(x => x.Id == userId);
         }
 
         public UserEntity CreateUser(UserEntity userEntity)
@@ -40,6 +46,15 @@ namespace Repository
             var user = _context.Users.Single(x => x.Email == email);
             user.IsActivated = true;
             _context.SaveChanges();
+        }
+
+        public UserEntity ChangePassword(Guid userId, string newPassword)
+        {
+            var user = _context.Users.Single(x => x.Id == userId);
+            user.Password = newPassword;
+            _context.SaveChanges();
+
+            return user;
         }
     }
 }
