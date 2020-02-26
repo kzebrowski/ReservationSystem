@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './styles/LoginForm.css';
+import Axios from 'axios';
 
 export default class LoginForm extends Component {
   displayName = LoginForm.name;
@@ -17,6 +18,7 @@ export default class LoginForm extends Component {
     this.handleEmailChange = this.handleEmailChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.handleLoginSubmit = this.handleLoginSubmit.bind(this);
+    this.handleResetPassowrdClick = this.handleResetPassowrdClick.bind(this);
   }
 
   handleEmailChange(event) {
@@ -25,6 +27,20 @@ export default class LoginForm extends Component {
 
   handlePasswordChange(event) {
     this.setState({password: event.target.value, passwordValidationError: ""});
+  }
+
+  handleResetPassowrdClick(event) {
+    event.preventDefault();
+
+    if(this.state.email === '')
+      this.props.showMessage("Wypełnij adres email w formularzu.");
+
+    this.props.setLoading(true);
+    Axios.post("api/user/resetPassword", '"' + this.state.email + '"', {
+        headers: { 'content-type': 'application/json'}})
+      .then(() => this.props.showMessage("Na twoje konto email został wysłany link do resetowania hasła."))
+      .catch(() => this.props.showMessage("Wpisano niepoprawny, lub nieistniejący adres email."))
+      .finally(() => this.props.setLoading(false));
   }
 
   handleLoginSubmit(event) {
@@ -83,6 +99,7 @@ export default class LoginForm extends Component {
           {this.state.passwordValidationError !== "" && <span className="login-error-message">{this.state.passwordValidationError}</span>}
           <button className="login-button">Zaloguj</button>
           <button className="register-button" onClick={this.props.handleRegisterClick}>Stwórz konto</button>
+          <button className="generic-submit-button-light" onClick={this.handleResetPassowrdClick}>Zapomniałem hasła</button>
         </form>
       </div>);
   }

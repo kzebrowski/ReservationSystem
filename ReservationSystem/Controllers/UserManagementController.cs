@@ -26,7 +26,7 @@ namespace ReservationSystem.Controllers
         }
 
         [HttpPost("[action]")]
-        public IActionResult Register([FromBody] UserCreationViewModel candidateUser)
+        public IActionResult Register([FromBody]UserCreationViewModel candidateUser)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState.Values);
@@ -46,14 +46,13 @@ namespace ReservationSystem.Controllers
             return Ok(result);
         }
 
-        [HttpPost("[action]")]
-        public IActionResult SendPasswordResetLink([FromBody]Guid userId)
+        [HttpPost("resetPassword")]
+        public IActionResult SendPasswordResetLink([FromBody]string email)
         {
-            var user = _userService.Get(userId);
-
-            if (user is null)
+            if (!_userService.CheckEmailExits(email))
                 return BadRequest();
 
+            var user = _userService.GetByEmail(email);
             var code =_activationCodeService.CreateNew(user.Email);
             _emailService.SendPasswordResetMessage(user.Email, user.Id, code);
 
@@ -63,7 +62,10 @@ namespace ReservationSystem.Controllers
         [HttpPost("[action]")]
         public IActionResult ChangePassword([FromBody]PasswordChangeViewModel passwordChangeViewModel)
         {
-            var user = _userService.Get(passwordChangeViewModel.userId);
+            if (!ModelState.IsValid)
+                return BadRequest();
+
+            var user = _userService.Get(passwordChangeViewModel.UserId);
 
             if (user is null || !_activationCodeService.Validate(passwordChangeViewModel.Code, user.Email))
                 return BadRequest();

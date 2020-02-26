@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
+import Loader from './Loader';
+import InformationModal from './InformationModal';
+import history from '../history';
 
 export default class PasswordChange extends Component {
   displayName = PasswordChange.name;
-  errorStyle = {marginBottom: "0px", outline: 'red auto 1px'}
+  errorStyle = {marginBottom: "0px", outline: 'red auto 1px'};
+  success = false;
 
   constructor(props) {
     super(props);
@@ -20,6 +24,7 @@ export default class PasswordChange extends Component {
     this.validatePasswordConfirmation = this.validatePasswordConfirmation.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.handlePasswordConfirmationChange = this.handlePasswordConfirmationChange.bind(this);
+    this.handleInformationModalClose = this.handleInformationModalClose.bind(this);
   }
 
   submitForm(event) {
@@ -27,8 +32,11 @@ export default class PasswordChange extends Component {
     let params = this.props.match.params;
     this.setState({ loading: true });
 
-    Axios.post("/api/user/changePassword/", {userId: params.userId, code: params.code, password: this.state.password})
-      .then(() => this.setState({ message: "Twoje hasło zostało zmienione." }))
+    Axios.post("/api/user/changePassword", {userId: params.userId, code: params.code, password: this.state.password})
+      .then(() => {
+        this.setState({ message: "Twoje hasło zostało zmienione." });
+        this.success = true;
+      })
       .catch(() => this.setState({ message: "Niestety, nie udało się zmienić hasła. Spróbuj ponownie." }))
       .finally(() => this.setState({ loading: false }));
   }
@@ -49,6 +57,13 @@ export default class PasswordChange extends Component {
 
   handlePasswordConfirmationChange(event) {
     this.setState({passwordConfirmation: event.target.value})
+  }
+
+  handleInformationModalClose() {
+    if(this.success === true)
+      history.push("/");
+      
+    this.setState({message: ''});
   }
 
   render() {
@@ -77,8 +92,10 @@ export default class PasswordChange extends Component {
             onBlur={this.validatePasswordConfirmation}
             style={this.state.passwordValidationError !== '' ? this.errorStyle : {}} />
           {this.state.passwordValidationError !== '' && <span className="generic-error-message">{this.state.passwordValidationError}</span>}
-          <button disabled={this.state.PasswordConfirmationHasErrors !== ''} className="generic-submit-button-dark">Wyślij</button>
+          <button type="submit" className="generic-submit-button-dark">Wyślij</button>
         </form>
+        <Loader isLoading={this.state.loading} />
+        <InformationModal isOpen={this.state.message !== ''} message={this.state.message} handleOkay={this.handleInformationModalClose} />
       </React.Fragment>
     );
   }

@@ -1,5 +1,4 @@
 ﻿using System;
-using Services.Common;
 using Services.Models;
 
 namespace ReservationSystem.ViewModels
