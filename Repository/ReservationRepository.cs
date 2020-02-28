@@ -81,5 +81,10 @@ namespace Repository
 
             return null;
         }
+
+        public IEnumerable<ReservationEntity> GetAllForDate(DateTime date)
+        {
+            return _context.Reservations.Where(x => x.StartDate == date);
+        }
     }
 }

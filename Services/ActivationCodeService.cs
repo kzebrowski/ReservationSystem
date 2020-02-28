@@ -7,6 +7,7 @@ namespace Services
 {
     public class ActivationCodeService: IActivationCodeService
     {
+        private const int CodeLength = 6;
         private const int CodeLifeTime = 120;
         private readonly IActivationCodeRepository _activationCodeRepository;
         private readonly IUserService _userService;
@@ -46,9 +47,9 @@ namespace Services
         private string GenerateCode()
         {
             var rnd = new Random();
-            string code = String.Empty;
+            var code = String.Empty;
 
-            for (var i = 0; i < 4; i++)
+            for (var i = 0; i < CodeLength; i++)
             {
                 var digit = rnd.Next(0, 9);
                 code += digit;
