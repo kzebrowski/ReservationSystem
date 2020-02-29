@@ -86,22 +86,5 @@ namespace Services
 
             _client.SendEmailAsync(message);
         }
-
-        // This method will be used by external tool to send notifications daily.
-        public void SendUpcomingReservationNotification(Reservation reservation)
-        {
-            var message = new SendGridMessage
-            {
-                From = new EmailAddress("notyfikacje@reservationsystem.net", "Reservation System"),
-                Subject = "Nadchodząca rezerwacja",
-                HtmlContent =
-                    "<h1>Dzień dobry!</h1>" +
-                    $"<p>Uprzejmie przyponiamy o rezerawcji na {reservation.Room.Title} w dniu {reservation.StartDate}. Przypominamy, że rezerwację można zrealizować od godziny 10:00.</p>" +
-                    "<p> Pozdrawiamy.</p>"
-            };
-            message.AddTo(new EmailAddress(reservation.User.Email));
-
-            _client.SendEmailAsync(message);
-        }
     }
 }

@@ -81,10 +81,14 @@ namespace Repository
 
             return null;
         }
-
+        
+        // This function will be used only by an external tool, to send upcoming reservation notification
         public IEnumerable<ReservationEntity> GetAllForDate(DateTime date)
         {
-            return _context.Reservations.Where(x => x.StartDate == date);
+            return _context.Reservations
+                .Include(x => x.Room)
+                .Include(x => x.User)
+                .Where(x => x.StartDate.Date == date.Date);
         }
     }
 }

@@ -97,13 +97,5 @@ namespace Services
 
             return updatedReservation;
         }
-
-        // This method will be used only by an external tool to send reservation notifications
-        public IEnumerable<Reservation> GetAllUpcomingReservations()
-        {
-            var reservationEntities = _reservationRepository.GetAllForDate(DateTime.Now.AddDays(1));
-
-            return _mapper.Map<IEnumerable<Reservation>>(reservationEntities);
-        }
     }
 }

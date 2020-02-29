@@ -20,7 +20,5 @@ namespace Services
         Reservation UpdateStatus(Guid reservationId, ReservationStatus status);
 
         Reservation Cancel(Guid id);
-
-        IEnumerable<Reservation> GetAllUpcomingReservations();
     }
 }

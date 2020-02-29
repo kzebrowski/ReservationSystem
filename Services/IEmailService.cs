@@ -13,7 +13,5 @@ namespace Services
         Task SendReservationCanceledNotification(Reservation reservation);
 
         void SendPasswordResetMessage(string userEmail, Guid userId, string code);
-
-        void SendUpcomingReservationNotification(Reservation reservation);
     }
 }
