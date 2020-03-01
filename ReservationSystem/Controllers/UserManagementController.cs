@@ -1,11 +1,12 @@
-﻿using System;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ReservationSystem.Common;
 using ReservationSystem.ViewModels;
 using Services;
 using Services.Models;
 using System.Collections.Generic;
-using AutoMapper;
+using Services.Common;
 
 namespace ReservationSystem.Controllers
 {

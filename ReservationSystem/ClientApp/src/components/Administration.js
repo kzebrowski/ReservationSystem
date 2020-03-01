@@ -82,8 +82,8 @@ export default class Administration extends Component {
     this.setState({ reservationsLoading: value});
   }
 
-  handleRoomEdit(id) {
-    history.push("/admin/rooms/edit/" + id);
+  handleRoomEdit(data) {
+    history.push("/admin/rooms/edit/" + data.id);
   }
 
   render() {

@@ -15,18 +15,30 @@ import PasswordChange from './components/PasswordChange';
 export default class App extends Component {
   displayName = App.name
 
+  constructor(props) {
+    super(props);
+
+    this.state = { isUserLoggedIn: localStorage.getItem("token") }
+
+    this.setIsUserLoggedIn = this.setIsUserLoggedIn.bind(this);
+  }
+
+  setIsUserLoggedIn(value) {
+    this.setState({isUserLoggedIn: value});
+  }
+
   render() {
     return (
       <Router history={history}>
-        <Layout>
+        <Layout setIsUserLoggedIn={this.setIsUserLoggedIn} isUserLoggedIn={this.state.isUserLoggedIn}>
             <Route exact path='/' component={Home} />
             <Route path='/counter' component={Counter} />
             <Route path='/fetchdata' component={FetchData} />
             <Route path='/rooms/(search)?/(stayStart)?/:startDate?/(stayEnd)?/:endDate?/(guests)?/:numberOfGuests?' component={Rooms} />
-            <Route exact path='/admin' component={Administration} />
-            <Route path='/admin/rooms/add' component={RoomEditor} />
-            <Route path='/admin/rooms/edit/:id' component={RoomEditor} />
-            <Route path='/myaccount' component={UserPage} />
+            { this.state.isUserLoggedIn && localStorage.isUserAdmin === 'true' && <Route exact path='/admin' component={Administration} /> }
+            { this.state.isUserLoggedIn && localStorage.isUserAdmin === 'true' && <Route path='/admin/rooms/add' component={RoomEditor} /> }
+            { this.state.isUserLoggedIn && localStorage.isUserAdmin === 'true' && <Route path='/admin/rooms/edit/:id' component={RoomEditor} /> }
+            { this.state.isUserLoggedIn && localStorage.token && <Route path='/myaccount' component={UserPage} /> }
             <Route path='/activate/:email/:code' component={UserActivation} />
             <Route path='/resetPassword/:userId/:code' component={PasswordChange} />
         </Layout>

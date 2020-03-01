@@ -2,6 +2,7 @@
 using AutoMapper;
 using Repository;
 using Repository.Entities;
+using Services.Common;
 using Services.Models;
 
 namespace Services
@@ -26,6 +27,7 @@ namespace Services
 
         public User CreateUser(User candidateUser)
         {
+            candidateUser.Role = Role.User;
             var userEntity = _mapper.Map<UserEntity>(candidateUser);
             var createdUserEntity = _userRepository.CreateUser(userEntity);
             var createdUserModel = _mapper.Map<User>(createdUserEntity);

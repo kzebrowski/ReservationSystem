@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Data;
 
 namespace Repository.Entities
 {
@@ -18,6 +16,8 @@ namespace Repository.Entities
         public string PhoneNumber { get; set; }
 
         public IEnumerable<ReservationEntity> Reservations { get; set; }
+
+        public string Role { get; set; }
 
         public bool IsActivated { get; set; }
     }

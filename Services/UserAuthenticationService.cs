@@ -38,14 +38,19 @@ namespace Services
             var tokenOptions = new JwtSecurityToken(
                 issuer: _hostName,
                 audience: _hostName,
-                claims: new List<Claim>(),
-                expires: DateTime.Now.AddMinutes(600),
+                claims: new List<Claim>
+                {
+                    new Claim(ClaimTypes.Name, userEntity.Id.ToString()),
+                    new Claim(ClaimTypes.Role, userEntity.Role)
+                },
+                expires: DateTime.Now.AddDays(10),
                 signingCredentials: signinCredentials
             );
             var tokenString = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
 
             var user = _mapper.Map<User>(userEntity);
             user.Token = tokenString;
+            user.Password = "";
 
             return user;
         }

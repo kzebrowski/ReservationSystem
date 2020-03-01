@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using ReservationSystem.Common;
 using ReservationSystem.ViewModels;
 using Services;
+using Services.Common;
 using Services.Models;
 
 namespace ReservationSystem.Controllers
@@ -42,7 +43,7 @@ namespace ReservationSystem.Controllers
             return Ok(room);
         }
 
-        [Authorize]
+        [Authorize(Roles = Role.Admin)]
         [HttpPost("[action]")]
         public IActionResult Add([FromForm]RoomCreationViewModel roomCreationData)
         {
@@ -57,13 +58,7 @@ namespace ReservationSystem.Controllers
             return Ok(createdRoom);
         }
 
-        [Authorize]
-        public IActionResult Edit(Room candidateRoom)
-        {
-            return Ok();
-        }
-
-        [Authorize]
+        [Authorize(Roles = Role.Admin)]
         [HttpDelete("[action]")]
         public IActionResult Delete([FromBody]Guid roomId)
         {
@@ -76,7 +71,7 @@ namespace ReservationSystem.Controllers
             return Ok();
         }
 
-        [Authorize]
+        [Authorize(Roles = Role.Admin)]
         [HttpPost("[action]")]
         public IActionResult Update([FromForm]RoomUpdateViewModel roomUpdateData)
         {

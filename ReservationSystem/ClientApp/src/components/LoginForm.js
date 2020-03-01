@@ -63,6 +63,7 @@ export default class LoginForm extends Component {
           localStorage.setItem("userPhoneNumber", data.phoneNumber);
           localStorage.setItem("userId", data.id);
           localStorage.setItem("isUserActivated", data.isActivated);
+          localStorage.setItem("isUserAdmin", data.role === "Admin");
           this.props.onUserLogin();
         }
         else {

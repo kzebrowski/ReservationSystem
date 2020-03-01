@@ -17,8 +17,7 @@ export class Layout extends Component {
     this.toggle = this.toggle.bind(this);
     this.state = {
       isOpen: false,
-      isLoginModalOpen: false,
-      isUserLogedIn: localStorage.getItem("token")
+      isLoginModalOpen: false
     };
 
     this.closeLoginModal = this.closeLoginModal.bind(this);
@@ -27,8 +26,8 @@ export class Layout extends Component {
   }
 
   handleLoginClick() {
-    if (this.state.isUserLogedIn){
-      this.setState({isUserLogedIn: false});
+    if (this.props.isUserLoggedIn){
+      this.props.setIsUserLoggedIn(false);
       localStorage.clear();
       return;
     }
@@ -37,7 +36,7 @@ export class Layout extends Component {
   }
 
   handleUserLogin() {
-    this.setState({isUserLogedIn: true});
+    this.props.setIsUserLoggedIn(true);
     this.closeLoginModal();
   }
 
@@ -61,29 +60,30 @@ export class Layout extends Component {
               <NavbarToggler onClick={this.toggle} />
               <Collapse isOpen={this.state.isOpen} navbar>
                 <Nav className="ml-auto" navbar>
-                  <NavItem>
-                    <NavLink tag={Link} to="/admin" className="pointer">Administracja</NavLink>
-                  </NavItem>
+                  { this.props.isUserLoggedIn && localStorage.isUserAdmin == 'true' &&
+                    <NavItem>
+                      <NavLink tag={Link} to="/admin" className="pointer">Administracja</NavLink>
+                    </NavItem> }
                   <NavItem>
                     <NavLink tag={Link} to="/rooms" className="pointer">Pokoje</NavLink>
                   </NavItem>
-                  {!this.state.isUserLogedIn ?
-                  <NavItem>
-                    <NavLink onClick={this.handleLoginClick} className="pointer">Zaloguj się</NavLink>
-                  </NavItem>
+                  {!this.props.isUserLoggedIn ?
+                    <NavItem>
+                      <NavLink onClick={this.handleLoginClick} className="pointer">Zaloguj się</NavLink>
+                    </NavItem>
                   : <UncontrolledDropdown nav inNavbar>
-                    <DropdownToggle nav caret className="pointer">
-                      {localStorage.getItem("userEmail").split("@")[0]}{localStorage.user} <FontAwesomeIcon icon={faUser} />
-                    </DropdownToggle>
-                    <DropdownMenu right>
-                      <DropdownItem>
-                        <NavLink className="fc-b" tag={Link} to="/myaccount">Moje konto</NavLink>
-                      </DropdownItem>
-                      <DropdownItem onClick={this.handleLoginClick}>
-                        <NavLink className="fc-b" >Wyloguj się</NavLink>
-                      </DropdownItem>
-                    </DropdownMenu>
-                  </UncontrolledDropdown>}
+                      <DropdownToggle nav caret className="pointer">
+                        {localStorage.getItem("userEmail").split("@")[0]}{localStorage.user} <FontAwesomeIcon icon={faUser} />
+                      </DropdownToggle>
+                      <DropdownMenu right>
+                        <DropdownItem>
+                          <NavLink className="fc-b" tag={Link} to="/myaccount">Moje konto</NavLink>
+                        </DropdownItem>
+                        <DropdownItem onClick={this.handleLoginClick}>
+                          <NavLink className="fc-b" >Wyloguj się</NavLink>
+                        </DropdownItem>
+                      </DropdownMenu>
+                    </UncontrolledDropdown>}
                 </Nav>
               </Collapse>
             </Navbar>

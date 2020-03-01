@@ -14,6 +14,8 @@ namespace Services.Models
 
         public string Token { get; set; }
 
+        public string Role { get; set; }
+
         public bool IsActivated { get; set; }
     }
 }
