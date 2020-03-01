@@ -45,6 +45,7 @@ export default class LoginForm extends Component {
 
   handleLoginSubmit(event) {
     event.preventDefault();
+    this.props.setLoading(true);
     let requestBody = JSON.stringify({Email: this.state.email, Password: this.state.password});
 
     fetch("api/authentication/login", {
@@ -73,6 +74,8 @@ export default class LoginForm extends Component {
             this.setState({passwordValidationError: data.message});
         }
       });
+
+      this.props.setLoading(false);
   }
 
   render(){
