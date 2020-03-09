@@ -1,11 +1,12 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ReservationSystem.Common;
 using ReservationSystem.ViewModels;
 using Services;
 using Services.Models;
+using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
 using Services.Common;
 
 namespace ReservationSystem.Controllers
@@ -24,6 +25,17 @@ namespace ReservationSystem.Controllers
             _mapper = mapper;
             _activationCodeService = activationCodeService;
             _emailService = emailService;
+        }
+
+        [HttpDelete("[action]")]
+        public IActionResult Delete(Guid userId)
+        {
+            var fetchedUser = _userService.Get(userId);
+            if (fetchedUser == null)
+                return BadRequest();
+
+            _userService.DeleteUser(userId);
+            return Ok();
         }
 
         [HttpPost("[action]")]
@@ -91,6 +103,38 @@ namespace ReservationSystem.Controllers
             var newCode = _activationCodeService.CreateNew(email);
             _emailService.SendActivationCode(email, newCode);
             return BadRequest();
+        }
+
+        [Authorize(Roles = Role.Admin)]
+        [HttpGet("[action]/{email}")]
+        public IActionResult GetByEmail(string email)
+        {
+            if (_userService.CheckEmailExits(email))
+                return BadRequest();
+
+            var user = _userService.GetByEmail(email);
+            user.Password = "";
+            return Ok(user);
+        }
+
+        [Authorize(Roles = Role.Admin)]
+        [HttpGet("[action]/{userId}")]
+        public IActionResult GetById(Guid userId)
+        {
+            var user = _userService.Get(userId);
+            if (user == null)
+                return BadRequest();
+
+            user.Password = "";
+            return Ok(user);
+        }
+
+        [Authorize(Roles = Role.Admin)]
+        [HttpGet("[action]")]
+        public IActionResult GetAll(Guid userId)
+        {
+            var users = _userService.GetAll();
+            return Ok(users);
         }
     }
 }

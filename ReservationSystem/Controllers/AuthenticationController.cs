@@ -13,7 +13,11 @@ namespace ReservationSystem.ViewModels
         private readonly IActivationCodeService _activationCodeService;
         private readonly IEmailService _emailService;
 
-        public AuthenticationController(IUserAuthenticationService authenticationService, IUserService userService, IActivationCodeService activationCodeService, IEmailService emailService)
+        public AuthenticationController(
+            IUserAuthenticationService authenticationService,
+            IUserService userService,
+            IActivationCodeService activationCodeService,
+            IEmailService emailService)
         {
             _authenticationService = authenticationService;
             _userService = userService;

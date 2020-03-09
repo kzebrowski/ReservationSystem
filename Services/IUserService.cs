@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Services.Models;
 
 namespace Services
@@ -6,6 +7,8 @@ namespace Services
     public interface IUserService
     {
         User Get(Guid userId);
+
+        IEnumerable<User> GetAll();
 
         User CreateUser(User candidateUser);
 
@@ -18,5 +21,7 @@ namespace Services
         void Activate(string email);
 
         User ChangePassword(Guid userId, string newPassword);
+
+        void DeleteUser(Guid userId);
     }
 }

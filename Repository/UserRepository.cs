@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Repository.Entities;
 
@@ -55,6 +56,18 @@ namespace Repository
             _context.SaveChanges();
 
             return user;
+        }
+
+        public void DeleteUser(Guid userId)
+        {
+            var user = _context.Users.Single(x => x.Id == userId);
+            _context.Users.Remove(user);
+            _context.SaveChanges();
+        }
+
+        public IEnumerable<UserEntity> GetAll()
+        {
+            return _context.Users.ToList();
         }
     }
 }

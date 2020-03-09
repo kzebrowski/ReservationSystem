@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Repository.Entities;
 
 namespace Repository
@@ -18,5 +19,9 @@ namespace Repository
         void Activate(string email);
 
         UserEntity ChangePassword(Guid userId, string newPassword);
+
+        void DeleteUser(Guid userId);
+
+        IEnumerable<UserEntity> GetAll();
     }
 }

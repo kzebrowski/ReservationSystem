@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using AutoMapper;
 using Repository;
 using Repository.Entities;
@@ -23,6 +24,14 @@ namespace Services
             var userEntity = _userRepository.Get(userId);
 
             return _mapper.Map<User>(userEntity);
+        }
+
+        public IEnumerable<User> GetAll()
+        {
+            var userEntities = _userRepository.GetAll();
+            var users = _mapper.Map<IEnumerable<User>>(userEntities);
+
+            return users;
         }
 
         public User CreateUser(User candidateUser)
@@ -59,6 +68,11 @@ namespace Services
             var userEntity = _userRepository.ChangePassword(userId, newPassword);
 
             return _mapper.Map<User>(userEntity);
+        }
+
+        public void DeleteUser(Guid userId)
+        {
+            _userRepository.DeleteUser(userId);
         }
 
         public bool CheckPhoneNumberTaken(string number)
