@@ -17,7 +17,6 @@ namespace ReservationSystem.Controllers
     [Route("api/[controller]")]
     public class RoomsController : ControllerBase
     {
-        //Actions such as Delete, Edit and Add, should be accessed only by admin
         private readonly IRoomsService _roomsService;
         private readonly IMapper _mapper;
 

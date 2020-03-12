@@ -1,13 +1,13 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ReservationSystem.Common;
 using ReservationSystem.ViewModels;
 using Services;
+using Services.Common;
 using Services.Models;
 using System;
 using System.Collections.Generic;
-using Microsoft.AspNetCore.Authorization;
-using Services.Common;
 
 namespace ReservationSystem.Controllers
 {
@@ -19,7 +19,10 @@ namespace ReservationSystem.Controllers
         private readonly IActivationCodeService _activationCodeService;
         private readonly IEmailService _emailService;
 
-        public UserManagementController(IUserService userService, IMapper mapper, IActivationCodeService activationCodeService, IEmailService emailService)
+        public UserManagementController(IUserService userService, 
+            IMapper mapper, 
+            IActivationCodeService activationCodeService, 
+            IEmailService emailService)
         {
             _userService = userService;
             _mapper = mapper;
@@ -27,8 +30,9 @@ namespace ReservationSystem.Controllers
             _emailService = emailService;
         }
 
+        [Authorize]
         [HttpDelete("[action]")]
-        public IActionResult Delete(Guid userId)
+        public IActionResult Delete([FromBody]Guid userId)
         {
             var fetchedUser = _userService.Get(userId);
             if (fetchedUser == null)

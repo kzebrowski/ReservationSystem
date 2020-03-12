@@ -34,7 +34,7 @@ namespace Services
             };
             message.AddTo(new EmailAddress(email));
 
-            _client.SendEmailAsync(message);
+            _client.SendEmailAsync(message); // consider .ConfigureAwait(false);
         }
 
         public async Task SendReservationPlacedNotification(Reservation reservation)

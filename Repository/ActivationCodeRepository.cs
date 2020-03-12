@@ -1,14 +1,13 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using Repository.Entities;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.EntityFrameworkCore;
-using Repository.Entities;
 
 namespace Repository
 {
     public class ActivationCodeRepository: IActivationCodeRepository
     {
-        private ReservationSystemContext _context;
+        private readonly ReservationSystemContext _context;
 
         public ActivationCodeRepository(ReservationSystemContext context)
         {

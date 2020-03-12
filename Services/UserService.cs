@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using AutoMapper;
+﻿using AutoMapper;
 using Repository;
 using Repository.Entities;
 using Services.Common;
 using Services.Models;
+using System;
+using System.Collections.Generic;
 
 namespace Services
 {
@@ -18,7 +18,7 @@ namespace Services
             _userRepository = userRepository;
             _mapper = mapper;
         }
-
+        
         public User Get(Guid userId)
         {
             var userEntity = _userRepository.Get(userId);

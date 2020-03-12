@@ -27,7 +27,7 @@ namespace ReservationSystem
 
         public IConfiguration Configuration { get; }
 
-        public ILifetimeScope AutofacContainer { get; private set; }
+        public ILifetimeScope AutoFacContainer { get; private set; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
@@ -44,28 +44,22 @@ namespace ReservationSystem
                     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 })
                 .AddJwtBearer(options =>
-            {
-                options.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuer = false,
-                    ValidateAudience = false,
-                    ValidateLifetime = true,
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("2r5u8x/A?D(G+KbPeShVkYp3s6v9y$B&"))
-                };
-            });
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = false,
+                        ValidateAudience = false,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("2r5u8x/A?D(G+KbPeShVkYp3s6v9y$B&"))
+                    });
 
             services.AddCors(options =>
             {
                 options.AddPolicy("AllowAll",
-                    p =>
-                    {
-                        p
-                            .AllowAnyOrigin()
-                            .AllowAnyMethod()
-                            .AllowAnyHeader()
-                            .AllowCredentials();
-                    });
+                    p => p.AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .AllowCredentials());
             });
 
             var autoMapper = new MapperConfiguration(cfg =>
@@ -81,9 +75,9 @@ namespace ReservationSystem
             builder = RegisterDependencyInjectionTypes(builder);
             builder.RegisterInstance(autoMapper).As<IMapper>();
 
-            AutofacContainer = builder.Build();
+            AutoFacContainer = builder.Build();
 
-            return new AutofacServiceProvider(AutofacContainer);
+            return new AutofacServiceProvider(AutoFacContainer);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
