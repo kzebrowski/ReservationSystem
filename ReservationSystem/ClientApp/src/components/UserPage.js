@@ -15,7 +15,11 @@ export default class UserPage extends Component {
       loading: false,
       reservations: [], message: '',
       reservationsLoading: true,
-      isConfirmationModalOpen: false};
+      confirmationModalData: {
+        isOpen: false,
+        message: '',
+        handleYes: null
+      }};
 
     this.fetchReservations = this.fetchReservations.bind(this);
 
@@ -23,6 +27,8 @@ export default class UserPage extends Component {
     this.handleChangePasswordClick = this.handleChangePasswordClick.bind(this);
     this.setConfirmationModalOpen = this.setConfirmationModalOpen.bind(this);
     this.sendPasswordResettingLink = this.sendPasswordResettingLink.bind(this);
+    this.openAccountDeletionConfirmationModal = this.openAccountDeletionConfirmationModal.bind(this);
+    this.deleteUser = this.deleteUser.bind(this);
     this.setMessage = this.setMessage.bind(this);
     this.setLoading = this.setLoading.bind(this);
   }
@@ -36,11 +42,33 @@ export default class UserPage extends Component {
 
   handleChangePasswordClick(event) {
     event.preventDefault();
-    this.setConfirmationModalOpen(true);
+    this.openPassowrdChangeConfirmationModal();
   }
 
   setConfirmationModalOpen(value) {
-    this.setState({isConfirmationModalOpen: value});
+    this.setState({confirmationModalData: {isOpen: value}});
+  }
+
+  openPassowrdChangeConfirmationModal() {
+    this.setState({
+      confirmationModalData: {
+        isOpen: true,
+        message: "Czy na pewno chcesz zmienić hasło?",
+        handleYes: this.sendPasswordResettingLink
+      }
+    })
+  }
+
+  openAccountDeletionConfirmationModal(event) {
+    event.preventDefault();
+
+    this.setState({
+      confirmationModalData: {
+        isOpen: true,
+        message: "Czy na pewno chcesz usunąć swoje konto? Twoja decyzja będzie nieodwracalna.",
+        handleYes: this.deleteUser
+      }
+    })
   }
 
   setMessage(value) {
@@ -49,6 +77,22 @@ export default class UserPage extends Component {
 
   setLoading(value) {
     this.setState({loading: value});
+  }
+
+  deleteUser() {
+    this.setLoading(true);
+    this.setConfirmationModalOpen(false);
+
+    Axios.delete("/api/user/delete", {
+      headers: { Authorization: "Bearer " + localStorage.token, 'content-type': 'application/json'},
+      data: '"'+ localStorage.userId +'"'})
+      .then(() => {
+        this.setMessage("Twoje konto zostało usunięte");
+        localStorage.removeItem("token");
+        setTimeout(() => window.location.replace("/"), 3000);
+      })
+      .catch(() => this.setMessage("Wystąpił błąd"))
+      .finally(() => this.setLoading(false));
   }
 
   sendPasswordResettingLink() {
@@ -72,13 +116,15 @@ export default class UserPage extends Component {
         <div><b>Numer telefonu</b>: {localStorage.userPhoneNumber}</div>
         <div><b>Hasło</b>: **********</div>
         <a href="" onClick={this.handleChangePasswordClick}>Zmień hasło</a>
+        <br/>
+        <a href="" onClick={this.openAccountDeletionConfirmationModal}>Usuń konto</a>
       </div>
       <h4 className="pt-4">Moje rezerwacje</h4>
       <ReservationsSection isLoading={this.state.reservationsLoading} data={this.state.reservations} refreshData={this.fetchReservations} />
       <ConfirmationModal
-        isOpen={this.state.isConfirmationModalOpen}
-        message="Czy na pewno chcesz zmienić hasło?"
-        handleYes={this.sendPasswordResettingLink}
+        isOpen={this.state.confirmationModalData.isOpen}
+        message={this.state.confirmationModalData.message}
+        handleYes={this.state.confirmationModalData.handleYes}
         handleNo={() => this.setConfirmationModalOpen(false)} />
       <InformationModal isOpen={this.state.message !== ''} message={this.state.message} handleOkay={() => this.setMessage('')} />
       <Loader isLoading={this.state.loading} />
