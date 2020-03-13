@@ -56,8 +56,9 @@ export default class Rooms extends Component {
       this.showMessage('Aby dokonać rezerwacji, musisz się zalogować.');
       return;
     }
-    if(!localStorage.getItem('isUserActivated')) {
+    if(localStorage.isUserActivated === 'false') {
       this.showMessage('Aby dokonać rezerwacji musisz aktywować konto. Na twój adres email wysłaliśmy link aktywacyjny.');
+      return;
     }
     if(!this.paramsAreFilled(this.props.match.params)) {
       this.showMessage('Wypełnij datę pobytu oraz liczbę gości, w formularzu znajdujacym się w górnej części strony, a następnie naciśnij przycisk wyszukiwania.');

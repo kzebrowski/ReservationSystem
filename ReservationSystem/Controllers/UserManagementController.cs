@@ -135,7 +135,7 @@ namespace ReservationSystem.Controllers
 
         [Authorize(Roles = Role.Admin)]
         [HttpGet("[action]")]
-        public IActionResult GetAll(Guid userId)
+        public IActionResult GetAll()
         {
             var users = _userService.GetAll();
             return Ok(users);

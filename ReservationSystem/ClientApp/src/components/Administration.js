@@ -10,6 +10,7 @@ import ConfirmationModal from './ConfirmationModal';
 import ReservationsSection from './ReservationsSection';
 import './styles/Administration.css';
 import ReservationSearch from './ReservationsSearch';
+import UserAdministrationSection from './UserAdministrationSection';
 
 export default class Administration extends Component {
   displayName = Administration.name;
@@ -22,8 +23,10 @@ export default class Administration extends Component {
       loading: true,
       rooms: [],
       reservations: [],
+      users: [],
       isConfirmationModalOpen: false,
       reservationsLoading: false,
+      usersLoading: true,
       confirmationModalData: {isOpen: false, id: ''},
       refreshData: {requestData: '', requestUrl: ''}
     }
@@ -32,9 +35,11 @@ export default class Administration extends Component {
     this.handleRoomDeletion = this.handleRoomDeletion.bind(this);
     this.setReservations = this.setReservations.bind(this);
     this.setReservationsLoading = this.setReservationsLoading.bind(this);
-    this.refreshReservations = this.refreshReservations.bind(this)
+    this.refreshReservations = this.refreshReservations.bind(this);
+    this.getAllUsers = this.getAllUsers.bind(this);
 
     this.updateRooms();
+    this.getAllUsers();
   }
 
   updateRooms() {
@@ -43,6 +48,13 @@ export default class Administration extends Component {
     fetch('/api/rooms')
       .then(response => response.json())
       .then(data => this.setState({ rooms: data, loading: false}));
+  }
+
+  getAllUsers() {
+    this.setState({ usersLoading: true });
+
+    Axios.get('/api/user/getall', { headers: { Authorization: "Bearer " + localStorage.token } })
+      .then(response => this.setState({ users: response.data, usersLoading: false }));
   }
 
   handleRoomDeletion(data) {
@@ -129,6 +141,9 @@ export default class Administration extends Component {
         <h2 className="pt-4 mb-4">Rezerwacje</h2>
         <ReservationSearch setReservations={this.setReservations} />
         <ReservationsSection isLoading={this.state.reservationsLoading} data={this.state.reservations} isAdmin={true} refreshReservations={this.refreshReservations} />
+
+        <h2 className="pt-4 mb-4">Użytkownicy</h2>
+        <UserAdministrationSection isLoading={this.state.usersLoading} data={this.state.users} updateUsers={this.getAllUsers} />
 
         <ConfirmationModal
           message="Czy na pewno chcesz usunąć ten pokój?"
