@@ -85,6 +85,14 @@
     margin-bottom: auto;
 }
 
+.vertically-centered-text {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
 .carousel-inner > .carousel-item > img {
     object-fit: cover;
 }

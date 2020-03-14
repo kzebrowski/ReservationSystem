@@ -50,7 +50,7 @@ export default class UserRegistrationForm extends Component {
       .then(resp => resp.json())
       .then(data => {
         if (data.id){
-          this.props.handleGoBackClick();
+          this.props.onUserRegistered();
         }
         else {
           if(!Array.isArray(data))

@@ -32,7 +32,7 @@ export default class LoginForm extends Component {
   handleResetPassowrdClick(event) {
     event.preventDefault();
 
-    if(this.state.email === '')
+    if(this.state.email === "")
       this.props.showMessage("Wypełnij adres email w formularzu.");
 
     this.props.setLoading(true);

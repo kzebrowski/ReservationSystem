@@ -3,7 +3,7 @@ import Modal from 'react-modal';
 import LoginForm from './LoginForm';
 import InformationModal from './InformationModal';
 import UserRegistrationForm from './UserRegistrationForm';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faTimes, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import './styles/Modal.css';
 import Loader from './Loader';
@@ -17,13 +17,15 @@ export default class LoginModal extends Component {
     this.state = {
       isRegister: false,
       message: '',
-      loading: false
+      loading: false,
+      showUserRegisteredMessage: false
     };
 
     this.handleRegisterClick = this.handleRegisterClick.bind(this);
     this.handleCloseModalClick = this.handleCloseModalClick.bind(this);
     this.handleGoBackClick = this.handleGoBackClick.bind(this);
     this.handleInformationModalClose = this.handleInformationModalClose.bind(this);
+    this.onUserRegistered = this.onUserRegistered.bind(this);
     this.showMessage = this.showMessage.bind(this);
     this.setLoading = this.setLoading.bind(this);
   }
@@ -37,7 +39,11 @@ export default class LoginModal extends Component {
   }
 
   handleGoBackClick() {
-    this.setState({isRegister: false});
+    this.setState({isRegister: false, showUserRegisteredMessage: false});
+  }
+
+  onUserRegistered() {
+    this.setState({showUserRegisteredMessage: true});
   }
 
   handleCloseModalClick() {
@@ -59,7 +65,12 @@ export default class LoginModal extends Component {
         <Modal className='login-modal centered-modal' isOpen={this.props.isOpen}>
           <FontAwesomeIcon icon={faTimes} className="close-button" onClick={this.handleCloseModalClick}/>
           {this.state.isRegister ?
-            <UserRegistrationForm handleGoBackClick={this.handleGoBackClick}/> :
+              this.state.showUserRegisteredMessage ?
+                <React.Fragment>
+                  <FontAwesomeIcon icon={faArrowLeft} className="go-back-from-registration-button" onClick={this.handleGoBackClick}/>
+                  <h2 className="p-5 vertically-centered-text">Konto zostało utworzone! Na twój adres email wysłaliśmy link aktywacyjny.</h2>
+                </React.Fragment> :
+                <UserRegistrationForm onUserRegistered={this.onUserRegistered} handleGoBackClick={this.handleGoBackClick}/> :
             <LoginForm
               onUserLogin={this.props.handleUserLogin}
               handleRegisterClick={this.handleRegisterClick}
