@@ -9,15 +9,18 @@
     <e p="$PROJECT_DIR$" t="IncludeFlat">
       <e p="packages" t="ExcludeRecursive" />
       <e p="Repository" t="IncludeRecursive">
+        <e p="ActivationCodeRepository.cs" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
         <e p="Common" t="Include">
           <e p="ReservationStatus.cs" t="Include" />
         </e>
         <e p="Entities" t="Include">
+          <e p="ActivationCodeEntity.cs" t="Include" />
           <e p="ReservationEntity.cs" t="Include" />
           <e p="RoomEntity.cs" t="Include" />
           <e p="UserEntity.cs" t="Include" />
         </e>
+        <e p="IActivationCodeRepository.cs" t="Include" />
         <e p="IReservationRepository.cs" t="Include" />
         <e p="IRoomRepository.cs" t="Include" />
         <e p="IUserRepository.cs" t="Include" />
@@ -32,6 +35,10 @@
           <e p="20191211003927_changed room image to imageURL.Designer.cs" t="Include" />
           <e p="20191217222053_Added reservations.cs" t="Include" />
           <e p="20191217222053_Added reservations.Designer.cs" t="Include" />
+          <e p="20200218223129_Added confirmation codes.cs" t="Include" />
+          <e p="20200218223129_Added confirmation codes.Designer.cs" t="Include" />
+          <e p="20200301191548_Added-role-to-user.cs" t="Include" />
+          <e p="20200301191548_Added-role-to-user.Designer.cs" t="Include" />
           <e p="ReservationSystemContextModelSnapshot.cs" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive">
@@ -125,9 +132,7 @@
               <e p="ActionIcon.js" t="Include" />
               <e p="Administration.js" t="Include" />
               <e p="ConfirmationModal.js" t="Include" />
-              <e p="Counter.js" t="Include" />
               <e p="Extensions.js" t="Include" />
-              <e p="FetchData.js" t="Include" />
               <e p="Home.js" t="Include" />
               <e p="InformationModal.js" t="Include" />
               <e p="Layout.js" t="Include" />
@@ -137,6 +142,7 @@
               <e p="LoginModal.js" t="Include" />
               <e p="NavMenu.css" t="Include" />
               <e p="NavMenu.js" t="Include" />
+              <e p="PasswordChange.js" t="Include" />
               <e p="ReservationModal.js" t="Include" />
               <e p="ReservationsSearch.js" t="Include" />
               <e p="ReservationsSection.js" t="Include" />
@@ -159,6 +165,8 @@
                 <e p="SearchForm.css" t="Include" />
                 <e p="UserPage.css" t="Include" />
               </e>
+              <e p="UserActivation.js" t="Include" />
+              <e p="UserAdministrationSection.js" t="Include" />
               <e p="UserPage.js" t="Include" />
               <e p="UserRegistrationForm.js" t="Include" />
             </e>
@@ -176,7 +184,6 @@
           <e p="AuthenticationController.cs" t="Include" />
           <e p="ReservationsController.cs" t="Include" />
           <e p="RoomsController.cs" t="Include" />
-          <e p="SampleDataController.cs" t="Include" />
           <e p="UserManagementController.cs" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive">
@@ -197,6 +204,7 @@
         <e p="Startup.cs" t="Include" />
         <e p="ViewModels" t="Include">
           <e p="LoginCredentials.cs" t="Include" />
+          <e p="PasswordChangeViewModel.cs" t="Include" />
           <e p="ReservationCreationViewModel.cs" t="Include" />
           <e p="ReservationViewModel.cs" t="Include" />
           <e p="RoomCreationViewModel.cs" t="Include" />
@@ -208,11 +216,16 @@
       </e>
       <e p="ReservationSystem.sln" t="IncludeFlat" />
       <e p="Services" t="IncludeRecursive">
+        <e p="ActivationCodeService.cs" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
         <e p="Common" t="Include">
           <e p="ReservationStatus.cs" t="Include" />
+          <e p="Role.cs" t="Include" />
           <e p="ServicesMapperConfigurator.cs" t="Include" />
         </e>
+        <e p="EmailService.cs" t="Include" />
+        <e p="IActivationCodeService.cs" t="Include" />
+        <e p="IEmailService.cs" t="Include" />
         <e p="IReservationService.cs" t="Include" />
         <e p="IRoomsService.cs" t="Include" />
         <e p="IUserAuthenticationService.cs" t="Include" />

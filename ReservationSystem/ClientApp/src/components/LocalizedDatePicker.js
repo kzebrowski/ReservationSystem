@@ -27,6 +27,7 @@ export default class LocalizedDatePicker extends Component {
                 onKeyDown: (event) => event.preventDefault()
               }}
               placeholder = {this.props.placeholder}
+              value = {this.props.value}
               dayPickerProps={{
                 modifiers: {
                   highlighted: this.props.stayStart

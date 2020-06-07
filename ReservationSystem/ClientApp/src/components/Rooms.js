@@ -37,7 +37,7 @@ export default class Rooms extends Component {
     }
   }
 
-  paramsAreFilled= params => params.startDate && params.endDate && params.numberOfGuests;
+  paramsAreFilled = params => params.startDate && params.endDate && params.numberOfGuests;
 
   closeModal() {
     this.setState({isModalOpen: false});
@@ -81,7 +81,7 @@ export default class Rooms extends Component {
 
     return(
     <React.Fragment>
-      <RoomSearch />
+      <RoomSearch stayStart={params.startDate} stayEnd={params.endDate} numberOfGuests={params.numberOfGuests} />
       <RoomList rooms={this.state.rooms} loading={this.state.loading} onRoomTitleClick={this.handleRoomReservation}/>
       <ReservationModal
         roomId = {this.state.reservationData.roomId}
