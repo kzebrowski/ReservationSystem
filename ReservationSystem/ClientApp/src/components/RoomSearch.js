@@ -112,7 +112,7 @@ export default class RoomSearch extends Component {
               required="required"
               onChange={this.handleNumerOfGuestsChange}
               style={{ outline: this.state.numerOfGuestsHasErrors ? 'red auto 1px' : '' }}
-              value={num.toString(this.state.numberOfGuests)} />
+              value={this.state.numberOfGuests.toString()} />
             <button className="search-form-item search-form-submit-button" type="submit" disabled={this.state.stayDatesHaveErrors || this.state.numerOfGuestsHasErrors}>
               <FontAwesomeIcon icon={faSearch} style={{ marginLeft: '1px' }} />
             </button>
