@@ -62,12 +62,12 @@ export default class Administration extends Component {
     this.setState({isConfirmationModalOpen: true});
   }
 
-  deleteRoom(data) {
+  deleteRoom(id) {
     this.setState({ loading: true });
 
     Axios.delete("/api/rooms/delete", {
     headers: { Authorization: "Bearer " + localStorage.token, 'content-type': 'application/json'},
-    data: '"'+data.id+'"'})
+    data: '"'+id+'"'})
     .then(x => this.updateRooms())
     .catch(x => {
       console.log(x);
