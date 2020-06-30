@@ -19,6 +19,10 @@ export default class ReservationModal extends Component {
     this.handleCloseModalClick = this.handleCloseModalClick.bind(this);
   }
 
+  getStayLengthInDays = () =>
+    Math.ceil(Math.abs(new Date(this.props.stayEnd) - new Date(this.props.stayStart)) / (1000 * 60 * 60 * 24));
+  getTotalPrice = () => this.getStayLengthInDays() * this.props.price;
+
   submitReservation() {
     this.setState({loading: true});
 
@@ -54,7 +58,7 @@ export default class ReservationModal extends Component {
             <div>Początek pobytu: {this.props.stayStart}</div>
             <div>Koniec pobytu: {this.props.stayEnd}</div>
             <div>Liczba gości: {this.props.numberOfGuests}</div>            
-            <div>Cena za noc: {this.props.price}zł</div>
+            <div>Cena za pobyt: {this.getTotalPrice()}zł</div>
             <div>Rezerujący: {localStorage.userEmail}</div>
             <button className="generic-submit-button-dark mb-2" style={{marginTop: '15px'}} onClick={this.submitReservation}>Potwierdź rezerwację</button>
             <button className="generic-submit-button-light" style={{margin: '0px'}} onClick={this.props.handleCloseModalClick}>Anuluj</button>
