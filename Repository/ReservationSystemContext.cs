@@ -11,7 +11,7 @@ namespace Repository
 
             //TODO: get this form configuration of PATH
             optionsBuilder.UseSqlServer(
-                "Server=tcp:zebrowsk.database.windows.net,1433;Initial Catalog=ReservationSystemDatabase;Persist Security Info=False;User ID=krzysztof;Password=Lollol12;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+                "Server=tcp:reservationsystem.database.windows.net,1433;Initial Catalog=ReservationSystem;Persist Security Info=False;User ID=zebrowsk;Password=Lollol12;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
